@@ -1,0 +1,889 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="The Cloud Pak Production Deployment Guides document and demonstrate how to run cloud-native solutions leveraging IBM Cloud Pak capabilities in a Red Hat OpenShift environment"><meta name=author content="Cloud Pak Production Deployment Guides development team"><link href=../topic5/ rel=prev><link href=../topic3/ rel=next><link rel=icon href=../../../../../images/cloudnativetoolkit.png><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.7.7"><title>Running the pipeline - Cloud Pak Production Deployment Guides</title><link rel=stylesheet href=../../../../../assets/stylesheets/main.ec1eaa64.min.css><link rel=stylesheet href=../../../../../assets/stylesheets/palette.ab4e12ef.min.css><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback"><style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"IBM Plex Mono"}</style><link rel=stylesheet href=../../../../../css/extra.css><link rel=stylesheet href=../../../../../css/toolkit-code.css><script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script><script id=__analytics>function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-Q0FLL49YN3"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-Q0FLL49YN3",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-Q0FLL49YN3",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script><script>"undefined"!=typeof __md_analytics&&__md_analytics()</script><!-- Determine title --><!-- The image needs to have an absolute URL --><!-- Open graph meta tags --><meta property=og:type content=website><meta property=og:title content="Cloud Pak Production Deployment Guides - Running the pipeline"><meta property=og:description content="The Cloud Pak Production Deployment Guides document and demonstrate how to run cloud-native solutions leveraging IBM Cloud Pak capabilities in a Red Hat OpenShift environment"><meta property=og:url content=None><meta property=og:image content=assets/images/banner.png><meta property=og:image:type content=image/png><meta property=og:image:width content=1080><meta property=og:image:height content=568></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=black data-md-color-accent=indigo> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#running-the-pipeline class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <header class="md-header md-header--shadow md-header--lifted" data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../../../../.. title="Cloud Pak Production Deployment Guides" class="md-header__button md-logo" aria-label="Cloud Pak Production Deployment Guides" data-md-component=logo> <img src=../../../../../images/cloudnativetoolkit.png alt=logo> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> Cloud Pak Production Deployment Guides </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> Running the pipeline </span> </div> </div> </div> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> <div class=md-header__source> <a href=https://github.com/ncolon/production-deployment-guides title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg> </div> <div class=md-source__repository> </div> </a> </div> </nav> <nav class=md-tabs aria-label=Tabs data-md-component=tabs> <div class=md-grid> <ul class=md-tabs__list> <li class=md-tabs__item> <a href=../../../../.. class=md-tabs__link> Home </a> </li> <li class=md-tabs__item> <a href=../../../../../overview/overview/ class=md-tabs__link> Production Considerations </a> </li> <li class=md-tabs__item> <a href=../../../../../quickstart/overview/ class=md-tabs__link> Quick Start Demos </a> </li> <li class="md-tabs__item md-tabs__item--active"> <a href=../../../../guides-overview/ class=md-tabs__link> Tutorials </a> </li> <li class=md-tabs__item> <a href=../../../../../infrastructure/ad/ class=md-tabs__link> References </a> </li> <li class=md-tabs__item> <a href=../../../../../overview/whats-new/ class=md-tabs__link> About </a> </li> </ul> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <!-- Determine class according to configuration --> <!-- Main navigation --> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=nav.title data-md-level=0> <!-- Site title --> <!--
+  <label class="md-nav__title" for="__drawer">
+    <a
+      href="../../../../.."
+      title="Cloud Pak Production Deployment Guides"
+      class="md-nav__button md-logo"
+      aria-label="Cloud Pak Production Deployment Guides"
+      data-md-component="logo"
+    >
+      
+  <img src="../../../../../images/cloudnativetoolkit.png" alt="logo">
+
+    </a>
+    Cloud Pak Production Deployment Guides
+  </label>
+--> <!-- Repository information --> <div class=md-nav__source> <a href=https://github.com/ncolon/production-deployment-guides title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg> </div> <div class=md-source__repository> </div> </a> </div> <!-- Render item list --> <ul class=md-nav__list data-md-scrollfix> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#overview class=md-nav__link> <span class=md-ellipsis> Overview </span> </a> </li> <li class=md-nav__item> <a href=#pre-requisites class=md-nav__link> <span class=md-ellipsis> Pre-requisites </span> </a> </li> <li class=md-nav__item> <a href=#run-the-queue-manager-pipeline class=md-nav__link> <span class=md-ellipsis> Run the queue manager pipeline </span> </a> </li> <li class=md-nav__item> <a href=#explore-the-pipeline class=md-nav__link> <span class=md-ellipsis> Explore the pipeline </span> </a> </li> <li class=md-nav__item> <a href=#understanding-the-qm1-kustomize-resources class=md-nav__link> <span class=md-ellipsis> Understanding the QM1 kustomize resources </span> </a> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <div><h1 id=running-the-pipeline>Running the Pipeline<a class=headerlink href=#running-the-pipeline title="Permanent link">¶</a></h1> <!--- cSpell:ignore  pipelinerun resyncs mqsc msqc runmqsc dockerconfigjson queuemanager QMID podman ibmgaragecloud cntk cnkt eventid gitrevision gitrepositoryurl odowdaibm MQSC replicaset eventlistener triggerbinding triggertemplate mqcicd qmgr Artifactory configmaps OIDC CHLAUTH templating sealedsecret khdmwy kustomizations --> <p><strong>Audience</strong>: Architects, Application developers, Administrators</p> <p><strong>Timing</strong>: 40 minutes</p> <h2 id=overview>Overview<a class=headerlink href=#overview title="Permanent link">¶</a></h2> <p>In the <a href=../topic1/ >previous topic</a> of this chapter, we installed and customized the queue manager repository for <code>QM1</code> and configured the queue manager pipeline to access it.</p> <p>In this topic, we will perform our first full iteration of continuous integration for <code>QM1</code>. We'll run the queue manager pipeline to build and test the queue manager <code>QM1</code>. The successful pipeline run will store a new Helm chart representing <code>QM1</code> in the the GitOps repository, ready for deployment.</p> <p>Look at the following diagram:</p> <p><img alt=mqcicd5 src=../images/mq-cicd5.png></p> <p>We've highlighted the components we're going to explore in this topic:</p> <ul> <li>The <code>QM1 Git repo</code> that contains the source definition for queue manager <code>QM1</code>. It includes the queue manager <code>qm.ini</code> and <code>MQSC</code> files, as well as its default Helm configuration and kustomization files.</li> <li>The <code>queue manager pipeline</code> that will use the <code>QM1</code> repository as input. It will perform a set of tasks to build and test <code>QM1</code>. If successful, the pipeline stores updated artifacts in the Image registry and GitOps apps repository as required.</li> <li>The <code>Image registry</code> that will store the newly built version of the queue manager image.</li> <li>The <code>GitOps apps repository</code> that stores the latest good build and test of <code>QM1</code> generated using Kustomize. These resources will be subsequently used by ArgoCD to deploy <code>QM1</code> to the cluster.</li> </ul> <p>In this topic, we're going to:</p> <ul> <li>Run the queue manager pipeline to build and test <code>QM1</code>.</li> <li>Explore the queue manager pipeline.</li> <li>Explore the GitOps apps repository Queue manager resources.</li> </ul> <p>By the end of this topic we'll have a fully built and tested queue manager <code>QM1</code> ready to deploy to the cluster.</p> <hr> <h2 id=pre-requisites>Pre-requisites<a class=headerlink href=#pre-requisites title="Permanent link">¶</a></h2> <p>Before attempting this topic, you should have successfully completed the <a href=../topic1/ >previous topic</a>.</p> <hr> <h2 id=run-the-queue-manager-pipeline>Run the queue manager pipeline<a class=headerlink href=#run-the-queue-manager-pipeline title="Permanent link">¶</a></h2> <p>As we can see in the diagram above, the queue manager pipeline is responsible for building and testing <code>QM1</code> from a source repository. If successful, it stores updated artifacts in the GitOps apps repository, which is used by ArgoCD to deploy the updated <code>QM1</code> to the cluster.</p> <p>It's usually the case a pipeline runs automatically whenever a source repository changes. However, our first pipeline run is manual so that you can be in control, making it easier to understand what's happening.</p> <p>The queue manager <strong>pipeline</strong> performs a set of operations called <strong>tasks</strong>. Each task is responsible for a specific function such as building a queue manager image, or unit testing a queue manager. In turn, each <strong>task</strong> comprises a set of individual <strong>steps</strong>.</p> <p>For example, the build task might comprise three steps:</p> <ul> <li>Clone a source repository git,</li> <li>Build an image with <code>buildah</code> and</li> <li>Store an image in an image registry.</li> </ul> <p>If you'd like to know more about Tekton pipelines, here's <a href=https://tekton.dev/docs/concepts/ >an introduction</a>. You will also find <a href=https://www.ibm.com/cloud/blog/tekton>this video</a> very helpful. Come back to these later if you'd like to keep going now.</p> <ol> <li> <p><em>Locate the</em> <code>ci</code> <em>pipelines in the web console</em></p> <p>Let's find the queue manager pipeline using the OpenShift web console.</p> <p>Navigate to <code>Pipelines-&gt;Pipelines</code> in the left hand pane, and select <code>Project: ci</code>, to show all pipelines in the <code>ci</code> namespace:</p> <p><img alt=diagram19a src=../images/diagram19a.png style=max-height:600px></p> <p>You can see all the pipelines that we installed into the <code>ci</code> namespace in the previous chapter. We'll use different pipelines for different activities throughout the tutorial.</p> <p>For this topic, we're going to use the <code>mq-qm-dev</code> pipeline. When applied to the <code>QM1</code> source repository, this pipeline will build and test a new instance of <code>QM1</code> ready for deployment to the <code>dev</code> namespace.</p> </li> <li> <p><em>The</em> <code>mq-qm-dev</code> <em>queue manager pipeline</em></p> <p>Select the <code>mq-qm-dev</code> pipeline from the list of all pipelines:</p> <p><img alt=diagram30 src=../images/diagram30.png style=max-height:500px></p> <p>Like all pipelines, <code>mq-qm-dev</code> is composed from a set of <strong>tasks</strong>:</p> <ul> <li><code>setup</code></li> <li><code>build</code></li> <li><code>smoke-tests-mq</code></li> <li><code>tag-release</code></li> <li><code>image-release</code></li> <li><code>img-scan</code></li> <li><code>gitops</code></li> </ul> <p>The task name often provides a strong hint of each task's specific function. We'll examine some of these tasks in detail as the pipeline runs.</p> </li> <li> <p><em>The</em> <code>oc</code> <em>command as an alternative to the Web console</em></p> <p>As well as using the OpenShift web console, you can also interact with pipeline using the <code>oc</code> or <code>tekton</code> commands.</p> <p>Ensure you're logged in to cluster, and issue the following command to list the <code>mq-qm-dev</code> pipeline details:</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>get<span class=w> </span>pipeline<span class=w> </span>mq-qm-dev<span class=w> </span>-n<span class=w> </span>ci
+</code></pre></div> <p>which shows a brief summary of the pipeline:</p> <div class="no-copy highlight"><pre><span></span><code>NAME<span class=w>        </span>AGE
+mq-qm-dev<span class=w>   </span>21h
+</code></pre></div> <p>You can get more detail by adding the <code>-o yaml</code> option; we'll do that later.</p> <p>We use the command line and the web console in the tutorial so that you become familiar with both. As a general rule, you can do the same things in the command line as you can with the web console. The web console tends to be better for simple interactive tasks; the command line tends to be better for scripting and bulk tasks.</p> </li> <li> <p><em>Configure your first pipeline run</em></p> <p>Every time we run the <code>mq-qm-dev</code> pipeline, we create a new <strong>pipeline run</strong>. We can think of a <strong>pipeline run</strong> as an instance of a pipeline. <code>Pipeline</code> and <code>PipelineRun</code> are new custom resources that were added to the cluster when we installed Tekton.</p> <p>In <code>pipeline details</code> view above, you'll see an <code>Actions</code> button. Select <code>Start</code> to configure a pipeline run.</p> <p>You'll be presented with the following dialog:</p> <p><img alt=diagram31 src=../images/diagram222.png style=max-height:900px></p> <p>The supplied arguments allow the user of the pipeline to configure its behavior. For example, a user can use this pipeline with different queue manager source repositories.</p> <p>Configure the run as follows:</p> <ul> <li>Set <code>git-url</code> to your fork of the <code>mq-qm01</code> repository</li> <li>Set <code>git-revision</code> to <code>master</code>. (Later in the tutorial, we will use a new branch.)</li> <li>Set <code>scan-image: false</code> (temporary fix while issues with UBI are resolved)</li> </ul> <p>Hit <code>Start</code> to start the pipeline run.</p> <p>You can also use the command line to run a pipeline; we'll explore that option later.</p> </li> <li> <p><em>Watch a pipeline run executing</em></p> <p>The pipeline run has now started.</p> <p>Notice how the view changes to <code>Pipeline Run details</code>:</p> <p><img alt=diagram32 src=../images/diagram31.png></p> <p>We're now looking at the live output from a pipeline run, rather than the pipeline used to create the run.</p> <p>Notice that the pipeline run name <code>mq-qm-dev-khdmwy</code> is based on the pipeline name -- with a unique suffix. Every new pipeline run will have a unique name.</p> <p>See also how the first <code>setup</code> task is running, while the remaining tasks are waiting to start.</p> <p>Hover over <code>setup</code> or <code>build</code> task and you will see the <strong>steps</strong> that comprise it.</p> </li> <li> <p><em>Watch pipeline steps complete</em></p> <p>As the pipeline run proceeds, notice the <code>build</code> step complete and the <code>smoke-tests-mq</code> step start:</p> <p><img alt=diagram34 src=../images/diagram34.png></p> <p>This pipeline will take about 15 minutes to complete. While it's doing that, let's explore its tasks in a little more detail.</p> </li> <li> <p><em>List the pipeline run from the command line</em></p> <p>You can also explore the pipeline run from the command line.</p> <p>Issue the following command, replacing <code>mq-qm-dev-khdmwy</code> with your pipeline run name:</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>get<span class=w> </span>pipelinerun<span class=w> </span>mq-qm-dev-khdmwy<span class=w> </span>-n<span class=w> </span>ci<span class=w> </span>-o<span class=w> </span>yaml
+</code></pre></div> <p>which will show the details of your pipeline run:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tekton.dev/v1beta1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">PipelineRun</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=nn>...</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">startTime</span><span class="p p-Indicator">:</span><span class=w> </span><span class=s>"2022-05-18T10:37:44Z"</span>
+<span class=w>   </span><span class=nt>taskRuns</span><span class=p>:</span>
+<span class=w>     </span><span class=nt>mq-qm-dev-khdmwy-build-l4pkp</span><span class=p>:</span>
+<span class=w>       </span><span class=nt>pipelineTaskName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">build</span>
+<span class=w>       </span><span class=nt>status</span><span class=p>:</span>
+<span class=w>         </span><span class=nt>completionTime</span><span class=p>:</span><span class=w> </span><span class=s>"2022-05-18T10:39:57Z"</span>
+<span class=w>         </span><span class=nt>conditions</span><span class=p>:</span>
+<span class=w>         </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>lastTransitionTime</span><span class=p>:</span><span class=w> </span><span class=s>"2022-05-18T10:39:57Z"</span>
+<span class=w>           </span><span class=nt>message</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">All Steps have completed executing</span>
+<span class=w>           </span><span class=nt>reason</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Succeeded</span>
+<span class=w>           </span><span class=nt>status</span><span class=p>:</span><span class=w> </span><span class=s>"True"</span>
+<span class=w>           </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Succeeded</span>
+<span class=w>         </span><span class=nt>podName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq-qm-dev-khdmwy-build-l4pkp-pod-j4f8n</span>
+<span class=w>         </span><span class=nt>startTime</span><span class=p>:</span><span class=w> </span><span class=s>"2022-05-18T10:37:57Z"</span>
+<span class=w>         </span><span class=nt>steps</span><span class=p>:</span>
+<span class=w>         </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>container</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">step-git-clone</span>
+<span class=w>           </span><span class=nt>imageID</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">quay.io/ibmgaragecloud/alpine-git@sha256:4812deaa107070adda7c704c3d6fd255b4db1b1c58698b308697c9d0f196ff78</span>
+<span class=w>           </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-clone</span>
+<span class=w>           </span><span class=nt>terminated</span><span class=p>:</span>
+<span class=w>             </span><span class=nt>containerID</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">cri-o://4769929baab8da21f20439200991298dc839fcc3401ae8ea511b876d78fdf57d</span>
+<span class=w>             </span><span class=nt>exitCode</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class=w>             </span><span class=nt>finishedAt</span><span class=p>:</span><span class=w> </span><span class=s>"2022-05-18T10:38:07Z"</span>
+<span class=w>             </span><span class=nt>reason</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Completed</span>
+<span class=w>             </span><span class=nt>startedAt</span><span class=p>:</span><span class=w> </span><span class=s>"2022-05-18T10:38:06Z"</span>
+<span class=w>         </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>container</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">step-build</span>
+<span class=w>           </span><span class=nt>imageID</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">quay.io/buildah/stable@sha256:04803d2144a2df5bf3aa2875f130e2b6cfc6ee45003125dc4df13f05f0898f9a</span>
+<span class=w>           </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">build</span>
+<span class=w>           </span><span class=nt>terminated</span><span class=p>:</span>
+<span class=w>             </span><span class=nt>containerID</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">cri-o://4ac24bb31f59981100a7325b20f0cd75f37828371620f5398bedab8aa07683d7</span>
+<span class=w>             </span><span class=nt>exitCode</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class=w>             </span><span class=nt>finishedAt</span><span class=p>:</span><span class=w> </span><span class=s>"2022-05-18T10:39:56Z"</span>
+<span class=w>             </span><span class=nt>reason</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Completed</span>
+<span class=w>             </span><span class=nt>startedAt</span><span class=p>:</span><span class=w> </span><span class=s>"2022-05-18T10:38:07Z"</span>
+<span class=w>         </span><span class=nt>taskSpec</span><span class=p>:</span>
+<span class=w>           </span><span class=nt>params</span><span class=p>:</span>
+<span class=w>           </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>             </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>           </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class=w>             </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-revision</span>
+<span class=w>             </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>           </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">/source</span>
+<span class=w>             </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">source-dir</span>
+<span class=w>             </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>           </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>             </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">image-server</span>
+<span class=w>             </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>           </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>             </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">image-namespace</span>
+<span class=w>             </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>           </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>             </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">image-repository</span>
+<span class=w>             </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>           </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>             </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">image-tag</span>
+<span class=w>             </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>           </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">quay.io/buildah/stable:v1.15.0</span>
+<span class=w>             </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">BUILDER_IMAGE</span>
+<span class=w>             </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>           </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">./Dockerfile</span>
+<span class=w>             </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">DOCKERFILE</span>
+<span class=w>             </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>           </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">.</span>
+<span class=w>             </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">CONTEXT</span>
+<span class=w>             </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>           </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=s>"false"</span>
+<span class=w>             </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">TLSVERIFY</span>
+<span class=w>             </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>           </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">docker</span>
+<span class=w>             </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">FORMAT</span>
+<span class=w>             </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>           </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">overlay</span>
+<span class=w>             </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Set buildah storage driver</span>
+<span class=w>             </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">STORAGE_DRIVER</span>
+<span class=w>             </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>           </span><span class=nt>stepTemplate</span><span class=p>:</span>
+<span class=w>             </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>             </span><span class=nt>resources</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">{}</span>
+<span class=w>             </span><span class=nt>volumeMounts</span><span class=p>:</span>
+<span class=w>             </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>mountPath</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$(params.source-dir)</span>
+<span class=w>               </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">source</span>
+<span class=w>           </span><span class=nt>steps</span><span class=p>:</span>
+<span class=w>           </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>env</span><span class=p>:</span>
+</code></pre></div> <p>The full output is very large; we've abbreviated it significantly.</p> <p>This output contains the same information displayed as we see in the web console. Indeed the web console view is graphical representation of this information.</p> <p>Here's just a few of the interesting things that you can see:</p> <ul> <li><code>spec.startTime:</code> identifies when the pipeline run started</li> <li><code>pipelineTaskName: build</code> holds lots of interesting information on the <code>build</code> task. For example, we can see the <code>build</code> start and completion times and that it <code>succeeded</code>.</li> <li><code>steps</code> identifies lots of interesting information on each of the steps within the <code>build</code> task. For example we can see the <code>git-clone</code> start and completion times, and that it also succeeded.</li> </ul> <p>There's no need to try to understand all this output right now; we're going to do that during this topic. Moreover, we'll make extensive use of the web console because it's easier to see what's happening. However, as we do this, you might like to link the console display back to this <code>PipelineRun</code> output.</p> <p>Let's continue exploring while the pipeline run completes.</p> </li> </ol> <hr> <h2 id=explore-the-pipeline>Explore the pipeline<a class=headerlink href=#explore-the-pipeline title="Permanent link">¶</a></h2> <p>Let's look more closely at how the <code>mq-qm-dev</code> pipeline is structured as the pipeline run proceeds. Let's also examine the tasks and steps that make up the pipeline, and how they progressively build and test a queue manager, resulting in the production of a kubernetes resources ready for deployment.</p> <p>The <code>mq-qm-dev</code> pipeline run may still be running, so you'll be looking at a live pipeline run. Don't worry if the run has already completed, all the information remains available because its held in a <code>PipelineRun</code> custom resource for that run.</p> <ol> <li> <p><em>Pipeline, Task, Step</em></p> <p>Let's start with the pipeline, its tasks and steps.</p> <p>Hover over the <code>smoke-tests-mq</code> task:</p> <p><img alt=diagram37 src=../images/diagram37.png></p> <p>See how our pipeline is made up of a set of tasks such as <code>setup</code>, <code>build</code> or <code>gitops</code>. These run in the order defined by the pipeline. Our pipeline is linear, though Tekton supports more sophisticated pipeline graphs if necessary.</p> <p>See how each task comprises a set of steps such as <code>git-clone</code> or <code>setup</code>. These run in the order defined by the task.</p> </li> <li> <p><em>The pipeline run logs</em></p> <p>When a pipeline runs, all its output is captured in a set of logs, one for each task.</p> <p>Click on the <code>setup</code> task to show its logs:</p> <p><img alt=diagram33 src=../images/diagram33.png></p> <p>(<em>Alternatively, you can select the <code>Logs</code> tab from the UI, and then select the tasks on the left pane within the pipeline run view.</em>)</p> <p>See how the <code>setup</code> task has its output in a dedicated log. You can select any log for any task that has completed or is executing. When a pipeline run completes, all its logs remain available, which can help diagnosing problems for example.</p> </li> <li> <p><em>Exploring an example task output:</em> <code>build</code></p> <p>It's easy to examine a task log; you simply select the relevant task and scroll the log up or down. For active tasks the log will be dynamically updated.</p> <p>Click on the <code>build</code> task:</p> <p><img alt=diagram35 src=../images/diagram35.png></p> <p>This console window shows the output generated by <code>build</code> task. As the task script proceeds, its output is captured; that's what we can see in this window.</p> <p>Notice that the <code>build</code> task output is from the <strong>first step</strong> in the <code>build</code> task. This step is called <code>STEP-GIT-CLONE</code>. Note how the step names are capitalized in the web console output.</p> <p>Let's look at another task and its steps more closely.</p> </li> <li> <p><em>Exploring a task step in detail</em>: <code>STEP-BUILD</code></p> <p>A task is built of multiple steps. Let's explore the <code>build</code> task and its <code>step-build</code> step.</p> <p>Select the <code>build</code> task and scroll through its logs to see its <strong>second step</strong>, <code>STEP-BUILD</code>:</p> <p><img alt=diagram36 src=../images/diagram36.png></p> <p>See how the <code>step-build</code> output is captured in the same log as the previous step <code>git-clone</code>.</p> <p>Each step runs in a separate container -- if you re-examine the <code>PipelineRun</code> YAML, you'll see those containers. When you scroll through the <code>build</code> task output, you're seeing what's happening in those containers.</p> <p>Read some of the log output to get a feeling for what's happening. Later, we'll see how <code>step-build</code> and <code>step-git-clone</code> are coded.</p> </li> <li> <p><em>The pipeline definition</em></p> <p>Up to this point, we've examined the pipeline run and the logs it generates. Let's now look at how a pipeline is defined.</p> <p>Issue the following command to show the <code>mq-qm-dev</code> pipeline:</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>describe<span class=w> </span>pipeline<span class=w> </span>mq-qm-dev<span class=w> </span>-n<span class=w> </span>ci
+</code></pre></div> <p>which shows the pipeline YAML in considerable detail:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">mq-qm-dev</span>
+<span class=nt>Namespace</span><span class=p>:</span><span class=w>    </span><span class="l l-Scalar l-Scalar-Plain">ci</span>
+<span class=nt>Labels</span><span class=p>:</span><span class=w>       </span><span class="l l-Scalar l-Scalar-Plain">argo.cntk/instance=apps-mq-rest-ci-1</span>
+<span class=nt>Annotations:  app.openshift.io/runtime</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq</span>
+<span class=nt>API Version</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">tekton.dev/v1beta1</span>
+<span class=nt>Kind</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">Pipeline</span>
+<span class=nt>Metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>Creation Timestamp</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">2022-05-17T12:19:56Z</span>
+<span class=w>  </span><span class=nt>Generation</span><span class=p>:</span><span class=w>          </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class=w>  </span><span class=nt>Managed Fields</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>API Version</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">tekton.dev/v1beta1</span>
+<span class=w>    </span><span class=nt>Fields Type</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">FieldsV1</span>
+<span class=w>    </span><span class=nt>fieldsV1</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>f:metadata</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>f:annotations</span><span class=p>:</span>
+<span class=w>          </span><span class=nt>.</span><span class=p>:</span>
+<span class=w>          </span><span class=nt>f:app.openshift.io/runtime</span><span class=p>:</span>
+<span class=w>          </span><span class=nt>f:kubectl.kubernetes.io/last-applied-configuration</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>f:labels</span><span class=p>:</span>
+<span class=w>          </span><span class=nt>.</span><span class=p>:</span>
+<span class=w>          </span><span class=nt>f:argo.cntk/instance</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>f:spec</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>.</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>f:params</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>f:tasks</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>Manager</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">argocd-application-controller</span>
+<span class=w>    </span><span class=nt>Operation</span><span class=p>:</span><span class=w>       </span><span class="l l-Scalar l-Scalar-Plain">Update</span>
+<span class=w>    </span><span class=nt>Time</span><span class=p>:</span><span class=w>            </span><span class="l l-Scalar l-Scalar-Plain">2022-05-17T12:19:56Z</span>
+<span class=w>  </span><span class=nt>Resource Version</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">20209890</span>
+<span class=w>  </span><span class=nt>UID</span><span class=p>:</span><span class=w>               </span><span class="l l-Scalar l-Scalar-Plain">50aea714-0568-4f35-9034-ff383e29131e</span>
+<span class=nt>Spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>Params</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">The url for the git repository</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">The git revision (branch, tag, or sha) that should be built</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">git-revision</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Enable the pipeline to scan the image for vulnerabilities</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">scan-image</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">environment</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">environment</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">mq/environments</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Path in gitops repo</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">app-path</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Enable security for queueManager</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">security</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Enable ha for queueManager</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">ha</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Enable the pipeline to do a PR for the gitops repo</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">git-pr</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>  </span><span class=nt>Tasks</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">setup</span>
+<span class=w>    </span><span class=nt>Params</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.git-url)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">git-revision</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.git-revision)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">scan-image</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.scan-image)</span>
+<span class=w>    </span><span class=nt>Task Ref</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>Kind</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Task</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">ibm-setup-v2-6-13</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>    </span><span class="l l-Scalar l-Scalar-Plain">build</span>
+<span class=w>    </span><span class=nt>Params</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.git-url)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">git-revision</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.git-revision)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">source-dir</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.source-dir)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">image-server</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.image-server)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">image-namespace</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.image-namespace)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">image-repository</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.image-repository)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">image-tag</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.image-tag)</span>
+<span class=w>    </span><span class=nt>Run After</span><span class=p>:</span>
+<span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">setup</span>
+<span class=w>    </span><span class=nt>Task Ref</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>Kind</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Task</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">ibm-build-tag-push-v2-6-13</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>    </span><span class="l l-Scalar l-Scalar-Plain">smoke-tests-mq</span>
+<span class=w>    </span><span class=nt>Params</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.git-url)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">git-revision</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.git-revision)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">source-dir</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.source-dir)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">image-server</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.image-server)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">image-namespace</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.image-namespace)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">image-repository</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.image-repository)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">image-tag</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.image-tag)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">app-namespace</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.app-namespace)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">app-name</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.app-name)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">deploy-ingress-type</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.deploy-ingress-type)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">tools-image</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.tools-image)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">security</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.security)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">ha</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.ha)</span>
+<span class=w>    </span><span class=nt>Run After</span><span class=p>:</span>
+<span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">build</span>
+<span class=w>    </span><span class=nt>Task Ref</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>Kind</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Task</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">ibm-smoke-tests-mq</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>    </span><span class="l l-Scalar l-Scalar-Plain">tag-release</span>
+<span class=w>    </span><span class=nt>Params</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.git-url)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">git-revision</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.git-revision)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">source-dir</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.source-dir)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">js-image</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.js-image)</span>
+<span class=w>    </span><span class=nt>Run After</span><span class=p>:</span>
+<span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">smoke-tests-mq</span>
+<span class=w>    </span><span class=nt>Task Ref</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>Kind</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Task</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">ibm-tag-release-v2-6-13</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>    </span><span class="l l-Scalar l-Scalar-Plain">img-release</span>
+<span class=w>    </span><span class=nt>Params</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">image-from</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.image-url)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">image-to</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.image-release):$(tasks.tag-release.results.tag)</span>
+<span class=w>    </span><span class=nt>Run After</span><span class=p>:</span>
+<span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">tag-release</span>
+<span class=w>    </span><span class=nt>Task Ref</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>Kind</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Task</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">ibm-img-release-v2-6-13</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>    </span><span class="l l-Scalar l-Scalar-Plain">img-scan</span>
+<span class=w>    </span><span class=nt>Params</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">image-url</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.img-release.results.image-url)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">scan-trivy</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.scan-trivy)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">scan-ibm</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.scan-ibm)</span>
+<span class=w>    </span><span class=nt>Run After</span><span class=p>:</span>
+<span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">img-release</span>
+<span class=w>    </span><span class=nt>Task Ref</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>Kind</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Task</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">ibm-img-scan-v2-6-13</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>    </span><span class="l l-Scalar l-Scalar-Plain">gitops</span>
+<span class=w>    </span><span class=nt>Params</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.git-url)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">git-revision</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.git-revision)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">source-dir</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.source-dir)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">image-server</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.image-server)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">image-namespace</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.image-namespace)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">image-repository</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.image-repository)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">image-tag</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.tag-release.results.tag)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">app-name</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.app-name)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">app-path</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.app-path)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">environment</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.environment)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">deploy-ingress-type</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.deploy-ingress-type)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">tools-image</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.tools-image)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">security</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.security)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">ha</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.ha)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">dest-environment</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.environment)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">git-pr</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.git-pr)</span>
+<span class=w>    </span><span class=nt>Run After</span><span class=p>:</span>
+<span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">img-scan</span>
+<span class=w>    </span><span class=nt>Task Ref</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>Kind</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Task</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">ibm-gitops-for-mq</span>
+<span class=nt>Events</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">&lt;none&gt;</span>
+</code></pre></div> <p>Don't be intimidated by this output -- it's actually just a more detailed source view of the information shown for the <code>mq-qm-dev</code> pipeline in the web console.</p> <p>Locate the following key structures in the <code>Pipeline</code> YAML:</p> <ul> <li><code>API Version: tekton.dev/v1beta1</code> and <code>Kind: Pipeline</code> identify this as a Tekton pipeline.</li> <li><code>Spec: Params</code> identifies the <strong>pipeline input parameters</strong></li> <li><code>Tasks:</code> is a list of the tasks in this pipeline, each of which has<ul> <li>A <code>Name:</code> naming the task</li> <li>A set of <code>Params:</code> identifying the <strong>task input parameters</strong></li> <li>An optional <code>Run After:</code> value indicating when the task is run</li> <li>A <code>Task Ref:</code> identifying the actual task code to be run using the task's input</li> </ul> </li> </ul> <p>Notice that there's <strong>no code</strong> in the pipeline definition; instead, the definition specifies the required inputs to the pipeline, as well as the set of required tasks and their order of execution. The code executed by each task is identified by <code>Task Ref:</code>, rather than in the pipeline; the pipeline definition merely defines the order of task execution and how parameters are marshaled between tasks.</p> <p>Let's now examine the pipeline definition in a little more detail.</p> </li> <li> <p><em>The pipeline input</em> <code>Spec: Params</code></p> <p>When we configure a pipeline run, the arguments map precisely to <code>Spec: Params</code> in the pipeline YAML file.</p> <p>Below, we've just shown the <code>Spec: Params:</code> for the <code>mq-qm-dev</code> pipeline:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>Spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>Params</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">The url for the git repository</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">The git revision (branch, tag, or sha) that should be built</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">git-revision</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Enable the pipeline to scan the image for vulnerabilities</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">scan-image</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">environment</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">environment</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">mq/environments</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Path in gitops repo</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">app-path</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Enable security for queueManager</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">security</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Enable ha for queueManager</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">ha</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Enable the pipeline to do a PR for the gitops repo</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">git-pr</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+</code></pre></div> <p>Spend a few moments mapping each of these parameters maps to those on the <code>Start Pipeline</code> input dialog where you specified the pipeline run arguments. For example, map <code>Names:</code>, <code>Description:</code> and <code>Default:</code> to the different fields in the dialog.</p> </li> <li> <p><em>Parameters for the first</em> <code>setup</code> <em>task</em></p> <p>We can see that the first task in the pipeline is called <code>setup</code>. Let's examine its YAML to see how it gets its input parameters:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>Tasks</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>Name</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">setup</span>
+<span class=w>  </span><span class=nt>Params</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>    </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.git-url)</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">git-revision</span>
+<span class=w>    </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.git-revision)</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">scan-image</span>
+<span class=w>    </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.scan-image)</span>
+<span class=w>  </span><span class=nt>Task Ref</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>Kind</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Task</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">ibm-setup-v2-6-13</span>
+</code></pre></div> <p>See how the <code>setup</code> task derives its <code>git-url</code> parameter using the <strong>pipeline</strong> input parameter value <code>$(params.git-url)</code>. See how <code>git-revision</code> and <code>scan-image</code> work in a similar way. The first task in a pipeline typically works like this -- its parameters are mapped from the pipeline's input parameters.</p> <p>Notice also that some pipeline input parameters are not referred to by the <code>setup</code> task; they will be used by subsequent tasks using the appropriate <code>$(params.)</code> value.</p> </li> <li> <p><em>Passing arguments between tasks</em></p> <p>As each task completes, the pipeline proceeds. When a new task starts it often requires one or more results generated by a previous task.</p> <p>We can see a good example of this in the <code>build</code> task:</p> <div class="no-copy highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">build</span>
+<span class=w>  </span><span class=nt>taskRef</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-build-tag-push-v2-6-13</span>
+<span class=w>  </span><span class=nt>runAfter</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">setup</span>
+<span class=w>  </span><span class=nt>params</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>      </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.git-url)"</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-revision</span>
+<span class=w>      </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.git-revision)"</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">source-dir</span>
+<span class=w>      </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.source-dir)"</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">image-server</span>
+<span class=w>      </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.image-server)"</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">image-namespace</span>
+<span class=w>      </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.image-namespace)"</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">image-repository</span>
+<span class=w>      </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.image-repository)"</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">image-tag</span>
+<span class=w>      </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.image-tag)"</span>
+</code></pre></div> <p>See how the <code>build</code> task specifies that the <code>image-tag</code> parameter should use value generated by the <code>setup</code> task using the syntax: <code>$(tasks.setup.results.image-tag)</code>.</p> <p>Also notice how the <code>build</code> tasks uses <code>Run After:</code> to specify that it should execute <strong>after</strong> the <code>setup</code> task. This follows the Kubernetes idiom of resources being declarative -- the order of execution is defined by <code>RunAfter:</code> rather than the order in which tasks appear in the YAML.</p> <p>Again, notice that the <code>build</code> task <strong>doesn't</strong> contain the code that the task executes. This is contained in <code>Task Ref:</code> which identifies <code>ibm-build-tag-push-v2-6-13</code> as the task to execute using the specified parameters. It's the code in <code>ibm-build-tag-push-v2-6-13</code> which generates the log output for the task; we'll examine it later.</p> <p>The way pipelines tasks are designed makes them highly reusable. As we'll see later, tasks are written with defined inputs and outputs such that they can be re-used by different pipelines. Pipelines focus on organizing the order of task execution and how parameters are marshaled into and between tasks; it's the tasks that do the actual work.</p> </li> <li> <p><em>Locating the pipeline and tasks source YAMLs</em></p> <p>Finally, let's locate the source for the <code>mq-qm-dev</code> pipeline and the tasks within it.</p> <p>It is located in the following folder:</p> <div class=highlight><pre><span></span><code><span class=nb>cd</span><span class=w> </span><span class=nv>$GIT_ROOT</span>
+<span class=nb>cd</span><span class=w> </span>multi-tenancy-gitops-apps
+tree<span class=w> </span>mq/environments/ci/pipelines/
+</code></pre></div> <p>We can see the other pipelines for the <code>ci</code> namespace in this folder:</p> <div class="no-copy highlight"><pre><span></span><code>mq/environments/ci/pipelines/
+├── ibm-test-pipeline-for-dev.yaml
+├── ibm-test-pipeline-for-stage.yaml
+├── java-maven-dev-pipeline.yaml
+├── mq-metric-samples-dev-pipeline.yaml
+├── mq-pipeline-dev.yaml
+└── mq-spring-app-dev-pipeline.yaml
+</code></pre></div> <p>These map to the MQ-related pipelines we saw in the <code>Pipelines-&gt;Pipelines</code> view in the web console.</p> </li> <li> <p><em>Exploring the</em> <code>mq-qm-dev</code> <em>source YAML</em></p> <p>View the source for the <code>mq-pipeline-dev.yaml</code> pipeline with the command:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/environments/ci/pipelines/mq-pipeline-dev.yaml
+</code></pre></div> <p>which shows the source YAML for the <code>mq-qm-dev</code> pipeline:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tekton.dev/v1beta1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Pipeline</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq-qm-dev</span>
+<span class=w>  </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>app.openshift.io/runtime</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>params</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>      </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">The url for the git repository</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-revision</span>
+<span class=w>      </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">The git revision (branch, tag, or sha) that should be built</span>
+<span class=w>      </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">scan-image</span>
+<span class=w>      </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Enable the pipeline to scan the image for vulnerabilities</span>
+<span class=w>      </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=s>"false"</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">environment</span>
+<span class=w>      </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">environment</span>
+<span class=w>      </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">app-path</span>
+<span class=w>      </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Path in gitops repo</span>
+<span class=w>      </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq/environments</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">security</span>
+<span class=w>      </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Enable security for queueManager</span>
+<span class=w>      </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=s>"false"</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ha</span>
+<span class=w>      </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Enable ha for queueManager</span>
+<span class=w>      </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=s>"false"</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-pr</span>
+<span class=w>      </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Enable the pipeline to do a PR for the gitops repo</span>
+<span class=w>      </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=s>"false"</span>
+<span class=w>  </span><span class=nt>tasks</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">setup</span>
+<span class=w>      </span><span class=nt>taskRef</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-setup-v2-6-13</span>
+<span class=w>      </span><span class=nt>params</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$(params.git-url)</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-revision</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$(params.git-revision)</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">scan-image</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$(params.scan-image)</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">build</span>
+<span class=w>      </span><span class=nt>taskRef</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-build-tag-push-v2-6-13</span>
+<span class=w>      </span><span class=nt>runAfter</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">setup</span>
+<span class=w>      </span><span class=nt>params</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.git-url)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-revision</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.git-revision)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">source-dir</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.source-dir)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">image-server</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.image-server)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">image-namespace</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.image-namespace)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">image-repository</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.image-repository)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">image-tag</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.image-tag)"</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">smoke-tests-mq</span>
+<span class=w>      </span><span class=nt>taskRef</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-smoke-tests-mq</span>
+<span class=w>      </span><span class=nt>runAfter</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">build</span>
+<span class=w>      </span><span class=nt>params</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.git-url)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-revision</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.git-revision)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">source-dir</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.source-dir)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">image-server</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.image-server)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">image-namespace</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.image-namespace)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">image-repository</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.image-repository)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">image-tag</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.image-tag)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">app-namespace</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.app-namespace)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">app-name</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.app-name)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">deploy-ingress-type</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.deploy-ingress-type)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tools-image</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.tools-image)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name </span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">security</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(params.security)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name </span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ha</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(params.ha)"</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tag-release</span>
+<span class=w>      </span><span class=nt>taskRef</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-tag-release-v2-6-13</span>
+<span class=w>      </span><span class=nt>runAfter</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">smoke-tests-mq</span>
+<span class=w>      </span><span class=nt>params</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.git-url)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-revision</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.git-revision)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">source-dir</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.source-dir)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">js-image</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.js-image)"</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">img-release</span>
+<span class=w>      </span><span class=nt>taskRef</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-img-release-v2-6-13</span>
+<span class=w>      </span><span class=nt>runAfter</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tag-release</span>
+<span class=w>      </span><span class=nt>params</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">image-from</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.image-url)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">image-to</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.image-release):$(tasks.tag-release.results.tag)"</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">img-scan</span>
+<span class=w>      </span><span class=nt>taskRef</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-img-scan-v2-6-13</span>
+<span class=w>      </span><span class=nt>runAfter</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">img-release</span>
+<span class=w>      </span><span class=nt>params</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">image-url</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.img-release.results.image-url)</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">scan-trivy</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.scan-trivy)</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">scan-ibm</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.setup.results.scan-ibm)</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gitops</span>
+<span class=w>      </span><span class=nt>taskRef</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-gitops-for-mq</span>
+<span class=w>      </span><span class=nt>runAfter</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">img-scan</span>
+<span class=w>      </span><span class=nt>params</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.git-url)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-revision</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.git-revision)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">source-dir</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.source-dir)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">image-server</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.image-server)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">image-namespace</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.image-namespace)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">image-repository</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.image-repository)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">image-tag</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.tag-release.results.tag)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">app-name</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.app-name)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">app-path</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(params.app-path)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">environment</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(params.environment)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">deploy-ingress-type</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.deploy-ingress-type)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tools-image</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.setup.results.tools-image)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name </span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">security</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(params.security)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ha</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(params.ha)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">dest-environment</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(params.environment)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-pr</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(params.git-pr)"</span>
+</code></pre></div> <p>This YAML is <em>slightly</em> different to the output of the <code>oc get pipeline</code> command, because extra information is added during deployment such as <code>Creation Timestamp:</code>.</p> </li> <li> <p><em>Finding the ArgoCD application that manages pipelines</em></p> <p>You can see how the <code>mq-qm-dev</code> and other pipeline YAMLs were deployed by examining the ArgoCD application that watches the folder containing the <code>ci</code> namespace pipelines.</p> <p>Issue the following command:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/config/argocd/ci/ci-app-rest.yaml
+</code></pre></div> <p>which shows the <code>apps-mq-rest-ci-1</code> ArgoCD application that watches for updates:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Application</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">apps-mq-rest-ci-1</span>
+<span class=w>  </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>argocd.argoproj.io/sync-wave</span><span class=p>:</span><span class=w> </span><span class=s>"300"</span>
+<span class=w>  </span><span class=nt>finalizers</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">resources-finalizer.argocd.argoproj.io</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>destination</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ci</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class=nt>project</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">applications</span>
+<span class=w>  </span><span class=nt>source</span><span class=p>:</span>
+<span class=hll><span class=w>    </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq/environments/ci</span>
+</span><span class=hll><span class=w>    </span><span class=nt>repoURL</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/prod-ref-guide/multi-tenancy-gitops-apps.git</span>
+</span><span class=hll><span class=w>    </span><span class=nt>targetRevision</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+</span><span class=w>  </span><span class=nt>syncPolicy</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>automated</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>prune</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>      </span><span class=nt>selfHeal</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div> <p>See how this <code>apps-mq-rest-ci-1</code> watches: <code>path: mq/environments/ci</code>. As we know, this folder contains the YAML for the <code>mq-qm-dev</code> and other pipelines under <code>pipelines</code> folder. When this ArgoCD application was made active in the cluster, it installed all the pipelines along with other resources in this folder.</p> <p>Later in the tutorial, we'll examine how tasks are coded to perform their tasks, but for now, you should have a good feeling for how pipelines are structured and how they work.</p> <p>By now, the pipeline run should have completed successfully. In the next section, we're going to examine the kubernetes resources that it created.</p> </li> </ol> <hr> <h2 id=understanding-the-qm1-kustomize-resources>Understanding the <code>QM1</code> kustomize resources<a class=headerlink href=#understanding-the-qm1-kustomize-resources title="Permanent link">¶</a></h2> <p>The successful completion of the <code>mq-qm-dev</code> pipeline run which used the <code>QM1</code> source repository as input has resulted in three new objects being produced:</p> <ul> <li>A versioned container image for <code>QM1</code> stored in the cluster image registry.</li> <li><code>QM1</code> resources stored in the GitOps repository. These resources are created the first time the pipeline runs and will be managed by kustomize.</li> </ul> <p>The following diagram represents this structure and process:</p> <p><img alt=helm01 src=../images/helm01.drawio.png></p> <p>This diagram shows how:</p> <ul> <li>This <code>QM1</code> resources in the GitOps repository points to the container image used by <code>QM1</code> in the Image registry. These resources contains the default configuration for the <code>queuemanager</code> custom resource YAML for <code>QM1</code> derived from the Kustomize resources residing in its source repository.</li> <li>Also, this YAML refers to the container that was built during the pipeline run.</li> <li>These resources will be used by ArgoCD to deploy <code>QM1</code> to the cluster.</li> </ul> <p>In this topic we're going to examine the <code>QM1</code> Kustomize resources in more detail. We'll see how they are structured and how they are used. We'll see how, in combination, these Kustomize resources provide a well governed deployment of <code>QM1</code> to the cluster.</p> <ol> <li> <p><em>The source repository for the Kustomize resources</em></p> <p><strong>Return to the terminal window</strong> you're using for the <code>mq-qm01</code> source repository. (<em>Rather than the terminal window you're using for the</em> <code>multi-tenancy-gitops</code> <em>GitOps repository.</em>)</p> <p>In the previous topic, we cloned the <code>mq-qm01</code> repository. This contains the source Kustomize resources for queue manager <code>QM1</code>. Let's quickly recap these resources.</p> <p>Ensure you're in the correct directory:</p> <div class=highlight><pre><span></span><code><span class=nb>cd</span><span class=w> </span><span class=nv>$GIT_ROOT</span>/mq-qm01
+</code></pre></div> </li> <li> <p><em>The source Kustomize resources</em></p> <p>Let's see how the source Kustomize resources for <code>QM1</code> are structured.</p> <p>Issue the following command:</p> <div class=highlight><pre><span></span><code>tree<span class=w> </span>kustomize<span class=w> </span>-L<span class=w> </span><span class=m>2</span>
+</code></pre></div> <p>to show the Helm folder structure and detail:</p> <div class="no-copy highlight"><pre><span></span><code>kustomize
+├── base
+│   ├── generic-qmgr
+│   └── native-ha-qmgr
+└── components
+    ├── dynamic-mqsc
+    └── scripts
+
+6 directories, 0 files
+</code></pre></div> <p>The key folders and files are as follows:</p> <ul> <li>The <code>base</code> folder contains different templates that will be used to generate the <code>queuemanager</code> custom resource and <code>configmap</code> for <code>QM1</code>.</li> <li>The <code>generic-qmgr</code> folder contains a set of files that are used by a basic queuemanager.</li> <li>The <code>native-ha-qmgr</code> folder contains a set of files that are used by a queuemanager where ha is enabled.</li> <li>The <code>components</code> folder contains reusable kustomizations allowing us to enable required subset of features.</li> <li>The <code>dynamic-mqsc</code> folder contains the queue manager dynamic configurations.</li> <li>The <code>scripts</code> folder contains the necessary scripts that will be used for injecting dynamic configurations.</li> </ul> <p>Feel free to learn more about <a href=https://kustomize.io/ >Kustomize</a> before you proceed.</p> </li> <li> <p><em>Examine the Kustomize base for generic-qmgr</em> <code>kustomization.yaml</code></p> <p>We'll start with the <code>kustomization.yaml</code> file; it's the starting point for the <code>QM1</code> Kustomize resources.</p> <p>Run the below command to view the source of <code>kustomization.yaml</code>.</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>kustomize/base/generic-qmgr/kustomization.yaml
+</code></pre></div> <p>You will see something like below:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>resources</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">./queuemanager.yaml</span>
+
+<span class=nt>generatorOptions</span><span class=p>:</span>
+<span class=w> </span><span class=nt>disableNameSuffixHash</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=c1># We use a configMapGenerator because it allows us to build up the mqsc from regular MQSC files.</span>
+<span class=nt>configMapGenerator</span><span class=p>:</span>
+<span class=c1># Create an MQSC configMap using generic MQSC which will be added to all queue managers and applied during bootstrap.</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mqsc-configmap</span>
+<span class=w>  </span><span class=nt>behavior</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">create</span>
+<span class=w>  </span><span class=nt>files</span><span class=p>:</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">static-definitions.mqsc</span>
+
+<span class=c1># Add the configMap that will be used for dynamic updates, this should be used queue manager wide i.e. stay the same in each environment.</span>
+<span class=c1># components:</span>
+<span class=c1># - ../../components/dynamic-mqsc/generic-qmgr</span>
+<span class=c1># - ../../components/scripts</span>
+</code></pre></div> <p>This file contains the high level information about the QM1 resources.</p> <ul> <li>The <code>resources</code> includes all the relevant resources that should be enabled as part of deployment.</li> <li>The <code>generatorOptions</code> helps us to provide options to modify the behavior of ConfigMap and Secret generators.</li> <li>Using <code>disableNameSuffixHash</code> will disable appending a content hash suffix to the names of generated resources.</li> <li>The <code>configMapGenerator</code> will allow us to create a configmap using the MQSC file provided which in our example is <code>static-definitions.mqsc</code>.</li> <li>The <code>components</code> includes all the opt in features and corresponding configurations options that are required to enable dynamic configurations in the queue manager. This feature is optional and by default disabled. If you want to enable this feature, check out <a href=../topic5/ >(Optional) Enabling dynamic configurations</a>.</li> </ul> </li> <li> <p><em>Examine the Kustomize base for generic-qmgr</em> <code>queuemanager.yaml</code></p> <p>The <code>queuemanager.yaml</code> contents are used by the queue manager to generate deployable <code>queuemanager</code>. These YAMLs are customized according by their corresponding variants based on the requirements.</p> <p>Run the below command to view the source of <code>queuemanager.yaml</code>.</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>kustomize/base/generic-qmgr/queuemanager.yaml
+</code></pre></div> <p>You will see something like below:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq.ibm.com/v1beta1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">QueueManager</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">qm1</span>
+<span class=w>  </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>argocd.argoproj.io/sync-wave</span><span class=p>:</span><span class=w> </span><span class=s>"300"</span>
+<span class=w>    </span><span class=nt>helm.sh/hook-weight</span><span class=p>:</span><span class=w> </span><span class=s>"300"</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>license</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>accept</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class=w>    </span><span class=nt>license</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">L-RJON-BZFQU2</span>
+
+<span class=w>    </span><span class=nt>use</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">NonProduction</span>
+<span class=w>  </span><span class=nt>queueManager</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>debug</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class=w>    </span><span class=nt>imagePullPolicy</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span>
+<span class=w>    </span><span class=nt>livenessProbe</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>failureThreshold</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class=w>      </span><span class=nt>initialDelaySeconds</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">90</span>
+<span class=w>      </span><span class=nt>periodSeconds</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class=w>      </span><span class=nt>successThreshold</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class=w>      </span><span class=nt>timeoutSeconds</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class=w>    </span><span class=nt>logFormat</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Basic</span>
+<span class=w>    </span><span class=nt>metrics</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">QM1</span>
+<span class=w>    </span><span class=nt>mqsc</span><span class=p>:</span>
+<span class=w>      </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>configMap</span><span class=p>:</span>
+<span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mqsc-configmap</span>
+<span class=w>          </span><span class=nt>items</span><span class=p>:</span>
+<span class=w>            </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">static-generic.mqsc</span>
+<span class=w>    </span><span class=nt>readinessProbe</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>failureThreshold</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class=w>      </span><span class=nt>initialDelaySeconds</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class=w>      </span><span class=nt>periodSeconds</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class=w>      </span><span class=nt>successThreshold</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class=w>      </span><span class=nt>timeoutSeconds</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class=w>    </span><span class=nt>resources</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>limits</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>cpu</span><span class=p>:</span><span class=w> </span><span class=s>"1"</span>
+<span class=w>        </span><span class=nt>memory</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span>
+<span class=w>      </span><span class=nt>requests</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>cpu</span><span class=p>:</span><span class=w> </span><span class=s>"1"</span>
+<span class=w>        </span><span class=nt>memory</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">1Gi</span>
+
+<span class=w>    </span><span class=nt>availability</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">SingleInstance</span>
+
+<span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=s>"replace"</span>
+<span class=w>    </span><span class=nt>imagePullPolicy</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Always</span>
+
+<span class=w>    </span><span class=nt>storage</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>persistedData</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class=w>      </span><span class=nt>queueManager</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ephemeral</span>
+<span class=w>      </span><span class=nt>recoveryLogs</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+
+<span class=w>  </span><span class=nt>securityContext</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>initVolumeAsRoot</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class=w>  </span><span class=nt>template</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>pod</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>containers</span><span class=p>:</span>
+<span class=w>      </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">qmgr</span>
+<span class=w>        </span><span class=nt>env</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">MQSNOAUT</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"yes"</span>
+<span class=w>  </span><span class=nt>terminationGracePeriodSeconds</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+<span class=w>  </span><span class=nt>tracing</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>agent</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">{}</span>
+<span class=w>    </span><span class=nt>collector</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">{}</span>
+<span class=w>    </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class=w>    </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>  </span><span class=nt>version</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">9.2.3.0-r1</span>
+<span class=w>  </span><span class=nt>web</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div> <p>Notice how:</p> <ul> <li>It corresponds to the different literal values in the <code>queuemanager</code> custom resource YAML. For example, <code>license:</code>, <code>resources</code> and <code>readinessProbe:</code> are simple mappings representing the <code>queuemanager</code> custom resource YAML.</li> <li><code>image:</code> identifies the name and version of the queue manager container image to retrieve from the container registry. This value was set by the pipeline run, and corresponds to the image that was successfully smoke tested.</li> </ul> </li> <li> <p><em>Examine the Kustomize base for generic-qmgr</em> <code>static-definitions.mqsc</code></p> <p>The <code>static-definitions.mqsc</code> contains the necessary configurations that are used by the queue manager.</p> <p>Run the below command to view the source of <code>static-definitions.mqsc</code>.</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>kustomize/base/generic-qmgr/static-definitions.mqsc
+</code></pre></div> <p>You will see something like below:</p> <div class="no-copy highlight"><pre><span></span><code>DEFINE QLOCAL(IBM.DEMO.Q) BOQNAME(IBM.DEMO.Q.BOQ) BOTHRESH(3) REPLACE
+DEFINE QLOCAL(IBM.DEMO.Q.BOQ) REPLACE
+* Use a different dead letter queue, for undeliverable messages
+DEFINE QLOCAL('DEV.DEAD.LETTER.QUEUE') REPLACE
+ALTER QMGR DEADQ('DEV.DEAD.LETTER.QUEUE')
+DEFINE CHANNEL('IBM.APP.SVRCONN') CHLTYPE(SVRCONN)
+ALTER QMGR CHLAUTH (DISABLED)
+* DEFINE CHANNEL('MONITORING_CHL') CHLTYPE(SVRCONN)
+* SET CHLAUTH(MONITORING_CHL) TYPE(BLOCKUSER) USERLIST(NOBODY)
+REFRESH SECURITY TYPE(CONNAUTH)
+* optional
+* DEFINE SERVICE(APPLY_MQSC) CONTROL(QMGR) SERVTYPE(SERVER) STARTCMD('/mq-config/start-mqsc.sh') STARTARG(QM1) STOPCMD('/mq-config/start-mqsc.sh') STOPARG('') STDOUT('') STDERR('')
+</code></pre></div> <p>This is a MQSC file, and it is converted into a configmap using Kustomize. Learn more about <a href=https://github.com/kubernetes-sigs/kustomize/blob/master/examples/generatorOptions.md>Kustomize generatorOptions</a> if you'd like; for now it's enough to have this basic understanding.</p> <p>If you enabled dynamic configurations following <a href=../topic5/ >(Optional) Enabling dynamic configurations</a>, check out the steps from <code>step 6 to step 11</code>. Otherwise, skip to <code>step 12</code>.</p> </li> <li> <p><em>Examine the dynamic-mqsc component for generic-qmgr kustomization.yaml</em></p> <p>Let's start with the <code>kustomization.yaml</code> file.</p> <p>Run the below command to view the source of <code>kustomization.yaml</code>.</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>kustomize/components/dynamic-mqsc/generic-qmgr/kustomization.yaml
+</code></pre></div> <p>You will see something like below:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">kustomize.config.k8s.io/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Component</span>
+
+<span class=nt>generatorOptions</span><span class=p>:</span>
+<span class=w> </span><span class=nt>disableNameSuffixHash</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class=c1># Create a configMap that will be used with a volume that is dynamically updated.</span>
+<span class=nt>configMapGenerator</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">dynamic-mqsc-configmap</span>
+<span class=w>  </span><span class=nt>behavior</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">create</span>
+<span class=w>  </span><span class=nt>files</span><span class=p>:</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">dynamic-definitions.mqsc</span>
+
+<span class=nt>patchesStrategicMerge</span><span class=p>:</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">./queuemanager.yaml</span>
+</code></pre></div> <p>This file contains the high level information about the QM1 resources.</p> <ul> <li>The <code>apiVersion</code> is <code>kustomize.config.k8s.io/v1alpha1</code> and the <code>kind</code> of this definition is <code>Component</code>.</li> <li>The <code>generatorOptions</code> helps us to provide options to modify the behavior of ConfigMap and Secret generators.</li> <li>Using <code>disableNameSuffixHash</code> will disable appending a content hash suffix to the names of generated resources.</li> <li>The <code>configMapGenerator</code> will allow us to create a configmap using the MQSC file provided which in our example is <code>dynamic-definitions.mqsc</code>.</li> <li>The <code>patchesStrategicMerge</code> will help us to change the existing definition of queue manager by patching certain definitions. In this example, we are trying to patch the <code>spec.template</code> adding volume information which we will see in the next step.</li> </ul> </li> <li> <p><em>Examine the dynamic-mqsc component for generic-qmgr</em> <code>queuemanager.yaml</code></p> <p>The <code>queuemanager.yaml</code> contents are used to patch the definition of existing queue manager to generate a deployable <code>queuemanager</code> with dynamic configurations. These YAMLs are customized according by their corresponding variants based on the requirements.</p> <p>Run the below command to view the source of <code>queuemanager.yaml</code>.</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>kustomize/components/dynamic-mqsc/generic-qmgr/queuemanager.yaml
+</code></pre></div> <p>You will see something like below:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq.ibm.com/v1beta1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">QueueManager</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">qm1</span>
+<span class=w>  </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>argocd.argoproj.io/sync-wave</span><span class=p>:</span><span class=w> </span><span class=s>"300"</span>
+<span class=w>    </span><span class=nt>helm.sh/hook-weight</span><span class=p>:</span><span class=w> </span><span class=s>"300"</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>template</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>pod</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>volumes</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">config-volume-scripts</span>
+<span class=w>          </span><span class=nt>configMap</span><span class=p>:</span>
+<span class=w>            </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">scripts-configmap</span>
+<span class=w>            </span><span class=nt>defaultMode</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">0777</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">dynamic-config-volume-mqsc</span>
+<span class=w>          </span><span class=nt>configMap</span><span class=p>:</span>
+<span class=w>            </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">dynamic-mqsc-configmap</span>
+<span class=w>            </span><span class=nt>defaultMode</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">0777</span>
+<span class=w>      </span><span class=nt>containers</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>env</span><span class=p>:</span>
+<span class=w>            </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">MQSNOAUT</span>
+<span class=w>              </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>'yes'</span>
+<span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">qmgr</span>
+<span class=w>          </span><span class=nt>volumeMounts</span><span class=p>:</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">config-volume-scripts</span>
+<span class=w>            </span><span class=nt>mountPath</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">/mq-config</span>
+<span class=w>            </span><span class=nt>readOnly</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>            </span><span class=c1>#optional: true</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">dynamic-config-volume-mqsc</span>
+<span class=w>            </span><span class=nt>mountPath</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">/dynamic-mq-config-mqsc</span>
+<span class=w>            </span><span class=nt>readOnly</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>            </span><span class=c1>#optional: true</span>
+</code></pre></div> <p>Notice how additional definitions are added in:</p> <ul> <li>Under the existing queue manager, we are modifying the <code>spec.template.pod</code> by defining the <code>volumes</code> and <code>volumeMounts</code>.</li> <li>Initially <code>config-volume-scripts</code> volume is created and this is mapping to the <code>scripts-configmap</code> configmap.</li> <li>Along with this, another volume named <code>dynamic-config-volume-mqsc</code> is created as well and this is pointing to the <code>dynamic-mqsc-configmap</code> configmap.</li> <li>Corresponding <code>volumeMounts</code> are created under <code>spec.template.pod.containers</code>. The mountPath for <code>config-volume-scripts</code> is <code>/mq-config</code> and the mountPath for <code>dynamic-config-volume-mqsc</code> is <code>/dynamic-mq-config-mqsc</code>.</li> </ul> </li> <li> <p><em>Examine the dynamic-mqsc component for generic-qmgr</em> <code>dynamic-definitions.mqsc</code></p> <p>The <code>dynamic-definitions.mqsc</code> contains the necessary configurations that are used by the queue manager. These configurations will be automatically injected into the queue manager and no restart is required for the configurations to show up.</p> <p>Run the below command to view the source of <code>dynamic-definitions.mqsc</code>.</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>kustomize/components/dynamic-mqsc/generic-qmgr/dynamic-definitions.mqsc
+</code></pre></div> <p>You will see something like below:</p> <div class="no-copy highlight"><pre><span></span><code>* Use this file for MQSC that you want to be able to update without restarting the queue manager.
+DEFINE QLOCAL(TEST.DYNAMIC.QUEUE)
+</code></pre></div> <p>This is a MQSC file, and it is converted into a configmap using Kustomize. Learn more about <a href=https://github.com/kubernetes-sigs/kustomize/blob/master/examples/generatorOptions.md>Kustomize generatorOptions</a> if you'd like; for now it's enough to have this basic understanding.</p> </li> <li> <p><em>Examine the scripts component kustomization.yaml</em></p> <p>Let's begin with the <code>kustomization.yaml</code> file.</p> <p>Run the below command to view the source of <code>kustomization.yaml</code>.</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>kustomize/components/scripts/kustomization.yaml
+</code></pre></div> <p>You will see something like below:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">kustomize.config.k8s.io/v1alpha1</span><span class=w>  </span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Component</span>
+
+<span class=nt>generatorOptions</span><span class=p>:</span>
+<span class=w> </span><span class=nt>disableNameSuffixHash</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class=c1># Create a configMap that holds scripts for the queue manager service.</span>
+<span class=nt>configMapGenerator</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">scripts-configmap</span>
+<span class=w>  </span><span class=nt>behavior</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">create</span>
+<span class=w>  </span><span class=nt>files</span><span class=p>:</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">start-mqsc.sh</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">stop-mqsc.sh</span>
+</code></pre></div> <p>This file contains the high level information about the QM1 resources.</p> <ul> <li>The <code>apiVersion</code> is <code>kustomize.config.k8s.io/v1alpha1</code> and the <code>kind</code> of this definition is <code>Component</code>.</li> <li>The <code>generatorOptions</code> helps us to provide options to modify the behavior of ConfigMap and Secret generators.</li> <li>Using <code>disableNameSuffixHash</code> will disable appending a content hash suffix to the names of generated resources.</li> <li>The <code>configMapGenerator</code> will allow us to create a configmap using the bash scripts provided which in our example are <code>start-mqsc.sh</code> and <code>stop-mqsc.sh</code>.</li> </ul> </li> <li> <p><em>Examine the scripts component</em> <code>start-mqsc.sh</code></p> <p>The <code>start-mqsc.sh</code> is responsible for continuously checking the queue manager dynamic mqsc definition. If it detects any changes in the mqsc file, this script injects the new changes into the queue manager dynamically.</p> <p>Run the below command to view the source of <code>start-mqsc.sh</code>.</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>kustomize/components/scripts/start-mqsc.sh
+</code></pre></div> <p>You will see something like below:</p> <div class="no-copy highlight"><pre><span></span><code><span class=ch>#!/bin/bash</span>
+<span class=c1>#</span>
+<span class=c1># A simple MVP script that will run MQSC against a queue manager.</span>
+<span class=nv>ckksum</span><span class=o>=</span><span class=s2>""</span>
+
+<span class=c1># Outer loop that keeps the MQ service running</span>
+<span class=k>while</span><span class=w> </span>true<span class=p>;</span><span class=w> </span><span class=k>do</span>
+
+<span class=w>   </span><span class=nv>tmpCksum</span><span class=o>=</span><span class=sb>`</span>cksum<span class=w> </span>/dynamic-mq-config-mqsc/dynamic-definitions.mqsc<span class=w> </span><span class=p>|</span><span class=w> </span>cut<span class=w> </span>-d<span class=s2>" "</span><span class=w> </span>-f1<span class=sb>`</span>
+
+<span class=w>   </span><span class=k>if</span><span class=w> </span><span class=o>((</span><span class=w> </span>tmpCksum<span class=w> </span>!<span class=o>=</span><span class=w> </span>cksum<span class=w> </span><span class=o>))</span>
+<span class=w>   </span><span class=k>then</span>
+<span class=w>      </span><span class=nv>cksum</span><span class=o>=</span><span class=nv>$tmpCksum</span>
+<span class=w>      </span><span class=nb>echo</span><span class=w> </span><span class=s2>"Applying MQSC"</span>
+<span class=w>      </span>runmqsc<span class=w> </span><span class=nv>$1</span><span class=w> </span>&lt;<span class=w> </span>/dynamic-mq-config-mqsc/dynamic-definitions.mqsc
+<span class=w>   </span><span class=k>else</span>
+<span class=w>      </span>sleep<span class=w> </span><span class=m>3</span>
+<span class=w>   </span><span class=k>fi</span>
+
+<span class=k>done</span>
+</code></pre></div> <p>This is a sh file, and it is converted into a configmap using Kustomize. Learn more about <a href=https://github.com/kubernetes-sigs/kustomize/blob/master/examples/generatorOptions.md>Kustomize generatorOptions</a> if you'd like; for now it's enough to have this basic understanding.</p> </li> <li> <p><em>Examine the scripts component</em> <code>stop-mqsc.sh</code></p> <p>The <code>stop-mqsc.sh</code> outputs a success message if the <code>start-mqsc.sh</code> is successfully executed.</p> <p>Run the below command to view the source of <code>stop-mqsc.sh</code>.</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>kustomize/components/scripts/stop-mqsc.sh
+</code></pre></div> <p>You will see something like below:</p> <div class="no-copy highlight"><pre><span></span><code><span class=ch>#!/bin/bash</span>
+<span class=nb>echo</span><span class=w> </span><span class=s2>"done"</span>
+</code></pre></div> <p>This is a sh file, and it is converted into a configmap using Kustomize. Learn more about <a href=https://github.com/kubernetes-sigs/kustomize/blob/master/examples/generatorOptions.md>Kustomize generatorOptions</a> if you'd like; for now it's enough to have this basic understanding.</p> </li> <li> <p><em>Re-merging local clone to view updated resources in GitOps repository</em></p> <p>The <code>mq-qm-dev</code> pipeline run updated the GitOps repository with the Queuemanager resources. This means that our local clone of the GitOps repository is one commit behind GitHub. To allow us to view these resources locally, we must re-merge our local branch with GitHub.</p> <p><strong>Return to the terminal window</strong> you're using for the <code>multi-tenancy-gitops-apps</code> GitOps apps repository. (<em>Rather than the terminal window you're using for the</em> <code>mq-qm01</code> <em>source repository.</em>)</p> <p>Issue the following commands to merge the local branch:</p> <div class=highlight><pre><span></span><code>git<span class=w> </span>fetch<span class=w> </span>origin
+git<span class=w> </span>merge<span class=w> </span>origin/<span class=nv>$GIT_BRANCH</span>
+</code></pre></div> <p>which shows our local branch being updated:</p> <div class="no-copy highlight"><pre><span></span><code>Updating f71ffd3..be5fba5
+Fast-forward
+ mq/environments/dev/mq-qm01/configmap/static-definitions.mqsc | 12 ++++++++++
+ mq/environments/dev/mq-qm01/queuemanager/queuemanager.yaml    | 78 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 90 insertions(+)
+ create mode 100644 mq/environments/dev/mq-qm01/configmap/static-definitions.mqsc
+ create mode 100644 mq/environments/dev/mq-qm01/queuemanager/queuemanager.yaml
+</code></pre></div> <p>Notice how these files correspond to the new resources created in the GitOps repository by the <code>mq-qm-dev</code> pipeline run.</p> </li> <li> <p><em>Explore the resources in the GitOps repository</em></p> <p>Let's examine the newly produced QueueManager resources in the GitOps repository; it was created by the pipeline run.</p> <p>Issue the following command:</p> <div class=highlight><pre><span></span><code>tree<span class=w> </span>mq/environments/dev/mq-qm01/queuemanager/
+</code></pre></div> <p>which shows the newly produced queuemanager resource:</p> <div class="no-copy highlight"><pre><span></span><code>mq/environments/dev/mq-qm01/queuemanager/
+├── hooks
+│   ├── post-sync-job.sh
+│   └── post-sync-job.yaml_template
+└── queuemanager.yaml
+</code></pre></div> <p>Notice that:</p> <ul> <li>The resources for <code>QM1</code> was created in the <code>mq/environments/dev/mq-qm01/queuemanager/</code> folder to reflect the fact this queue manager is part of the <strong>applications</strong> layer.</li> <li>The resources were created in the <code>dev</code> subfolder to reflect the fact that it's going to be deployed to the <code>dev</code> namespace.</li> <li>The resources were created in a new folder <code>/mq-qm01</code>. This folder is dedicated to <code>QM1</code>. A different queue manager would have a different folder.</li> </ul> </li> <li> <p><em>Examine the GitOps resources</em> <code>queuemanager.yaml</code></p> <p>We need these resources in the GitOps repository for a few reasons:</p> <ul> <li>ArgoCD requires a Git repository to watch for updates</li> <li>Git is our source of truth.</li> <li>We use kustomize to manage these resources.</li> </ul> <p>Issue the following command:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/environments/dev/mq-qm01/queuemanager/queuemanager.yaml
+</code></pre></div> <p>to see the <code>queuemanager.yaml</code> file:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq.ibm.com/v1beta1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">QueueManager</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">qm1</span>
+<span class=w>  </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>argocd.argoproj.io/sync-wave</span><span class=p>:</span><span class=w> </span><span class=s>"300"</span>
+<span class=w>    </span><span class=nt>helm.sh/hook-weight</span><span class=p>:</span><span class=w> </span><span class=s>"300"</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>license</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>accept</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class=w>    </span><span class=nt>license</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">L-RJON-BZFQU2</span>
+
+<span class=w>    </span><span class=nt>use</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">NonProduction</span>
+<span class=w>  </span><span class=nt>queueManager</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>debug</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class=w>    </span><span class=nt>imagePullPolicy</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span>
+<span class=w>    </span><span class=nt>livenessProbe</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>failureThreshold</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class=w>      </span><span class=nt>initialDelaySeconds</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">90</span>
+<span class=w>      </span><span class=nt>periodSeconds</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class=w>      </span><span class=nt>successThreshold</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class=w>      </span><span class=nt>timeoutSeconds</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class=w>    </span><span class=nt>logFormat</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Basic</span>
+<span class=w>    </span><span class=nt>metrics</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">QM1</span>
+<span class=w>    </span><span class=nt>mqsc</span><span class=p>:</span>
+<span class=w>      </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>configMap</span><span class=p>:</span>
+<span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mqsc-configmap</span>
+<span class=w>          </span><span class=nt>items</span><span class=p>:</span>
+<span class=w>            </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">static-definitions.mqsc</span>
+<span class=w>    </span><span class=nt>readinessProbe</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>failureThreshold</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class=w>      </span><span class=nt>initialDelaySeconds</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class=w>      </span><span class=nt>periodSeconds</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class=w>      </span><span class=nt>successThreshold</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class=w>      </span><span class=nt>timeoutSeconds</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class=w>    </span><span class=nt>resources</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>limits</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>cpu</span><span class=p>:</span><span class=w> </span><span class=s>"1"</span>
+<span class=w>        </span><span class=nt>memory</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span>
+<span class=w>      </span><span class=nt>requests</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>cpu</span><span class=p>:</span><span class=w> </span><span class=s>"1"</span>
+<span class=w>        </span><span class=nt>memory</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">1Gi</span>
+
+<span class=w>    </span><span class=nt>availability</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">SingleInstance</span>
+
+<span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=s>"image-registry.openshift-image-registry.svc:5000/ci/mq-qm01:0.0.1"</span>
+<span class=w>    </span><span class=nt>imagePullPolicy</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Always</span>
+
+<span class=w>    </span><span class=nt>storage</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>persistedData</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class=w>      </span><span class=nt>queueManager</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ephemeral</span>
+<span class=w>      </span><span class=nt>recoveryLogs</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+
+<span class=w>  </span><span class=nt>securityContext</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>initVolumeAsRoot</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class=w>  </span><span class=nt>template</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>pod</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>containers</span><span class=p>:</span>
+<span class=w>      </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">qmgr</span>
+<span class=w>        </span><span class=nt>env</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">MQSNOAUT</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"yes"</span>
+<span class=w>  </span><span class=nt>terminationGracePeriodSeconds</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+<span class=w>  </span><span class=nt>tracing</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>agent</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">{}</span>
+<span class=w>    </span><span class=nt>collector</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">{}</span>
+<span class=w>    </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class=w>    </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>  </span><span class=nt>version</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">9.2.3.0-r1</span>
+<span class=w>  </span><span class=nt>web</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div> </li> </ol> <div class="admonition success"> <p class=admonition-title>Congratulations!</p> <p>You've completed your first run of the queue manager pipeline.</p> <p>Feel free to run the <code>mq-qm-dev</code> pipeline more than once to get a feeling for how it works.</p> <p>You've used it to build and test an instance of <code>QM1</code> ready for deployment to the cluster. You've explored how the queue manager pipeline is structured as tasks and steps. You've examined a pipeline run log to understand how a pipeline works and how tasks are implemented. Finally, you've examined the Helm chart that resulted from a successful run of the pipeline.</p> <p>In the next topic of this chapter we're going to deploy this Helm chart to the cluster to instantiate <code>QM1</code> in the <code>dev</code> namespace.</p> </div></div> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> Back to top </button> </main> <!-- Footer --> <footer class=md-footer> <!-- Link to previous and/or next page --> <nav class="md-footer__inner md-grid" aria-label=footer.title> <!-- Link to previous page --> <a href=../topic5/ class="md-footer__link md-footer__link--prev" rel=prev> <div class="md-footer__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </div> <div class=md-footer__title> <div class=md-ellipsis> <span class=md-footer__direction> Previous </span> (Optional) Enabling dynamic configurations </div> </div> </a> <!-- Link to next page --> <a href=../topic3/ class="md-footer__link md-footer__link--next" rel=next> <div class=md-footer__title> <div class=md-ellipsis> <span class=md-footer__direction> Next </span> Deploying and using </div> </div> <div class="md-footer__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg> </div> </a> </nav> <!-- Further information --> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-footer-column> <div class=md-footer-text>Site licensed under <a href=https://creativecommons.org/licenses/by-nc-sa/4.0/ >CC BY-NC-SA 4.0</a></div> </div> <div class=md-footer-column> <!-- Copyright and theme information --> <div class=md-footer-text> Copyright © 2021 Cloud Pak Production Deployment Guides </div> </div> <div class=md-footer-social> <a href=https://github.com/ncolon/deployment-guides target=_blank rel=noopener title="Production Deployment Guides on Github Enterprise" class=md-footer-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 496 512"> <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"> </path> </svg> </a> <a href=https://ibm-cloud.slack.com/archives/C02CQ6M2D2R target=_blank rel=noopener title=Slack class=md-footer-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"> <path d="M94.12 315.1c0 25.9-21.16 47.06-47.06 47.06S0 341 0 315.1c0-25.9 21.16-47.06 47.06-47.06h47.06v47.06zm23.72 0c0-25.9 21.16-47.06 47.06-47.06s47.06 21.16 47.06 47.06v117.84c0 25.9-21.16 47.06-47.06 47.06s-47.06-21.16-47.06-47.06V315.1zm47.06-188.98c-25.9 0-47.06-21.16-47.06-47.06S139 32 164.9 32s47.06 21.16 47.06 47.06v47.06H164.9zm0 23.72c25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06H47.06C21.16 243.96 0 222.8 0 196.9s21.16-47.06 47.06-47.06H164.9zm188.98 47.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06h-47.06V196.9zm-23.72 0c0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06V79.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06V196.9zM283.1 385.88c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06v-47.06h47.06zm0-23.72c-25.9 0-47.06-21.16-47.06-47.06 0-25.9 21.16-47.06 47.06-47.06h117.84c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06H283.1z"> </path> </svg> </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.instant", "navigation.tracking", "navigation.tabs.sticky", "navigation.top", "navigation.sections"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script> <script src=../../../../../assets/javascripts/bundle.d7400e89.min.js></script> </body> </html>

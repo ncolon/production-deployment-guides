@@ -1,0 +1,331 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="The Cloud Pak Production Deployment Guides document and demonstrate how to run cloud-native solutions leveraging IBM Cloud Pak capabilities in a Red Hat OpenShift environment"><meta name=author content="Cloud Pak Production Deployment Guides development team"><link href=../services/ rel=prev><link href=../../qmgr-pipeline/topic1/ rel=next><link rel=icon href=../../../../../images/cloudnativetoolkit.png><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.7.7"><title>Application components - Cloud Pak Production Deployment Guides</title><link rel=stylesheet href=../../../../../assets/stylesheets/main.ec1eaa64.min.css><link rel=stylesheet href=../../../../../assets/stylesheets/palette.ab4e12ef.min.css><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback"><style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"IBM Plex Mono"}</style><link rel=stylesheet href=../../../../../css/extra.css><link rel=stylesheet href=../../../../../css/toolkit-code.css><script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script><script id=__analytics>function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-Q0FLL49YN3"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-Q0FLL49YN3",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-Q0FLL49YN3",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script><script>"undefined"!=typeof __md_analytics&&__md_analytics()</script><!-- Determine title --><!-- The image needs to have an absolute URL --><!-- Open graph meta tags --><meta property=og:type content=website><meta property=og:title content="Cloud Pak Production Deployment Guides - Application components"><meta property=og:description content="The Cloud Pak Production Deployment Guides document and demonstrate how to run cloud-native solutions leveraging IBM Cloud Pak capabilities in a Red Hat OpenShift environment"><meta property=og:url content=None><meta property=og:image content=assets/images/banner.png><meta property=og:image:type content=image/png><meta property=og:image:width content=1080><meta property=og:image:height content=568></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=black data-md-color-accent=indigo> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#preparing-for-application-components class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <header class="md-header md-header--shadow md-header--lifted" data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../../../../.. title="Cloud Pak Production Deployment Guides" class="md-header__button md-logo" aria-label="Cloud Pak Production Deployment Guides" data-md-component=logo> <img src=../../../../../images/cloudnativetoolkit.png alt=logo> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> Cloud Pak Production Deployment Guides </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> Application components </span> </div> </div> </div> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> <div class=md-header__source> <a href=https://github.com/ncolon/production-deployment-guides title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg> </div> <div class=md-source__repository> </div> </a> </div> </nav> <nav class=md-tabs aria-label=Tabs data-md-component=tabs> <div class=md-grid> <ul class=md-tabs__list> <li class=md-tabs__item> <a href=../../../../.. class=md-tabs__link> Home </a> </li> <li class=md-tabs__item> <a href=../../../../../overview/overview/ class=md-tabs__link> Production Considerations </a> </li> <li class=md-tabs__item> <a href=../../../../../quickstart/overview/ class=md-tabs__link> Quick Start Demos </a> </li> <li class="md-tabs__item md-tabs__item--active"> <a href=../../../../guides-overview/ class=md-tabs__link> Tutorials </a> </li> <li class=md-tabs__item> <a href=../../../../../infrastructure/ad/ class=md-tabs__link> References </a> </li> <li class=md-tabs__item> <a href=../../../../../overview/whats-new/ class=md-tabs__link> About </a> </li> </ul> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <!-- Determine class according to configuration --> <!-- Main navigation --> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=nav.title data-md-level=0> <!-- Site title --> <!--
+  <label class="md-nav__title" for="__drawer">
+    <a
+      href="../../../../.."
+      title="Cloud Pak Production Deployment Guides"
+      class="md-nav__button md-logo"
+      aria-label="Cloud Pak Production Deployment Guides"
+      data-md-component="logo"
+    >
+      
+  <img src="../../../../../images/cloudnativetoolkit.png" alt="logo">
+
+    </a>
+    Cloud Pak Production Deployment Guides
+  </label>
+--> <!-- Repository information --> <div class=md-nav__source> <a href=https://github.com/ncolon/production-deployment-guides title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg> </div> <div class=md-source__repository> </div> </a> </div> <!-- Render item list --> <ul class=md-nav__list data-md-scrollfix> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#overview class=md-nav__link> <span class=md-ellipsis> Overview </span> </a> </li> <li class=md-nav__item> <a href=#introduction class=md-nav__link> <span class=md-ellipsis> Introduction </span> </a> </li> <li class=md-nav__item> <a href=#pre-requisites class=md-nav__link> <span class=md-ellipsis> Pre-requisites </span> </a> </li> <li class=md-nav__item> <a href=#explore-the-apps-repository class=md-nav__link> <span class=md-ellipsis> Explore the -apps repository </span> </a> </li> <li class=md-nav__item> <a href=#argocd-example class=md-nav__link> <span class=md-ellipsis> ArgoCD example </span> </a> </li> <li class=md-nav__item> <a href=#tailor-the-apps-repository class=md-nav__link> <span class=md-ellipsis> Tailor the -apps repository </span> </a> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <div><h1 id=preparing-for-application-components>Preparing for application components<a class=headerlink href=#preparing-for-application-components title="Permanent link">¶</a></h1> <!--- cSpell:ignore resynched consolenotification subfolders rolebindings rolebinding CICD qube cntk autoplay allowfullscreen walkthrough Walkthrough webkitallowfullscreen msallowfullscreen --> <p><strong>Audience</strong>: Architects, Application developers, Administrators</p> <p><strong>Timing</strong>: 20 minutes</p> <h2 id=overview>Overview<a class=headerlink href=#overview title="Permanent link">¶</a></h2> <p>In this topic, we will:</p> <ul> <li>Explore the sample <code>multi-tenancy-gitops-apps</code> GitOps application components repository</li> <li>Customize this repository for our cluster</li> </ul> <p>By the end of this topic we'll have a cluster ready to deploy MQ applications and queue managers.</p> <h2 id=introduction>Introduction<a class=headerlink href=#introduction title="Permanent link">¶</a></h2> <p>In this topic we're going to explore then customize the GitOps repository that will store the MQ application and queue manager YAMLs. These YAMLs are built and tested by their corresponding pipelines ready for deployment. This GitOps repository will be accessed by ArgoCD applications that will apply these YAMLs to the cluster, resulting in the creation of running MQ applications and queue managers.</p> <p><img alt=cluster-tech src=../images/mq-cicd4.drawio.png></p> <p>We'll examine these highlighted components in more detail throughout this topic; here's an initial overview of their function:</p> <ul> <li><code>Git (config)</code> repository stores the YAMLs built by the Tekton pipelines. These YAMLs will be applied to the cluster by ArgoCD applications to create MQ applications and queue managers.</li> <li><code>ArgoCD applications</code> deploy their corresponding MQ applications and queue managers to the cluster. ArgoCD will also ensure that these MQ resources remain configured according to the YAML definitions -- any configuration drift (deliberate or accidental) will be reverted to align with the YAML in the <code>Git (config)</code> repository. The YAML specification for each ArgoCD application also resides in the <code>Git (config)</code> repository.</li> <li><code>App1</code> and <code>QM1</code> are instances of an MQ application and queue manager that have been created by their corresponding ArgoCD application. There is one ArgoCD application corresponding to each MQ application and each queue manager.</li> </ul> <hr> <h2 id=pre-requisites>Pre-requisites<a class=headerlink href=#pre-requisites title="Permanent link">¶</a></h2> <p>Before attempting this topic, you must have completed the following tasks:</p> <ul> <li>You have completed the previous sections of this tutorial.</li> </ul> <hr> <h2 id=explore-the-apps-repository>Explore the -apps repository<a class=headerlink href=#explore-the-apps-repository title="Permanent link">¶</a></h2> <!--- cSpell:ignore apic configmaps --> <p>The <code>multi-tenancy-gitops-apps</code> repository contains the YAMLs of the application components running in the cluster. For example, if there are 10 applications, 2 databases, 4 queue managers and 2 workflow engines running in the cluster, then there will be YAMLs in this repository corresponding to each of these instances.</p> <p>Let's explore the structure of the <code>multi-tenancy-gitops-apps</code> repository to see how it works.</p> <ol> <li> <p><em>Ensure environment variables are set</em></p> <div class="admonition tip"> <p class=admonition-title>Tip</p> <p>Ensure you're in the <code>multi-tenancy-gitops-apps</code> <strong>terminal window</strong>.</p> </div> <div class="admonition tip"> <p class=admonition-title>Tip</p> <p>If you're returning to the tutorial after restarting your computer, ensure that the $GIT_ORG, $GIT_BRANCH and $GIT_ROOT environment variables are set.</p> </div> <p>(Replace <code>&lt;your organization name&gt;</code> appropriately:)</p> <div class=highlight><pre><span></span><code><span class=nb>export</span><span class=w> </span><span class=nv>GIT_BRANCH</span><span class=o>=</span>master
+<span class=nb>export</span><span class=w> </span><span class=nv>GIT_ORG</span><span class=o>=</span>&lt;your<span class=w> </span>organization<span class=w> </span>name&gt;
+<span class=nb>export</span><span class=w> </span><span class=nv>GIT_ROOT</span><span class=o>=</span><span class=nv>$HOME</span>/git/<span class=nv>$GIT_ORG</span>-root
+</code></pre></div> <p>You can verify your environment variables as follows:</p> <div class=highlight><pre><span></span><code><span class=nb>echo</span><span class=w> </span><span class=nv>$GIT_BRANCH</span>
+<span class=nb>echo</span><span class=w> </span><span class=nv>$GIT_ORG</span>
+<span class=nb>echo</span><span class=w> </span><span class=nv>$GIT_ROOT</span>
+</code></pre></div> <p><br></p> </li> <li> <p><em>Locate the multi-tenancy-gitops-apps repository</em></p> <p>Issue the following command to change to your GitOps repository:</p> <div class=highlight><pre><span></span><code><span class=nb>cd</span><span class=w> </span><span class=nv>$GIT_ROOT</span>
+<span class=nb>cd</span><span class=w> </span>multi-tenancy-gitops-apps
+</code></pre></div> <p><br></p> </li> <li> <p><em>A folder for each application component type</em></p> <p>Let's explore the top level folder structure of the the repository.</p> <p>Issue the following command:</p> <div class=highlight><pre><span></span><code>tree<span class=w> </span>.<span class=w> </span>-L<span class=w> </span><span class=m>1</span>
+</code></pre></div> <p>to show the top level folders:</p> <div class="no-copy highlight"><pre><span></span><code>.
+├── ace
+├── apic
+├── cntk
+├── cp4a
+├── mq
+├── pm
+├── scripts
+├── shared
+├── slack-notifications
+└── soapserver
+</code></pre></div> <p>Notice that there's one high level folder for each of the different application components deployed to the cluster. For example, the YAMLs defining the API gateways, ACE integration servers and MQ queue managers are stored in the <code>apic</code>, <code>ace</code> and <code>mq</code> folders, respectively.</p> <p><br></p> </li> <li> <p><em>An application component folder</em></p> <p>Each of these application component folders has a similar structure. Let's look at the MQ folder as a typical example.</p> <p>Issue the following command:</p> <div class=highlight><pre><span></span><code>tree<span class=w> </span>./mq<span class=w> </span>-L<span class=w> </span><span class=m>2</span>
+</code></pre></div> <p>to show the structure of the MQ folder:</p> <div class="no-copy highlight"><pre><span></span><code>./mq
+├── config
+│   └── argocd
+└── environments
+    ├── base
+    ├── ci
+    ├── dev
+    ├── prod
+    ├── staging
+    └── tools
+</code></pre></div> <p>Notice how:</p> <ul> <li>the <code>config/argocd</code> folder contains the ArgoCD applications that manage the MQ application components deployed to the cluster.</li> <li>the <code>environments</code> folder contains one subfolder for each environment on the cluster, including MQ applications and queue managers.</li> </ul> <p><br></p> </li> <li> <p><em>ArgoCD applications</em></p> <p>Let's explore the folder structure to see how ArgoCD manages the cluster for these application components.</p> <p>Issue the following command:</p> <div class=highlight><pre><span></span><code>tree<span class=w> </span>./mq/config/argocd<span class=w> </span>-L<span class=w> </span><span class=m>2</span>
+</code></pre></div> <p>to show the ArgoCD applications:</p> <div class="no-copy highlight"><pre><span></span><code>./mq/config/argocd
+├── ci
+│   ├── ci-app-rest.yaml
+│   └── ci-scc.yaml
+├── dev
+│   ├── dev-mq-metric-samples-instance.yaml
+│   ├── dev-mq-qm01-instance.yaml
+│   └── dev-mq-spring-app-instance.yaml
+├── prod
+│   ├── prod-mq-metric-samples-instance.yaml
+│   ├── prod-mq-qm01-instance.yaml
+│   └── prod-mq-spring-app-instance.yaml
+├── staging
+│   ├── staging-mq-metric-samples-instance.yaml
+│   ├── staging-mq-qm01-instance.yaml
+│   └── staging-mq-spring-app-instance.yaml
+└── tools
+    └── tools-cert-manager-artifacts.yaml
+</code></pre></div> <p>Notice how:</p> <ul> <li>The <code>config/argocd</code> folder contains ArgoCD applications organized by folder namespace.</li> <li>The name of the ArgoCD applications corresponds to the resource it manages; for example <code>dev/dev-mq-qm01-instance.yaml</code> will manage a queue manager in the <code>dev</code> namespace.</li> </ul> <p><br></p> <p>The number of ArgoCD YAMLs in these folders will grow as application components are added to the cluster. For this tutorial, we've pre-populated the repository with the ArgoCD YAMLs for the initial application components we're going to deploy to the cluster.</p> <p><br></p> </li> </ol> <hr> <h2 id=argocd-example>ArgoCD example<a class=headerlink href=#argocd-example title="Permanent link">¶</a></h2> <p>All ArgoCD applications work in a similar way. Let's examine one in a little more detail.</p> <ol> <li> <p><em>An example ArgoCD application</em></p> <p>Let's look at the YAML of a typical ArgoCD application that manages a queue manager.</p> <p>Issue the following command:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>./mq/config/argocd/dev/dev-mq-qm01-instance.yaml
+</code></pre></div> <p>to see the YAML to manage an MQ queue manager running in the cluster:</p> <div class="no-copy highlight"><pre><span></span><code>apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-mq-qm01-instance
+  annotations:
+    argocd.argoproj.io/sync-wave: "300"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: dev
+    server: https://kubernetes.default.svc
+  project: applications
+  source:
+    path: mq/environments/dev/mq-qm01/
+    repoURL: https://github.com/cloud-native-toolkit-demos/multi-tenancy-gitops-apps.git
+    targetRevision: master
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Replace=true
+</code></pre></div> <p>Notice how this ArgoCD application will use:</p> <ul> <li>the <code>path: mq/environments/mq-infra/overlays/dev</code> element to identify the folder location containing the queue manager YAMLs that will be applied to the cluster.</li> <li>the <code>repoURL:</code> identifies the GitHUb repository; we'll need to customize this value for our deployment.</li> </ul> <p>You can learn more about the different YAML elements in an ArgoCD application in the <a href=https://argocd-operator.readthedocs.io/en/latest/reference/argocd/ >ArgoCD API reference</a>.</p> <p><br></p> <p>There are <strong>many</strong> ArgoCD applications like this in the <code>-apps</code> repository; each one is responsible for managing the deployment of any application component to the cluster, including its related resources such as configmaps and certificates.</p> <p><br></p> </li> <li> <p><em>The</em> <code>environments</code> <em>folder</em></p> <p>As we've seen in our example, the ArgoCD applications refer to YAMLs in the <code>environments</code> folder; let's explore the <code>environments</code> folder in more detail.</p> <p>Issue the following command:</p> <div class=highlight><pre><span></span><code>tree<span class=w> </span>./mq/environments<span class=w> </span>-L<span class=w> </span><span class=m>2</span>
+</code></pre></div> <p>to see the wide range of YAMLs in this folder:</p> <div class="no-copy highlight"><pre><span></span><code>./mq/environments
+├── base
+│   ├── kustomization.yaml
+│   ├── mq-metric-samples
+│   ├── mq-qm01
+│   └── mq-spring-app
+├── ci
+│   ├── certificates
+│   ├── configmaps
+│   ├── eventlisteners
+│   ├── kustomization.yaml
+│   ├── pipelines
+│   ├── roles
+│   ├── routes
+│   ├── scc
+│   ├── secrets
+│   ├── tasks
+│   ├── triggerbindings
+│   └── triggertemplates
+├── dev
+│   ├── kustomization.yaml
+│   ├── mq-metric-samples
+│   ├── mq-qm01
+│   └── mq-spring-app
+├── prod
+│   ├── kustomization.yaml
+│   ├── mq-metric-samples
+│   ├── mq-qm01
+│   └── mq-spring-app
+├── staging
+│   ├── kustomization.yaml
+│   ├── mq-metric-samples
+│   ├── mq-qm01
+│   └── mq-spring-app
+└── tools
+    ├── certificates
+    ├── cluster-issuers
+    └── kustomization.yaml
+
+31 directories, 6 files
+</code></pre></div> <p>As the cluster grows, more YAMLs will be added to the <code>environments</code> folder. These YAMLs are referenced by corresponding ArgoCD YAMLs in the <code>.../config/argocd/</code> folder.</p> <p><br></p> </li> <li> <p><em>The resource YAMLs</em></p> <p>When a pipeline successfully builds and tests an application component from a source repository, it stores its output YAML in the <code>-apps</code> repository.</p> <p>Issue the following command:</p> <div class=highlight><pre><span></span><code>tree<span class=w> </span>./mq/environments/<span class=w> </span>-L<span class=w> </span><span class=m>3</span>
+</code></pre></div> <p>to show the contents of the folder that will contain the YAMLs for the <code>mq-qm01</code>, <code>mq-spring-app</code> and <code>mq-metric-samples</code> :</p> <div class="no-copy highlight"><pre><span></span><code>./mq/environments/
+├── base
+│   ├── kustomization.yaml
+│   ├── mq-metric-samples
+│   │   ├── deployment.yaml
+│   │   ├── kustomization.yaml
+│   │   ├── role.yaml
+│   │   ├── rolebinding.yaml
+│   │   ├── route.yaml
+│   │   ├── secret.yaml
+│   │   ├── service.yaml
+│   │   ├── serviceaccount.yaml
+│   │   └── servicemonitor.yaml
+│   ├── mq-qm01
+│   │   ├── kustomization.yaml
+│   │   └── queuemanager.yaml
+│   └── mq-spring-app
+│       ├── deployment.yaml
+│       ├── jaegerconfigmap.yaml
+│       ├── kustomization.yaml
+│       ├── route.yaml
+│       ├── service.yaml
+│       └── serviceaccount.yaml
+├── ci
+│   ├── certificates
+│   │   ├── ci-mq-client-certificate.sh
+│   │   ├── ci-mq-client-certificate.yaml_template
+│   │   ├── ci-mq-server-certificate.sh
+│   │   └── ci-mq-server-certificate.yaml_template
+│   ├── configmaps
+│   │   ├── gitops-repo-configmap.sh
+│   │   └── gitops-repo-configmap.yaml_template
+│   ├── eventlisteners
+│   │   ├── cntk-event-listener.sh
+│   │   ├── cntk-event-listener.yaml_template
+│   │   ├── mq-qm-dev-eventlistener.yaml
+│   │   ├── mq-qm-stage-eventlistener.yaml
+│   │   ├── mq-spring-app-dev-eventlistener.yaml
+│   │   └── mq-spring-app-stage-eventlistener.yaml
+│   ├── kustomization.yaml
+│   ├── pipelines
+│   │   ├── ibm-test-pipeline-for-dev.yaml
+│   │   ├── ibm-test-pipeline-for-stage.yaml
+│   │   ├── java-maven-dev-pipeline.yaml
+│   │   ├── mq-metric-samples-dev-pipeline.yaml
+│   │   ├── mq-pipeline-dev.yaml
+│   │   └── mq-spring-app-dev-pipeline.yaml
+│   ├── roles
+│   │   ├── custom-ci-pipeline-sa-rolebinding.yaml
+│   │   ├── custom-dev-pipeline-sa-rolebinding.yaml
+│   │   ├── custom-pipeline-sa-clusterrole.yaml
+│   │   ├── custom-pipeline-sa-role.yaml
+│   │   ├── custom-prod-pipeline-sa-rolebinding.yaml
+│   │   └── custom-staging-pipeline-sa-rolebinding.yaml
+│   ├── routes
+│   │   ├── cntk-route.yaml
+│   │   ├── mq-qm-dev-route.yaml
+│   │   ├── mq-qm-stage-route.yaml
+│   │   ├── mq-spring-app-dev-route.yaml
+│   │   └── mq-spring-app-stage-route.yaml
+│   ├── scc
+│   │   ├── Chart.yaml
+│   │   └── values.yaml
+│   ├── secrets
+│   │   ├── artifactory-access-secret.sh
+│   │   ├── artifactory-access-secret.yaml
+│   │   ├── git-credentials-secret.sh
+│   │   ├── git-credentials-secret.yaml
+│   │   ├── ibm-entitled-registry-credentials-secret.sh
+│   │   ├── ibm-entitled-registry-credentials-secret.yaml
+│   │   ├── mq-client-jks-password-secret.sh
+│   │   └── mq-client-jks-password-secret.yaml
+│   ├── tasks
+│   │   ├── 10-gitops-for-mq.yaml
+│   │   ├── 10-gitops-promotion.yaml
+│   │   ├── 10-gitops.yaml
+│   │   ├── 11-app-name.yaml
+│   │   ├── 12-functional-tests.yaml
+│   │   ├── 13-cphtestp-performance-test.yaml
+│   │   ├── 13-jmeter-performance-test.yaml
+│   │   ├── 4-smoke-tests-mq.yaml
+│   │   ├── 4-smoke-tests.yaml
+│   │   ├── ibm-build-tag-push-v2-6-13.yaml
+│   │   ├── ibm-helm-release-v2-6-13.yaml
+│   │   ├── ibm-img-release-v2-6-13.yaml
+│   │   ├── ibm-img-scan-v2-6-13.yaml
+│   │   ├── ibm-java-maven-test-v2-6-13.yaml
+│   │   ├── ibm-setup-v2-6-13.yaml
+│   │   ├── ibm-tag-release-v2-6-13.yaml
+│   │   └── mq-metrics-build-tag-push.yaml
+│   ├── triggerbindings
+│   │   └── cntk-binding.yaml
+│   └── triggertemplates
+│       ├── mq-qm-dev-triggertemplate.sh
+│       ├── mq-qm-dev-triggertemplate.yaml_template
+│       ├── mq-qm-dev.yaml
+│       ├── mq-qm-stage-triggertemplate.sh
+│       ├── mq-qm-stage-triggertemplate.yaml_template
+│       ├── mq-spring-app-dev-triggertemplate.sh
+│       ├── mq-spring-app-dev-triggertemplate.yaml_template
+│       ├── mq-spring-app-dev.yaml
+│       ├── mq-spring-app-stage-triggertemplate.sh
+│       └── mq-spring-app-stage-triggertemplate.yaml_template
+├── dev
+│   ├── kustomization.yaml
+│   ├── mq-metric-samples
+│   │   ├── components
+│   │   ├── configmap
+│   │   ├── kustomization.yaml
+│   │   └── mq-metric-samples
+│   ├── mq-qm01
+│   │   ├── certificates
+│   │   ├── components
+│   │   ├── configmap
+│   │   ├── kustomization.yaml
+│   │   ├── queuemanager
+│   │   └── secrets
+│   └── mq-spring-app
+│       ├── certificates
+│       ├── components
+│       ├── configmap
+│       ├── deployment
+│       ├── kustomization.yaml
+│       └── secrets
+├── prod
+│   ├── kustomization.yaml
+│   ├── mq-metric-samples
+│   │   ├── components
+│   │   ├── configmap
+│   │   ├── kustomization.yaml
+│   │   └── mq-metric-samples
+│   ├── mq-qm01
+│   │   ├── certificates
+│   │   ├── components
+│   │   ├── configmap
+│   │   ├── kustomization.yaml
+│   │   ├── queuemanager
+│   │   └── secrets
+│   └── mq-spring-app
+│       ├── certificates
+│       ├── components
+│       ├── configmap
+│       ├── deployment
+│       ├── kustomization.yaml
+│       └── secrets
+├── staging
+│   ├── kustomization.yaml
+│   ├── mq-metric-samples
+│   │   ├── components
+│   │   ├── configmap
+│   │   ├── kustomization.yaml
+│   │   └── mq-metric-samples
+│   ├── mq-qm01
+│   │   ├── certificates
+│   │   ├── components
+│   │   ├── configmap
+│   │   ├── kustomization.yaml
+│   │   ├── queuemanager
+│   │   ├── roles
+│   │   └── secrets
+│   └── mq-spring-app
+│       ├── certificates
+│       ├── components
+│       ├── configmap
+│       ├── deployment
+│       ├── kustomization.yaml
+│       └── secrets
+└── tools
+    ├── certificates
+    │   └── mq-selfsigned-certificate
+    ├── cluster-issuers
+    │   ├── mq-selfsigned-clusterissuer
+    │   └── selfsigned-clusterissuer
+    └── kustomization.yaml
+
+74 directories, 99 files
+</code></pre></div> <p>Notice how:</p> <ul> <li>There is a folder corresponding to the <code>dev</code>, <code>stage</code> and <code>prod</code> instances of the queue manager, sample spring applications and metrics sample.</li> <li>Each of these folders will use Kustomize to override the <code>base</code> YAMLs.</li> </ul> <p><br></p> <p>We'll explore this folder structure in more detail as we progress through the tutorial.</p> <p><br></p> </li> </ol> <hr> <h2 id=tailor-the-apps-repository>Tailor the -apps repository<a class=headerlink href=#tailor-the-apps-repository title="Permanent link">¶</a></h2> <p>As we've just seen, before the cloned <code>multi-tenancy-gitops-apps</code> can be used to store application component YAML files, it must be customized.</p> <p>Once we've customized the local repository, we'll push our updates back to our repository branch on GitHub where it can be accessed by ArgoCD running in our cluster.</p> <ol> <li> <p><em>Locate the multi-tenancy-gitops-apps repository</em></p> <div class="admonition tip"> <p class=admonition-title>Tip</p> <p>Ensure you're in the <code>multi-tenancy-gitops-apps</code> <strong>terminal window</strong> before you start to customize the <code>-apps</code> repository.</p> </div> <p>Issue the following command to change to your GitOps repository:</p> <div class=highlight><pre><span></span><code><span class=nb>cd</span><span class=w> </span><span class=nv>$GIT_ROOT</span>
+<span class=nb>cd</span><span class=w> </span>multi-tenancy-gitops-apps
+</code></pre></div> <p><br></p> </li> <li> <p><em>Run the customization script</em></p> <p>Let's customize the cloned <code>multi-tenancy-gitops-apps</code> repository with the relevant <code>$GIT_BRANCH</code> and <code>$GIT_ORG</code> values for our cluster.</p> <p>The sample GitOps repository provides the <code>set-git-source.sh</code> script to make this task easy.</p> <p>Run script to replace the git url and branch to your git organization where you created the git repositories:</p> <div class=highlight><pre><span></span><code>./scripts/set-git-source.sh
+</code></pre></div> <p>The script will list customizations it will use and all the files that it customizes:</p> <div class="no-copy highlight"><pre><span></span><code>Setting kustomization patches to https://github.com/prod-ref-guide/multi-tenancy-gitops.git on branch master
+Setting kustomization patches to https://github.com/prod-ref-guide/multi-tenancy-gitops-infra.git on branch master
+Setting kustomization patches to https://github.com/prod-ref-guide/multi-tenancy-gitops-services.git on branch master
+Setting kustomization patches to https://github.com/prod-ref-guide/multi-tenancy-gitops-apps.git on branch master
+done replacing variables in kustomization.yaml files
+git commit and push changes now
+</code></pre></div> <p>You can examine your local clone of the GitOps repository to verify these customizations. You should see lots of amended ArgoCD YAMLs that point to your GitOps repository on GitHub.</p> <p><br></p> </li> <li> <p><em>Add the changes to a git index, ready to push to GitHub</em></p> <p>We've now customized our local clone of the <code>multi-tenancy-gitops-apps</code> repository. Let's commit these changes and make the customized repository available to the cluster via GitHub.</p> <p>Add all changes in the current folder to a git index:</p> <div class=highlight><pre><span></span><code>git<span class=w> </span>add<span class=w> </span>.
+</code></pre></div> <p><br></p> </li> <li> <p><em>Commit the changes to git</em></p> <p>Use the following command to create a commit record:</p> <div class=highlight><pre><span></span><code>git<span class=w> </span>commit<span class=w> </span>-s<span class=w> </span>-m<span class=w> </span><span class=s2>"GitOps customizations for organization and cluster"</span>
+</code></pre></div> <p>See the Git commit message for the customized files:</p> <div class="no-copy highlight"><pre><span></span><code><span class=o>[</span>master<span class=w> </span>a900c39<span class=o>]</span><span class=w> </span>GitOps<span class=w> </span>customizations<span class=w> </span><span class=k>for</span><span class=w> </span>organization<span class=w> </span>and<span class=w> </span>cluster
+<span class=m>36</span><span class=w> </span>files<span class=w> </span>changed,<span class=w> </span><span class=m>49</span><span class=w> </span>insertions<span class=o>(</span>+<span class=o>)</span>,<span class=w> </span><span class=m>49</span><span class=w> </span>deletions<span class=o>(</span>-<span class=o>)</span>
+</code></pre></div> <p><br></p> </li> <li> <p><em>Push changes to GitHub</em></p> <p>Push this commit back to the branch on GitHub:</p> <div class=highlight><pre><span></span><code>git<span class=w> </span>push<span class=w> </span>origin<span class=w> </span><span class=nv>$GIT_BRANCH</span>
+</code></pre></div> <p>The changes have now been pushed to your GitOps repository:</p> <div class="no-copy highlight"><pre><span></span><code>Enumerating objects: 139, done.
+Counting objects: 100% (139/139), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (76/76), done.
+Writing objects: 100% (87/87), 4.70 KiB | 1.57 MiB/s, done.
+Total 87 (delta 40), reused 0 (delta 0)
+remote: Resolving deltas: 100% (40/40), completed with 14 local objects.
+To https://github.com/tutorial-org-123/multi-tenancy-gitops-apps.git
+   d95eca5..a900c39  master -&gt; master
+</code></pre></div> <p>We've now successfully pushed the customized the <code>-apps</code> repository to our GitHub organization, ready for use by Tekton and ArgoCD.</p> </li> </ol> <p><br></p> <hr> <div class="admonition success"> <p class=admonition-title>Congratulations!</p> <p>You've explored and customized the <code>multi-tenancy-gitops-apps</code> repository that will store the application component YAMLs for your cluster.</p> </div> <p>This section of the tutorial is now complete. In the following section, we're going to use the Git repositories, pipelines and ArgoCD applications we've configured to deploy MQ applications and queue managers to the cluster.</p></div> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> Back to top </button> </main> <!-- Footer --> <footer class=md-footer> <!-- Link to previous and/or next page --> <nav class="md-footer__inner md-grid" aria-label=footer.title> <!-- Link to previous page --> <a href=../services/ class="md-footer__link md-footer__link--prev" rel=prev> <div class="md-footer__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </div> <div class=md-footer__title> <div class=md-ellipsis> <span class=md-footer__direction> Previous </span> Add services </div> </div> </a> <!-- Link to next page --> <a href=../../qmgr-pipeline/topic1/ class="md-footer__link md-footer__link--next" rel=next> <div class=md-footer__title> <div class=md-ellipsis> <span class=md-footer__direction> Next </span> Configuring the pipeline </div> </div> <div class="md-footer__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg> </div> </a> </nav> <!-- Further information --> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-footer-column> <div class=md-footer-text>Site licensed under <a href=https://creativecommons.org/licenses/by-nc-sa/4.0/ >CC BY-NC-SA 4.0</a></div> </div> <div class=md-footer-column> <!-- Copyright and theme information --> <div class=md-footer-text> Copyright © 2021 Cloud Pak Production Deployment Guides </div> </div> <div class=md-footer-social> <a href=https://github.com/ncolon/deployment-guides target=_blank rel=noopener title="Production Deployment Guides on Github Enterprise" class=md-footer-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 496 512"> <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"> </path> </svg> </a> <a href=https://ibm-cloud.slack.com/archives/C02CQ6M2D2R target=_blank rel=noopener title=Slack class=md-footer-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"> <path d="M94.12 315.1c0 25.9-21.16 47.06-47.06 47.06S0 341 0 315.1c0-25.9 21.16-47.06 47.06-47.06h47.06v47.06zm23.72 0c0-25.9 21.16-47.06 47.06-47.06s47.06 21.16 47.06 47.06v117.84c0 25.9-21.16 47.06-47.06 47.06s-47.06-21.16-47.06-47.06V315.1zm47.06-188.98c-25.9 0-47.06-21.16-47.06-47.06S139 32 164.9 32s47.06 21.16 47.06 47.06v47.06H164.9zm0 23.72c25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06H47.06C21.16 243.96 0 222.8 0 196.9s21.16-47.06 47.06-47.06H164.9zm188.98 47.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06h-47.06V196.9zm-23.72 0c0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06V79.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06V196.9zM283.1 385.88c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06v-47.06h47.06zm0-23.72c-25.9 0-47.06-21.16-47.06-47.06 0-25.9 21.16-47.06 47.06-47.06h117.84c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06H283.1z"> </path> </svg> </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.instant", "navigation.tracking", "navigation.tabs.sticky", "navigation.top", "navigation.sections"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script> <script src=../../../../../assets/javascripts/bundle.d7400e89.min.js></script> </body> </html>

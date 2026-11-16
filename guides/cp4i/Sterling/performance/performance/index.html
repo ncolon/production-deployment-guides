@@ -1,0 +1,248 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="The Cloud Pak Production Deployment Guides document and demonstrate how to run cloud-native solutions leveraging IBM Cloud Pak capabilities in a Red Hat OpenShift environment"><meta name=author content="Cloud Pak Production Deployment Guides development team"><link rel=icon href=../../../../../images/cloudnativetoolkit.png><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.7.7"><title>Performance Testing - Cloud Pak Production Deployment Guides</title><link rel=stylesheet href=../../../../../assets/stylesheets/main.ec1eaa64.min.css><link rel=stylesheet href=../../../../../assets/stylesheets/palette.ab4e12ef.min.css><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback"><style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"IBM Plex Mono"}</style><link rel=stylesheet href=../../../../../css/extra.css><link rel=stylesheet href=../../../../../css/toolkit-code.css><script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script><script id=__analytics>function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-Q0FLL49YN3"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-Q0FLL49YN3",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-Q0FLL49YN3",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script><script>"undefined"!=typeof __md_analytics&&__md_analytics()</script><!-- Determine title --><!-- The image needs to have an absolute URL --><!-- Open graph meta tags --><meta property=og:type content=website><meta property=og:title content="Cloud Pak Production Deployment Guides - Performance Testing"><meta property=og:description content="The Cloud Pak Production Deployment Guides document and demonstrate how to run cloud-native solutions leveraging IBM Cloud Pak capabilities in a Red Hat OpenShift environment"><meta property=og:url content=None><meta property=og:image content=assets/images/banner.png><meta property=og:image:type content=image/png><meta property=og:image:width content=1080><meta property=og:image:height content=568></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=black data-md-color-accent=indigo> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#performance-testing class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <header class="md-header md-header--shadow md-header--lifted" data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../../../../.. title="Cloud Pak Production Deployment Guides" class="md-header__button md-logo" aria-label="Cloud Pak Production Deployment Guides" data-md-component=logo> <img src=../../../../../images/cloudnativetoolkit.png alt=logo> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> Cloud Pak Production Deployment Guides </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> Performance Testing </span> </div> </div> </div> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> <div class=md-header__source> <a href=https://github.com/ncolon/production-deployment-guides title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg> </div> <div class=md-source__repository> </div> </a> </div> </nav> <nav class=md-tabs aria-label=Tabs data-md-component=tabs> <div class=md-grid> <ul class=md-tabs__list> <li class=md-tabs__item> <a href=../../../../.. class=md-tabs__link> Home </a> </li> <li class=md-tabs__item> <a href=../../../../../overview/overview/ class=md-tabs__link> Production Considerations </a> </li> <li class=md-tabs__item> <a href=../../../../../quickstart/overview/ class=md-tabs__link> Quick Start Demos </a> </li> <li class=md-tabs__item> <a href=../../../../guides-overview/ class=md-tabs__link> Tutorials </a> </li> <li class=md-tabs__item> <a href=../../../../../infrastructure/ad/ class=md-tabs__link> References </a> </li> <li class=md-tabs__item> <a href=../../../../../overview/whats-new/ class=md-tabs__link> About </a> </li> </ul> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <!-- Determine class according to configuration --> <!-- Main navigation --> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=nav.title data-md-level=0> <!-- Site title --> <!--
+  <label class="md-nav__title" for="__drawer">
+    <a
+      href="../../../../.."
+      title="Cloud Pak Production Deployment Guides"
+      class="md-nav__button md-logo"
+      aria-label="Cloud Pak Production Deployment Guides"
+      data-md-component="logo"
+    >
+      
+  <img src="../../../../../images/cloudnativetoolkit.png" alt="logo">
+
+    </a>
+    Cloud Pak Production Deployment Guides
+  </label>
+--> <!-- Repository information --> <div class=md-nav__source> <a href=https://github.com/ncolon/production-deployment-guides title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg> </div> <div class=md-source__repository> </div> </a> </div> <!-- Render item list --> <ul class=md-nav__list data-md-scrollfix> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#overview class=md-nav__link> <span class=md-ellipsis> Overview </span> </a> </li> <li class=md-nav__item> <a href=#performance-testing-pipeline class=md-nav__link> <span class=md-ellipsis> Performance Testing Pipeline </span> </a> <nav class=md-nav aria-label="Performance Testing Pipeline"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#performance-test-task class=md-nav__link> <span class=md-ellipsis> Performance Test Task </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#performance-testing-for-queuemanager class=md-nav__link> <span class=md-ellipsis> Performance Testing for QueueManager </span> </a> <nav class=md-nav aria-label="Performance Testing for QueueManager"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#ibm-mq-c-performance-harness class=md-nav__link> <span class=md-ellipsis> IBM MQ C Performance Harness </span> </a> </li> <li class=md-nav__item> <a href=#sample-tests class=md-nav__link> <span class=md-ellipsis> Sample tests </span> </a> </li> <li class=md-nav__item> <a href=#running-tests class=md-nav__link> <span class=md-ellipsis> Running tests </span> </a> </li> <li class=md-nav__item> <a href=#task-definition-for-cphtestp-performance-tests class=md-nav__link> <span class=md-ellipsis> Task definition for cphtestp performance tests </span> </a> </li> <li class=md-nav__item> <a href=#test-results class=md-nav__link> <span class=md-ellipsis> Test Results </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#performance-testing-for-mq-sample-application class=md-nav__link> <span class=md-ellipsis> Performance Testing for MQ Sample application </span> </a> <nav class=md-nav aria-label="Performance Testing for MQ Sample application"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#apache-jmeter class=md-nav__link> <span class=md-ellipsis> Apache Jmeter </span> </a> </li> <li class=md-nav__item> <a href=#sample-test-plan class=md-nav__link> <span class=md-ellipsis> Sample test plan </span> </a> </li> <li class=md-nav__item> <a href=#running-jmeter-tests class=md-nav__link> <span class=md-ellipsis> Running jmeter tests </span> </a> </li> <li class=md-nav__item> <a href=#task-definition-for-jmeter-performance-tests class=md-nav__link> <span class=md-ellipsis> Task definition for Jmeter performance tests </span> </a> </li> <li class=md-nav__item> <a href=#test-results_1 class=md-nav__link> <span class=md-ellipsis> Test Results </span> </a> </li> </ul> </nav> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <div><h1 id=performance-testing>Performance Testing<a class=headerlink href=#performance-testing title="Permanent link">¶</a></h1> <!--- cSpell:ignore qube cntk autoplay allowfullscreen usecases queuemanager cphtestp jmeter Jmeter QMGR cphtestp   appdomain --> <h2 id=overview>Overview<a class=headerlink href=#overview title="Permanent link">¶</a></h2> <p><strong>Audience</strong>: Architects, Application developers</p> <p>Performance testing is the process of testing the behavior of an application under load. During performance testing, attributes like the system's scalability, reliability, and resource usage are assessed. Basically, it is a non-functional testing approach used to measure system parameters according to their responsiveness and stability under various workload conditions.</p> <p>In this topic, we're going to look into the below:</p> <ul> <li>Performance Testing Pipeline</li> <li>Performance Testing for QueueManager</li> <li>Performance Testing for MQ Sample application</li> </ul> <details class=note open=open> <summary>Note</summary> <p>The contents in this guide are only examples. We demonstrated some of the practices using some sample usecases. For real world scenarios, it should be used in conjunction with existing performance practices and this content is not a replacement. For assistance, CSMs should reach out to performance SMEs.</p> </details> <hr> <h2 id=performance-testing-pipeline>Performance Testing Pipeline<a class=headerlink href=#performance-testing-pipeline title="Permanent link">¶</a></h2> <p><img alt="Performance test pipeline" class=center src=../images/performance_test_pipeline.png></p> <p><strong>mq-stage-instance-tests</strong></p> <ul> <li>Clones the source repositories.</li> <li>Validates if the deliverable is Queue Manager.</li> <li>Performs <a href=#performance-testing-for-queuemanager>load testing</a> on Queue Manager using cphtestp tool.</li> </ul> <p><strong>app-stage-instance-tests</strong></p> <ul> <li>Clones the source repositories.</li> <li>Grabs the route of the deliverable.</li> <li>Performs <a href=#performance-testing-for-mq-sample-application>load testing</a> on the MQ sample spring application using jmeter test scripts.</li> </ul> <p><strong>app-name</strong></p> <ul> <li>Returns the name of the deliverable.</li> </ul> <p><strong>gitops</strong></p> <ul> <li>Clones the gitops apps repository.</li> <li>Copies the deliverables from staging to prod.</li> <li>Updates the helm chart with latest resources.</li> <li>Generate a Pull Request with the changes to gitops apps repository.</li> </ul> <h3 id=performance-test-task>Performance Test Task<a class=headerlink href=#performance-test-task title="Permanent link">¶</a></h3> <p>In our sample performance test task, we are using</p> <ul> <li><a href=https://github.com/ibm-messaging/mq-cph>IBM MQ C Performance Harness (MQ-CPH)</a> tool to perform tests on the QueueManager. The live data from MQ-CPH tool can be visualized using charts.</li> <li><a href=https://jmeter.apache.org/ >Jmeter</a> to perform tests on the sample Spring Boot application. The live data from Jmeter will be fed into a datastore. Based on this data, the metrics can be visualized using Grafana dashboard.</li> </ul> <p>We will take a deep look into the task definition in the coming sections.</p> <h2 id=performance-testing-for-queuemanager>Performance Testing for QueueManager<a class=headerlink href=#performance-testing-for-queuemanager title="Permanent link">¶</a></h2> <h3 id=ibm-mq-c-performance-harness>IBM MQ C Performance Harness<a class=headerlink href=#ibm-mq-c-performance-harness title="Permanent link">¶</a></h3> <p>IBM MQ C Performance Harness Tool is a native MQI interface performance test tool. It is built on top of C/C++ and is largely based on the function and externals of the JMSPerfHarness Performance Harness for Java Message Service application. Basically, MQ-CPH is designed to test the native, proprietary IBM MQ interface (MQI).</p> <ul> <li>It provides a complete set of performance messaging functionality as well as many other features such as throttled operation (a fixed rate and/or number of messages), multiple destinations, live performance reporting.</li> <li>It will print the current throughput rate on a user-selected periodic basis.</li> <li>It also output summary statistics at the end of a test.</li> </ul> <h3 id=sample-tests>Sample tests<a class=headerlink href=#sample-tests title="Permanent link">¶</a></h3> <p>Our tests for the Queue Manager include the below configurations.</p> <ul> <li><code>MQ_QMGR_NAME</code>, Queue Manager Name - <code>name of the queue manager</code></li> <li><code>MQ_QMGR_HOSTNAME</code>, Hostname where QM is running - <code>queue manager host name</code></li> <li><code>MQ_QMGR_PORT</code>, Port where QM listener is running - <code>queue manager port</code></li> <li><code>MQ_QMGR_CHANNEL</code>, Channel name to use to connect to QM - <code>channel name</code></li> <li><code>MQ_RESPONDER_THREADS</code>, Number of responder threads to run - <code>64</code></li> <li><code>MQ_NON_PERSISTENT</code>, QOS to be used by connecting clients - <code>0</code> or <code>1</code></li> <li><code>MQ_RESULTS_CSV</code>, Log results to csv file and send to stdout at end - <code>true</code> or <code>false</code></li> <li><code>MQ_RESULTS</code>, Log results to stdout at end of tests - <code>true</code> or <code>false</code></li> </ul> <h3 id=running-tests>Running tests<a class=headerlink href=#running-tests title="Permanent link">¶</a></h3> <p>This tool runs as a container. For more details on how to build it, check <a href=https://github.com/ibm-messaging/cphtestp>cphtestp</a> repository.</p> <p>For running this cphtestp performance tests inside Red Hat OpenShift container platform, we defined the tests as a kubernetes <a href=https://kubernetes.io/docs/concepts/workloads/controllers/job/ >job</a> and the details can be found in the next section.</p> <h3 id=task-definition-for-cphtestp-performance-tests>Task definition for cphtestp performance tests<a class=headerlink href=#task-definition-for-cphtestp-performance-tests title="Permanent link">¶</a></h3> <p>In the performance test task definition, the following <code>step</code> defines the performance tests for the Queue Manager.</p> <div class="no-copy highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">cphtestp</span>
+<span class=w>  </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">quay.io/openshift/origin-cli:latest</span>
+<span class=w>  </span><span class=nt>workingDir</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$(params.source-dir)</span>
+<span class=w>  </span><span class=nt>script</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|</span>
+<span class=w>    </span><span class=no>#!/usr/bin/env bash</span>
+<span class=w>    </span><span class=no>set -ex</span>
+<span class=w>    </span><span class=no>SRC_ENV=$(echo $(params.src-environment) | cut -d "-" -f2)</span>
+<span class=w>    </span><span class=no>if [ ! -f /source/route.txt ]; then</span>
+<span class=w>      </span><span class=no>QMGR_NAME=$(oc get qmgr -n ${SRC_ENV} | awk 'NR&gt;1 { printf sep $1; sep=" "}')</span>
+<span class=w>      </span><span class=no>MQ_QM_NAME=$(oc get qmgr ${QMGR_NAME} -o jsonpath='{.spec.queueManager.name}' -n ${SRC_ENV})</span>
+<span class=w>      </span><span class=no>QMGR_HOST_NAME=$(oc get svc ${QMGR_NAME}-ibm-mq -o jsonpath='{.metadata.name}' -n ${SRC_ENV})</span>
+<span class=w>      </span><span class=no>QMGR_HTTP_PORT=$(oc get svc ${QMGR_NAME}-ibm-mq -o jsonpath='{.spec.ports[1].port}' -n ${SRC_ENV})</span>
+<span class=w>      </span><span class=no>oc delete job cphtestp -n ${SRC_ENV} || true</span>
+<span class=w>    </span><span class=no>cat &lt;&lt;EOF | oc apply -f -</span>
+<span class=w>    </span><span class=no>apiVersion: batch/v1</span>
+<span class=w>    </span><span class=no>kind: Job</span>
+<span class=w>    </span><span class=no>metadata:</span>
+<span class=w>      </span><span class=no>labels:</span>
+<span class=w>        </span><span class=no>run: cphtestp</span>
+<span class=w>      </span><span class=no>name: cphtestp</span>
+<span class=w>      </span><span class=no>namespace: ${SRC_ENV}</span>
+<span class=w>    </span><span class=no>spec:</span>
+<span class=w>      </span><span class=no>template:</span>
+<span class=w>        </span><span class=no>metadata:</span>
+<span class=w>          </span><span class=no>labels:</span>
+<span class=w>            </span><span class=no>run: cphtestp</span>
+<span class=w>        </span><span class=no>spec:</span>
+<span class=w>          </span><span class=no>containers:</span>
+<span class=w>          </span><span class=no>- env:</span>
+<span class=w>            </span><span class=no>- name: LICENSE</span>
+<span class=w>              </span><span class=no>value: accept</span>
+<span class=w>            </span><span class=no>- name: MQ_QMGR_HOSTNAME</span>
+<span class=w>              </span><span class=no>value: ${QMGR_HOST_NAME}</span>
+<span class=w>            </span><span class=no>- name: MQ_QMGR_PORT</span>
+<span class=w>              </span><span class=no>value: "${QMGR_HTTP_PORT}"</span>
+<span class=w>            </span><span class=no>- name: MQ_USERID</span>
+<span class=w>              </span><span class=no>value:</span>
+<span class=w>            </span><span class=no>- name: MQ_PASSWORD</span>
+<span class=w>              </span><span class=no>value:</span>
+<span class=w>            </span><span class=no>- name: MQ_QMGR_CHANNEL</span>
+<span class=w>              </span><span class=no>value: IBM.APP.SVRCONN</span>
+<span class=w>            </span><span class=no>- name: MQ_RESPONDER_THREADS</span>
+<span class=w>              </span><span class=no>value: "64"</span>
+<span class=w>            </span><span class=no>- name: MQ_NON_PERSISTENT</span>
+<span class=w>              </span><span class=no>value: "0"</span>
+<span class=w>            </span><span class=no>- name: MQ_QMGR_NAME</span>
+<span class=w>              </span><span class=no>value: ${MQ_QM_NAME}</span>
+<span class=w>            </span><span class=no>- name: MQ_DATA</span>
+<span class=w>              </span><span class=no>value:</span>
+<span class=w>            </span><span class=no>- name: MQ_RESULTS_CSV</span>
+<span class=w>              </span><span class=no>value: "true"</span>
+<span class=w>            </span><span class=no>- name: MQ_RESULTS</span>
+<span class=w>              </span><span class=no>value: "false"</span>
+<span class=w>            </span><span class=no>image: quay.io/cloudnativetoolkit/cphtestp:v1</span>
+<span class=w>            </span><span class=no>imagePullPolicy: Always</span>
+<span class=w>            </span><span class=no>name: cphtestp</span>
+<span class=w>            </span><span class=no>resources:</span>
+<span class=w>              </span><span class=no>requests:</span>
+<span class=w>                </span><span class=no>memory: "2Gi"</span>
+<span class=w>                </span><span class=no>cpu: "2"</span>
+<span class=w>              </span><span class=no>limits:</span>
+<span class=w>                </span><span class=no>memory: "2Gi"</span>
+<span class=w>                </span><span class=no>cpu: "2"</span>
+<span class=w>            </span><span class=no>terminationMessagePath: /dev/termination-log</span>
+<span class=w>            </span><span class=no>volumeMounts:</span>
+<span class=w>              </span><span class=no>- name: cphdata</span>
+<span class=w>                </span><span class=no>mountPath: /var/cph</span>
+<span class=w>          </span><span class=no>dnsPolicy: ClusterFirst</span>
+<span class=w>          </span><span class=no>restartPolicy: OnFailure</span>
+<span class=w>          </span><span class=no>securityContext: {}</span>
+<span class=w>          </span><span class=no>terminationGracePeriodSeconds: 30</span>
+<span class=w>          </span><span class=no>volumes:</span>
+<span class=w>          </span><span class=no>- name: cphdata</span>
+<span class=w>            </span><span class=no>emptyDir: {}</span>
+<span class=w>    </span><span class=no>EOF</span>
+<span class=w>      </span><span class=no>oc get pods -n ${SRC_ENV}</span>
+<span class=w>      </span><span class=no>oc get jobs -n ${SRC_ENV}</span>
+<span class=w>      </span><span class=no>while true; do</span>
+<span class=w>      </span><span class=no>if oc wait --for=condition=complete --timeout=0 job/cphtestp -n ${SRC_ENV} 2&gt;/dev/null; then</span>
+<span class=w>        </span><span class=no>job_result=0</span>
+<span class=w>        </span><span class=no>break</span>
+<span class=w>      </span><span class=no>fi</span>
+<span class=w>      </span><span class=no>if oc wait --for=condition=failed --timeout=0 job/cphtestp -n ${SRC_ENV} 2&gt;/dev/null; then</span>
+<span class=w>        </span><span class=no>job_result=1</span>
+<span class=w>        </span><span class=no>break</span>
+<span class=w>      </span><span class=no>fi</span>
+<span class=w>      </span><span class=no>sleep 3</span>
+<span class=w>    </span><span class=no>done</span>
+<span class=w>    </span><span class=no>if [[ $job_result -eq 1 ]]; then</span>
+<span class=w>        </span><span class=no>echo "Job failed!"</span>
+<span class=w>        </span><span class=no>exit 1</span>
+<span class=w>    </span><span class=no>fi</span>
+<span class=w>    </span><span class=no>echo "Job succeeded"</span>
+<span class=w>    </span><span class=no>oc logs job/cphtestp -n ${SRC_ENV}</span>
+<span class=w>    </span><span class=no>else</span>
+<span class=w>      </span><span class=no>echo "Skipping tests ... This is not a QueueManager"</span>
+<span class=w>    </span><span class=no>fi</span>
+</code></pre></div> <p>The details for the above task are as follows:</p> <ul> <li><code>cphtestp</code> is the name of the step in the tekton task.</li> <li>The base image being used for this task is <code>quay.io/openshift/origin-cli:latest</code>.</li> <li>This step initially validates if the workload is <code>QueueManager</code>. If so, this task will be run. Otherwise, this task will be skipped.</li> <li>Later this will grab queue manager name, queue name, queue manager host and queue manager port.</li> <li>Then the test job in the <code>staging</code> environment will be removed if it is already existing.</li> <li>Currently, the job definition for <code>cphtestp</code> tool only works for a non-secure queue manager. Based on the security definition of the queue manager <code>params.qm-security</code>, existing job will be created in the <code>staging</code> environment if the security is <code>disabled</code>. Otherwise, these tests will be skipped.</li> </ul> <details class=note open=open> <summary>Note</summary> <p>Work is under progress for enabling the tests on secure queue manager as well. This section will soon be updated once we have it in place.</p> </details> <ul> <li>This job is responsible for performing the load tests on the queue manager residing in the <code>staging</code> environment.</li> <li>Once the job is created, it keeps waiting till its completion.</li> <li>If the job is successful, we can see the test results in the logs. If the job fails, pipeline will halt.</li> </ul> <h3 id=test-results>Test Results<a class=headerlink href=#test-results title="Permanent link">¶</a></h3> <p>For your reference, when the above task runs as part of our performance test pipeline, the results in the logs are as follows.</p> <div class=highlight><pre><span></span><code># CSV Results
+# TLS Cipher:
+# Thu Jan 27 16:03:34 UTC 2022
+# Persistence, Msg Size, Threads, Rate (RT/s), Client CPU, IO Read (MB/s), IO Write (MB/s), Net Recv (Gb/s), Net Send (Gb/s), QM CPU
+1,2048,1,195.79,9.78,0.00,0.10,0.01,0.01,2.89
+1,2048,2,371.78,13.88,0.00,0.10,0.02,0.02,3.32
+1,2048,4,608.14,14.45,0.00,0.10,0.03,0.03,3.77
+1,2048,8,776.10,15.78,0.00,0.09,0.04,0.04,4.50
+1,2048,16,798.97,20.22,0.00,0.11,0.04,0.04,4.86
+1,2048,32,800.73,19.22,0.00,0.10,0.04,0.04,5.52
+1,2048,64,782.41,16.35,0.00,0.09,0.04,0.04,5.79
+1,20480,1,171.81,14.08,0.00,0.10,0.06,0.06,3.10
+1,20480,2,321.83,14.18,0.00,0.10,0.11,0.10,3.66
+1,20480,4,540.08,14.22,0.00,0.10,0.18,0.18,4.32
+1,20480,8,650.67,15.72,0.00,0.09,0.21,0.21,5.01
+1,20480,16,702.72,16.35,0.00,0.10,0.23,0.23,5.17
+1,20480,32,678.45,15.65,0.00,0.34,0.22,0.22,7.01
+1,20480,64,672.25,16.08,0.00,0.10,0.22,0.22,6.13
+1,204800,1,82.52,13.25,0.00,0.11,0.26,0.26,3.74
+1,204800,2,152.81,14.39,0.00,0.10,0.47,0.47,4.76
+1,204800,4,243.68,14.60,0.00,0.11,0.75,0.75,6.40
+1,204800,8,282.68,19.51,0.00,0.13,0.88,0.88,13.82
+1,204800,16,298.54,18.80,0.00,0.12,0.93,0.92,8.25
+1,204800,32,288.77,18.82,0.00,0.35,0.89,0.89,8.76
+1,204800,64,270.29,19.40,0.00,0.09,0.84,0.83,9.10
+----------------------------------------
+cph testing finished--------------------
+----------------------------------------
+</code></pre></div> <h2 id=performance-testing-for-mq-sample-application>Performance Testing for MQ Sample application<a class=headerlink href=#performance-testing-for-mq-sample-application title="Permanent link">¶</a></h2> <h3 id=apache-jmeter>Apache Jmeter<a class=headerlink href=#apache-jmeter title="Permanent link">¶</a></h3> <p>Jmeter is an open source java based tool. It helps us to measure the performance of the application. We can basically analyze the load functional behavior of the application.</p> <ul> <li>Jmeter simulates the load, for instance it simulates a group of users and keep sending requests to the target server.</li> <li>We can define a test plan script. All the necessary configurations will be provided here.</li> <li>Once we run the Jmeter tests, results will be available.</li> </ul> <h3 id=sample-test-plan>Sample test plan<a class=headerlink href=#sample-test-plan title="Permanent link">¶</a></h3> <p>Our sample app test plan can be accessed <a href=https://github.com/cloud-native-toolkit/mq-spring-app/blob/master/jmeter/mq-spring-app.jmx>here</a>.</p> <p>If you have a look at the test plan, you will see different configuration elements.</p> <p>For example, you can see <code>__P(route,mq-spring-app-dev.gitops-mq-ha-6ccd7f378ae819553d37d5f2ee142bd6-0000.tor01.containers.appdomain.cloud)</code> in one of the <code>ThreadGroup</code> elements. The default route here is <code>mq-spring-app-dev.gitops-mq-ha-6ccd7f378ae819553d37d5f2ee142bd6-0000.tor01.containers.appdomain.cloud</code>, but the route url is parameterized. We will be passing this information as part of pipeline.</p> <h3 id=running-jmeter-tests>Running jmeter tests<a class=headerlink href=#running-jmeter-tests title="Permanent link">¶</a></h3> <p>Below is the jmeter command we used as part of our tests.</p> <div class=highlight><pre><span></span><code><span class=si>${</span><span class=nv>JMETER_BIN</span><span class=si>}</span>/jmeter.sh<span class=w> </span><span class=se>\</span>
+<span class=w>    </span>-n<span class=w> </span>-t<span class=w> </span><span class=k>$(</span>params.test-plan<span class=k>)</span><span class=w> </span><span class=se>\</span>
+<span class=w>    </span>-Jroute<span class=o>=</span><span class=nv>$route</span><span class=w> </span><span class=se>\</span>
+<span class=w>    </span>-l<span class=w> </span>/source/report.jtl
+</code></pre></div> <p>Here we are providing the test plan script along with the route to the Jmeter. Once the command is executed successfully, it loads the results into <code>/source/report.jtl</code> file.</p> <h3 id=task-definition-for-jmeter-performance-tests>Task definition for Jmeter performance tests<a class=headerlink href=#task-definition-for-jmeter-performance-tests title="Permanent link">¶</a></h3> <p>In the performance test task definition, the following <code>step</code> defines the performance tests for the sample Spring Boot application.</p> <div class="no-copy highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">jmeter-it</span>
+<span class=w>  </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">quay.io/cloudnativetoolkit/jmeter-11:latest</span>
+<span class=w>  </span><span class=nt>workingDir</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$(params.source-dir)</span>
+<span class=w>  </span><span class=nt>script</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|</span>
+<span class=w>    </span><span class=no>#!/usr/bin/env bash</span>
+<span class=w>    </span><span class=no>set -ex</span>
+<span class=w>    </span><span class=no>if [ ! -f /source/route.txt ]; then</span>
+<span class=w>      </span><span class=no>echo "This is a QueueManager ... Skipping this step"</span>
+<span class=w>      </span><span class=no>exit 0</span>
+<span class=w>    </span><span class=no>fi</span>
+<span class=w>    </span><span class=no>route=$(cat /source/route.txt)</span>
+<span class=w>    </span><span class=no>echo $route</span>
+<span class=w>    </span><span class=no>test_plan="$(params.test-plan)"</span>
+<span class=w>    </span><span class=no>ls</span>
+<span class=w>    </span><span class=no>if [ -e $test_plan ]; then</span>
+<span class=w>      </span><span class=no># note: the export does not like the - sign</span>
+<span class=w>      </span><span class=no>${JMETER_BIN}/jmeter.sh \</span>
+<span class=w>        </span><span class=no>-n -t $(params.test-plan) \</span>
+<span class=w>        </span><span class=no>-Jroute=$route \</span>
+<span class=w>        </span><span class=no>-l /source/report.jtl</span>
+<span class=w>      </span><span class=no>cat /source/report.jtl</span>
+<span class=w>      </span><span class=no>echo "checking for the existence of errors .."</span>
+<span class=w>      </span><span class=no>LINES=$(grep false /source/report.jtl | wc -l)</span>
+<span class=w>      </span><span class=no>TOTAL_LINES=$(cat /source/report.jtl | wc -l)</span>
+<span class=w>      </span><span class=no>if [ $LINES -eq 0 ] ; then</span>
+<span class=w>        </span><span class=no>echo "no errors in jmeter test -&gt; ready to promote the code"</span>
+<span class=w>        </span><span class=no>exit 0</span>
+<span class=w>      </span><span class=no>else</span>
+<span class=w>        </span><span class=no>echo "oops, errors were found."</span>
+<span class=w>        </span><span class=no>exit 1</span>
+<span class=w>      </span><span class=no>fi</span>
+<span class=w>    </span><span class=no>else</span>
+<span class=w>      </span><span class=no>echo "Skipping tests ... Jmeter test plan does not exist"</span>
+<span class=w>    </span><span class=no>fi</span>
+</code></pre></div> <p>The details for the above task are as follows:</p> <ul> <li><code>jmeter-it</code> is the name of the step in the tekton task.</li> <li>The base image being used for this task is <code>quay.io/cloudnativetoolkit/jmeter-11:latest</code>.</li> <li>This task initially validates if the workload is <code>QueueManager</code>. If so, this task will be skipped.</li> <li>Later this task will grab the <code>route</code> of the sample spring application.</li> <li>The test plan (jmx file) will be passes as a param <code>params.test-plan</code>.</li> <li>It also validates if the test plan file is existing. If it does not exist, this tests will be skipped.</li> <li>Jmeter uses this test plan to validate the load on the sample spring application and saves the results to <code>/source/report.jtl</code>.</li> <li>Based on that report, this task will check for any existence of errors.</li> <li>If errors exist, pipeline will halt. Otherwise, it moves to the next step.</li> </ul> <h3 id=test-results_1>Test Results<a class=headerlink href=#test-results_1 title="Permanent link">¶</a></h3> <p>For your reference, when the above task runs as part of our performance test pipeline, the logs are as follows.</p> <div class="no-copy highlight"><pre><span></span><code>STEP-JMETER-IT
+
++ '[' '!' -f /source/route.txt ']'
+++ cat /source/route.txt
++ route=mq-spring-app-staging.itzroks-5500068atp-0u2fwd-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud
+mq-spring-app-staging.itzroks-5500068atp-0u2fwd-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud
++ echo mq-spring-app-staging.itzroks-5500068atp-0u2fwd-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud
++ test_plan=jmeter/mq-spring-app.jmx
++ ls
+Dockerfile
+README.md
+architecture
+chart
+jmeter
+local
+mvnw
+mvnw.cmd
+pom.xml
+postman
+route.txt
+sonar-project.properties
+src
++ '[' -e jmeter/mq-spring-app.jmx ']'
++ /opt/apache-jmeter-5.4.1/bin/jmeter.sh -n -t jmeter/mq-spring-app.jmx -Jroute=mq-spring-app-staging.itzroks-5500068atp-0u2fwd-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud -l /source/report.jtl
+Jan 18, 2022 12:02:22 PM java.util.prefs.FileSystemPreferences$1 run
+INFO: Created user preferences directory.
+Creating summariser &lt;summary&gt;
+Created the tree successfully using jmeter/mq-spring-app.jmx
+Starting standalone test @ Tue Jan 18 12:02:22 GMT 2022 (1642507342857)
+Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445
+Warning: Nashorn engine is planned to be removed from a future JDK release
+summary +   1488 in 00:00:07 =  217.2/s Avg:     9 Min:     2 Max:   480 Err:     0 (0.00%) Active: 3 Started: 3 Finished: 0
+Generate Summary Results +    321 in 00:00:07 =   46.8/s Avg:    20 Min:    10 Max:   480 Err:     0 (0.00%) Active: 3 Started: 3 Finished: 0
+summary +   8599 in 00:00:28 =  304.8/s Avg:     8 Min:     2 Max:   161 Err:     0 (0.00%) Active: 0 Started: 3 Finished: 3
+summary =  10087 in 00:00:35 =  287.7/s Avg:     8 Min:     2 Max:   480 Err:     0 (0.00%)
+Generate Summary Results +   1355 in 00:00:28 =   48.0/s Avg:    17 Min:     7 Max:   139 Err:     0 (0.00%) Active: 0 Started: 3 Finished: 3
+Generate Summary Results =   1676 in 00:00:35 =   47.8/s Avg:    17 Min:     7 Max:   480 Err:     0 (0.00%)
+Tidying up ...    @ Tue Jan 18 12:02:58 GMT 2022 (1642507378217)
+... end of run
++ cat /source/report.jtl
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1642507343336,480,POST send-json,200,,Thread Group 1-1,text,true,,400,378,1,2,https://mq-spring-app-staging.itzroks-5500068atp-0u2fwd-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud/api/send-json,475,0,265
+1642507343336,480,GET send-hello-world,200,,Thread Group 2-1,text,true,,355,281,1,2,https://mq-spring-app-staging.itzroks-5500068atp-0u2fwd-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud/api/send-hello-world,479,0,266
+1642507343818,11,GET send-hello-world,200,,Thread Group 2-1,text,true,,355,281,1,2,https://mq-spring-app-staging.itzroks-5500068atp-0u2fwd-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud/api/send-hello-world,11,0,0
+1642507343830,10,GET send-hello-world,200,,Thread Group 2-1,text,true,,355,281,1,2,https://mq-spring-app-staging.itzroks-5500068atp-0u2fwd-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud/api/send-hello-world,10,0,0
+1642507343818,25,POST send-json,200,,Thread Group 1-1,text,true,,400,378,1,2,https://mq-spring-app-staging.itzroks-5500068atp-0u2fwd-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud/api/send-json,25,0,14
+.....
+.....
+.....
+1642507378177,4,GET receive,200,,Thread Group 3-1,text,true,,361,269,1,1,https://mq-spring-app-staging.itzroks-5500068atp-0u2fwd-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud/api/recv,4,0,0
+1642507378181,5,GET receive,200,,Thread Group 3-1,text,true,,361,269,1,1,https://mq-spring-app-staging.itzroks-5500068atp-0u2fwd-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud/api/recv,5,0,0
+1642507378186,4,GET receive,200,,Thread Group 3-1,text,true,,361,269,1,1,https://mq-spring-app-staging.itzroks-5500068atp-0u2fwd-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud/api/recv,4,0,0
+1642507378190,6,GET receive,200,,Thread Group 3-1,text,true,,361,269,1,1,https://mq-spring-app-staging.itzroks-5500068atp-0u2fwd-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud/api/recv,6,0,0
+1642507378196,5,GET receive,200,,Thread Group 3-1,text,true,,411,269,1,1,https://mq-spring-app-staging.itzroks-5500068atp-0u2fwd-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud/api/recv,5,0,0
+1642507378201,6,GET receive,200,,Thread Group 3-1,text,true,,361,269,1,1,https://mq-spring-app-staging.itzroks-5500068atp-0u2fwd-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud/api/recv,6,0,0
+1642507378207,4,GET receive,200,,Thread Group 3-1,text,true,,361,269,1,1,https://mq-spring-app-staging.itzroks-5500068atp-0u2fwd-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud/api/recv,4,0,0
+1642507378211,4,GET receive,200,,Thread Group 3-1,text,true,,411,269,1,1,https://mq-spring-app-staging.itzroks-5500068atp-0u2fwd-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud/api/recv,4,0,0
++ echo 'checking for the existence of errors ..'
+checking for the existence of errors ..
+++ grep false /source/report.jtl
+++ wc -l
++ LINES=0
+++ cat /source/report.jtl
+++ wc -l
++ TOTAL_LINES=10088
++ '[' 0 -eq 0 ']'
+no errors in jmeter test -&gt; ready to promote the code
++ echo 'no errors in jmeter test -&gt; ready to promote the code'
++ exit 0
+</code></pre></div></div> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> Back to top </button> </main> <!-- Footer --> <footer class=md-footer> <!-- Link to previous and/or next page --> <!-- Further information --> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-footer-column> <div class=md-footer-text>Site licensed under <a href=https://creativecommons.org/licenses/by-nc-sa/4.0/ >CC BY-NC-SA 4.0</a></div> </div> <div class=md-footer-column> <!-- Copyright and theme information --> <div class=md-footer-text> Copyright © 2021 Cloud Pak Production Deployment Guides </div> </div> <div class=md-footer-social> <a href=https://github.com/ncolon/deployment-guides target=_blank rel=noopener title="Production Deployment Guides on Github Enterprise" class=md-footer-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 496 512"> <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"> </path> </svg> </a> <a href=https://ibm-cloud.slack.com/archives/C02CQ6M2D2R target=_blank rel=noopener title=Slack class=md-footer-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"> <path d="M94.12 315.1c0 25.9-21.16 47.06-47.06 47.06S0 341 0 315.1c0-25.9 21.16-47.06 47.06-47.06h47.06v47.06zm23.72 0c0-25.9 21.16-47.06 47.06-47.06s47.06 21.16 47.06 47.06v117.84c0 25.9-21.16 47.06-47.06 47.06s-47.06-21.16-47.06-47.06V315.1zm47.06-188.98c-25.9 0-47.06-21.16-47.06-47.06S139 32 164.9 32s47.06 21.16 47.06 47.06v47.06H164.9zm0 23.72c25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06H47.06C21.16 243.96 0 222.8 0 196.9s21.16-47.06 47.06-47.06H164.9zm188.98 47.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06h-47.06V196.9zm-23.72 0c0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06V79.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06V196.9zM283.1 385.88c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06v-47.06h47.06zm0-23.72c-25.9 0-47.06-21.16-47.06-47.06 0-25.9 21.16-47.06 47.06-47.06h117.84c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06H283.1z"> </path> </svg> </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.instant", "navigation.tracking", "navigation.tabs.sticky", "navigation.top", "navigation.sections"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script> <script src=../../../../../assets/javascripts/bundle.d7400e89.min.js></script> </body> </html>

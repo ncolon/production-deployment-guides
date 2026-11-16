@@ -1,0 +1,756 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="The Cloud Pak Production Deployment Guides document and demonstrate how to run cloud-native solutions leveraging IBM Cloud Pak capabilities in a Red Hat OpenShift environment"><meta name=author content="Cloud Pak Production Deployment Guides development team"><link rel=icon href=../../../../../images/cloudnativetoolkit.png><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.7.7"><title>IBM API Connect Multi-cloud Deployment - Cloud Pak Production Deployment Guides</title><link rel=stylesheet href=../../../../../assets/stylesheets/main.ec1eaa64.min.css><link rel=stylesheet href=../../../../../assets/stylesheets/palette.ab4e12ef.min.css><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback"><style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"IBM Plex Mono"}</style><link rel=stylesheet href=../../../../../css/extra.css><link rel=stylesheet href=../../../../../css/toolkit-code.css><script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script><script id=__analytics>function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-Q0FLL49YN3"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-Q0FLL49YN3",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-Q0FLL49YN3",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script><script>"undefined"!=typeof __md_analytics&&__md_analytics()</script><!-- Determine title --><!-- The image needs to have an absolute URL --><!-- Open graph meta tags --><meta property=og:type content=website><meta property=og:title content="Cloud Pak Production Deployment Guides - IBM API Connect Multi-cloud Deployment"><meta property=og:description content="The Cloud Pak Production Deployment Guides document and demonstrate how to run cloud-native solutions leveraging IBM Cloud Pak capabilities in a Red Hat OpenShift environment"><meta property=og:url content=None><meta property=og:image content=assets/images/banner.png><meta property=og:image:type content=image/png><meta property=og:image:width content=1080><meta property=og:image:height content=568></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=black data-md-color-accent=indigo> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#ibm-api-connect-multi-cloud-deployment class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <header class="md-header md-header--shadow md-header--lifted" data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../../../../.. title="Cloud Pak Production Deployment Guides" class="md-header__button md-logo" aria-label="Cloud Pak Production Deployment Guides" data-md-component=logo> <img src=../../../../../images/cloudnativetoolkit.png alt=logo> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> Cloud Pak Production Deployment Guides </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> IBM API Connect Multi-cloud Deployment </span> </div> </div> </div> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> <div class=md-header__source> <a href=https://github.com/ncolon/production-deployment-guides title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg> </div> <div class=md-source__repository> </div> </a> </div> </nav> <nav class=md-tabs aria-label=Tabs data-md-component=tabs> <div class=md-grid> <ul class=md-tabs__list> <li class=md-tabs__item> <a href=../../../../.. class=md-tabs__link> Home </a> </li> <li class=md-tabs__item> <a href=../../../../../overview/overview/ class=md-tabs__link> Production Considerations </a> </li> <li class=md-tabs__item> <a href=../../../../../quickstart/overview/ class=md-tabs__link> Quick Start Demos </a> </li> <li class=md-tabs__item> <a href=../../../../guides-overview/ class=md-tabs__link> Tutorials </a> </li> <li class=md-tabs__item> <a href=../../../../../infrastructure/ad/ class=md-tabs__link> References </a> </li> <li class=md-tabs__item> <a href=../../../../../overview/whats-new/ class=md-tabs__link> About </a> </li> </ul> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <!-- Determine class according to configuration --> <!-- Main navigation --> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=nav.title data-md-level=0> <!-- Site title --> <!--
+  <label class="md-nav__title" for="__drawer">
+    <a
+      href="../../../../.."
+      title="Cloud Pak Production Deployment Guides"
+      class="md-nav__button md-logo"
+      aria-label="Cloud Pak Production Deployment Guides"
+      data-md-component="logo"
+    >
+      
+  <img src="../../../../../images/cloudnativetoolkit.png" alt="logo">
+
+    </a>
+    Cloud Pak Production Deployment Guides
+  </label>
+--> <!-- Repository information --> <div class=md-nav__source> <a href=https://github.com/ncolon/production-deployment-guides title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg> </div> <div class=md-source__repository> </div> </a> </div> <!-- Render item list --> <ul class=md-nav__list data-md-scrollfix> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#overview class=md-nav__link> <span class=md-ellipsis> Overview </span> </a> <nav class=md-nav aria-label=Overview> <ul class=md-nav__list> <li class=md-nav__item> <a href=#ibm-api-connect-operator class=md-nav__link> <span class=md-ellipsis> IBM API Connect Operator </span> </a> </li> <li class=md-nav__item> <a href=#management-and-developer-portal class=md-nav__link> <span class=md-ellipsis> Management and Developer Portal </span> </a> </li> <li class=md-nav__item> <a href=#gateway-and-analytics class=md-nav__link> <span class=md-ellipsis> Gateway and Analytics </span> </a> </li> <li class=md-nav__item> <a href=#post-install-configuration class=md-nav__link> <span class=md-ellipsis> Post Install Configuration </span> </a> </li> </ul> </nav> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <div><h1 id=ibm-api-connect-multi-cloud-deployment>IBM API Connect Multi-cloud Deployment<a class=headerlink href=#ibm-api-connect-multi-cloud-deployment title="Permanent link">¶</a></h1> <!--- cSpell:ignore singl apiconnectcluster ibmc APIC Availability unmanaged practioners Pak Paks Quickstart qube cntk autoplay allowfullscreen Cavazos multicloud --> <div class="admonition abstract"> <p class=admonition-title>Abstract</p> <p>This document describes the steps to carry out a multi-cloud deployment of <a href="https://www.ibm.com/docs/en/api-connect/10.0.x?topic=api-connect-overview">IBM API Connect</a> across different cloud providers, IBM Cloud and Amazon AWS, all using RedHat OpenSift Container Platform as the underlying unified platform.</p> </div> <p><img alt=API-topology src=../images/deploy/APIC-multi-cluster.png style=max-height:900px></p> <h2 id=overview>Overview<a class=headerlink href=#overview title="Permanent link">¶</a></h2> <p>In this document you will find the steps followed in order to deploy the a multi-cloud topology for IBM API Connect. The Management and Developer components have been installed on a RedHat OpenShift Kubernetes Service cluster in IBM Cloud. The Gateway and Analytics components have been installed on two different RedHat OpenShift clusters, one being a RedHat OpenShift Kubernetes Service cluster on IBM Cloud and the other a RedHat OpenShift cluster on Amazon AWS. The aim is to simulate the use case where you might have applications running on RedHat OpenShift clusters that are hosted on different clouds but you want to unify the way you develop, manage, socialize and secure the APIs of your applications using IBM API Connect.</p> <div class="admonition warning"> <p class=admonition-title>Note</p> <p>How to create RedHat OpenShift Kubernetes Service clusters on IBM Cloud is not the goal of this document. You can find the official documentation <a href="https://cloud.ibm.com/docs/openshift?topic=openshift-getting-started">here</a>. How to deploy a RedHat OpenShift cluster on Amazon AWS isn't the goal of this document either. You can find the official documentation <a href=https://docs.openshift.com/container-platform/4.7/installing/installing_aws/installing-aws-default.html>here</a>.</p> </div> <p>Once you have these RedHat OpenShift clusters (we will use three different RedHat OpenShift clusters in this use case), the deployment process for the different IBM API Connect components should be similar regardless of the cloud provider (or on-premises infrastructure) where those RedHat OpenShift clusters have been deployed onto. The only caveat you will need to pay attention to would be the <code>host</code> parameter for the different endpoints the IBM API Connect components require and the <code>storageClass</code> the different IBM API Connect components will make use of to claim storage.</p> <p>The use case described in this document is based on:</p> <ul> <li>The IBM API Connect official documentation <a href="https://www.ibm.com/docs/en/api-connect/10.0.x?topic=procedures-deploying-kubernetes">here</a> - <em>This documentation refers to plain kubernetes IBM API Connect installations but provide good information of the required process for this use case</em></li> <li>The work carried out by Cesar Cavazos on IBM API Connect highly available installations on 2 data centers <a href=https://github.ibm.com/cesar-cavazos/apic-2dcha/ >here</a>.</li> </ul> <div class="admonition info"> <p class=admonition-title>Tip</p> <p>Make sure you are comfortable with both the RedHat OpenShift web console and CLI to be able to execute all the steps in this document.</p> </div> <h3 id=ibm-api-connect-operator>IBM API Connect Operator<a class=headerlink href=#ibm-api-connect-operator title="Permanent link">¶</a></h3> <p>In order to install any IBM API Connect component in any RedHat OpenShift cluster, the first thing we need to do is to install the IBM API Connect Operator. We have used the official IBM API Connect documentation <a href="https://www.ibm.com/docs/en/api-connect/10.0.x?topic=openshift-installing-in-online-environment">here</a> as the guideline to install the IBM API Connect Operator in the three RedHat OpenShift clusters. Here are the exact steps we have followed:</p> <ol> <li> <p>Create a namespace called <code>apic</code> where the IBM API Connect components will be created into:</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>new-project<span class=w> </span>apic
+</code></pre></div> </li> <li> <p>Create the IBM Entitlement Key secret so that you are allowed to pull down IBM Software.</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>create<span class=w> </span>secret<span class=w> </span>docker-registry<span class=w> </span>ibm-entitlement-key<span class=w> </span>--docker-server<span class=o>=</span>cp.icr.io<span class=w> </span>--docker-username<span class=o>=</span>cp<span class=w> </span>--docker-password<span class=o>=</span>&lt;YOUR_IBM_ENTITLEMENT_KEY&gt;<span class=w> </span>--docker-email<span class=o>=</span>&lt;YOUR_EMAIL&gt;
+</code></pre></div> <p>where</p> <ul> <li><code>YOUR_IBM_ENTITLEMENT_KEY</code> is your IBM Entitlement Key that you can retrieve from the <a href=https://myibm.ibm.com/products-services/containerlibrary>IBM Container Software Library</a>.</li> <li><code>YOUR_EMAIL</code> is you email address.</li> </ul> </li> <li> <p>Link your IBM Entitlement Key secret to the default Service Account for pulling images.</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>secrets<span class=w> </span>link<span class=w> </span>default<span class=w> </span>ibm-entitlement-key<span class=w> </span>--for<span class=o>=</span>pull
+</code></pre></div> </li> <li> <p>From the RedHat OpenShift web console, click <code>+</code> and create the following <code>CatalogSource</code> resources:</p> <p><img alt=add src=../images/deploy/add.png style=max-height:900px></p> <ol> <li> <p>The IBM Operator Catalog source. Add the following <code>CatalogSource</code> definition and click save.</p> <div class=highlight><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">operators.coreos.com/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">CatalogSource</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-operator-catalog</span>
+<span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">openshift-marketplace</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=nt>displayName</span><span class=p>:</span><span class=w> </span><span class=s>"IBM</span><span class=nv> </span><span class=s>Operator</span><span class=nv> </span><span class=s>Catalog"</span><span class=w> </span>
+<span class=nt>publisher</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">IBM</span>
+<span class=nt>sourceType</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">grpc</span>
+<span class=nt>image</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">docker.io/ibmcom/ibm-operator-catalog</span>
+<span class=nt>updateStrategy</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>registryPoll</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>interval</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">45m</span>
+</code></pre></div> </li> <li> <p>The IBM Cloud Pak foundational services operator catalog. Add the following <code>CatalogSource</code> definition and click save.</p> <div class=highlight><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">operators.coreos.com/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">CatalogSource</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">opencloud-operators</span>
+<span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">openshift-marketplace</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=nt>displayName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">IBMCS Operators</span>
+<span class=nt>image</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">docker.io/ibmcom/ibm-common-service-catalog:latest</span>
+<span class=nt>publisher</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">IBM</span>
+<span class=nt>sourceType</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">grpc</span>
+<span class=nt>updateStrategy</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>registryPoll</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>interval</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">45m</span>
+</code></pre></div> </li> </ol> </li> <li> <p>Install the IBM API Connect Operator.</p> <ol> <li> <p>Go to <code>Operators --&gt; OperatorHub</code> on the left hand side menu of your RedHat OpenShift web console. Search for <code>API Connect</code> and click on the tile.</p> <p><img alt="apic operator" src=../images/deploy/apic-operator.png style=max-height:900px></p> </li> <li> <p>Click on <code>Install</code> on the IBM API Connect menu that hovers from the right hand side.</p> <p><img alt="apic menu" src=../images/deploy/apic-menu.png style=max-height:900px></p> </li> <li> <p>Click on <code>Install</code> on the <code>Install Operator</code> page leaving the defaults.</p> <p><img alt="apic install" src=../images/deploy/apic-install.png style=max-height:900px></p> </li> </ol> </li> <li> <p>After few minutes, you should see the following IBM Operators installed on your <code>apic</code> namespace if you go to <code>Operators --&gt; Installed Operators</code> on the left hand side menu of your RedHat OpenShift web console.</p> <p><img alt=operators src=../images/deploy/operators.png style=max-height:900px></p> </li> </ol> <div class="admonition success"> <p class=admonition-title>Congratulations</p> <p>You should now have the IBM API Connect Operator installed on your RedHat OpenShift cluster.</p> </div> <div class="admonition warning"> <p class=admonition-title>Warning</p> <p>Remember to execute this section in all RedHat OpenShift clusters where you want to deploy any IBM API Connect component.</p> </div> <h3 id=management-and-developer-portal>Management and Developer Portal<a class=headerlink href=#management-and-developer-portal title="Permanent link">¶</a></h3> <p>In this section, we are going to deploy the IBM API Connect Management and Developer Portal components on the same RedHat OpenShift cluster. This cluster will be a separate cluster from the other two RedHat OpenShift clusters that will host the IBM API Connect Gateway component to securely expose our application APIs as well as the IBM API Connect Analytics component to gather the IBM API Connect Gateway analytics.</p> <p>However, before installing any IBM API Connect component in our RedHat OpenShift clusters, we need to create some certificates that will be used to ensure secure connections between these different IBM API Connect components. Refer to the official IBM API Connect documentation for more detail about the different <a href="https://www.ibm.com/docs/en/api-connect/10.0.x?topic=deployment-overview-endpoints-certificates">IBM API Connect component endpoints</a> as well as <a href="https://www.ibm.com/docs/en/api-connect/10.0.x?topic=deployment-certificates-in-kubernetes-environment">certificates</a>.</p> <div class="admonition info"> <p class=admonition-title>Info</p> <p>You can find how to obtain the IBM API Connect official product files that will be used throughout the rest of this document <a href="https://www.ibm.com/docs/en/api-connect/10.0.x?topic=kubernetes-obtaining-product-files">here</a>.</p> </div> <ol> <li> <p>Create the <code>ingress-issuer-v1-alpha1.yaml</code> file that contains the <code>Issuer</code> and <code>Certificate</code> object definitions with the content below:</p> <div class=highlight><pre><span></span><code><span class=c1>#</span>
+<span class=c1># Licensed under the Apache License, Version 2.0 (the "License");</span>
+<span class=c1># you may not use this file except in compliance with the License.</span>
+<span class=c1># You may obtain a copy of the License at</span>
+<span class=c1># </span>
+<span class=c1>#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class=c1># </span>
+<span class=c1># Unless required by applicable law or agreed to in writing, software</span>
+<span class=c1># distributed under the License is distributed on an "AS IS" BASIS,</span>
+<span class=c1># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class=c1># See the License for the specific language governing permissions and</span>
+<span class=c1># limitations under the License.</span>
+<span class=c1>#</span>
+
+<span class=nn>---</span>
+
+<span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">certmanager.k8s.io/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Issuer</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">selfsigning-issuer</span>
+<span class=nt>labels</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">{</span>
+<span class=nt>    app.kubernetes.io/instance</span><span class=p>:</span><span class=w> </span><span class=s>"management"</span><span class="p p-Indicator">,</span>
+<span class=nt>    app.kubernetes.io/managed-by</span><span class=p>:</span><span class=w> </span><span class=s>"ibm-apiconnect"</span><span class="p p-Indicator">,</span>
+<span class=nt>    app.kubernetes.io/name</span><span class=p>:</span><span class=w> </span><span class=s>"selfsigning-issuer"</span>
+<span class="p p-Indicator">}</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=nt>selfSigned</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">{}</span>
+<span class=nn>---</span>
+<span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">certmanager.k8s.io/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Certificate</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ingress-ca</span>
+<span class=nt>labels</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">{</span>
+<span class=nt>    app.kubernetes.io/instance</span><span class=p>:</span><span class=w> </span><span class=s>"management"</span><span class="p p-Indicator">,</span>
+<span class=nt>    app.kubernetes.io/managed-by</span><span class=p>:</span><span class=w> </span><span class=s>"ibm-apiconnect"</span><span class="p p-Indicator">,</span>
+<span class=nt>    app.kubernetes.io/name</span><span class=p>:</span><span class=w> </span><span class=s>"ingress-ca"</span>
+<span class="p p-Indicator">}</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=nt>duration</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">87600h</span><span class=w> </span><span class=c1># 10 years</span>
+<span class=nt>renewBefore</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">720h</span><span class=w> </span><span class=c1># 30 days</span>
+<span class=nt>secretName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ingress-ca</span>
+<span class=nt>commonName</span><span class=p>:</span><span class=w> </span><span class=s>"ingress-ca"</span>
+<span class=nt>usages</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">digital signature</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">key encipherment</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">cert sign</span>
+<span class=nt>isCA</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=nt>issuerRef</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">selfsigning-issuer</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Issuer</span>
+<span class=nn>---</span>
+<span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">certmanager.k8s.io/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Issuer</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ingress-issuer</span>
+<span class=nt>labels</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">{</span>
+<span class=nt>    app.kubernetes.io/instance</span><span class=p>:</span><span class=w> </span><span class=s>"management"</span><span class="p p-Indicator">,</span>
+<span class=nt>    app.kubernetes.io/managed-by</span><span class=p>:</span><span class=w> </span><span class=s>"ibm-apiconnect"</span><span class="p p-Indicator">,</span>
+<span class=nt>    app.kubernetes.io/name</span><span class=p>:</span><span class=w> </span><span class=s>"ingress-issuer"</span>
+<span class="p p-Indicator">}</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=nt>ca</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>secretName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ingress-ca</span>
+<span class=nn>---</span>
+<span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">certmanager.k8s.io/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Certificate</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">portal-admin-client</span>
+<span class=nt>labels</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">{</span>
+<span class=nt>    app.kubernetes.io/instance</span><span class=p>:</span><span class=w> </span><span class=s>"management"</span><span class="p p-Indicator">,</span>
+<span class=nt>    app.kubernetes.io/managed-by</span><span class=p>:</span><span class=w> </span><span class=s>"ibm-apiconnect"</span><span class="p p-Indicator">,</span>
+<span class=nt>    app.kubernetes.io/name</span><span class=p>:</span><span class=w> </span><span class=s>"portal-admin-client"</span>
+<span class="p p-Indicator">}</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=nt>commonName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">portal-admin-client</span>
+<span class=nt>secretName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">portal-admin-client</span>
+<span class=nt>issuerRef</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ingress-issuer</span>
+<span class=nt>usages</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=s>"client</span><span class=nv> </span><span class=s>auth"</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=s>"signing"</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=s>"key</span><span class=nv> </span><span class=s>encipherment"</span>
+<span class=nt>duration</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">17520h</span><span class=w> </span><span class=c1># 2 years</span>
+<span class=nt>renewBefore</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">720h</span><span class=w> </span><span class=c1># 30 days</span>
+<span class=nn>---</span>
+<span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">certmanager.k8s.io/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Certificate</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gateway-client-client</span>
+<span class=nt>labels</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">{</span>
+<span class=nt>    app.kubernetes.io/instance</span><span class=p>:</span><span class=w> </span><span class=s>"management"</span><span class="p p-Indicator">,</span>
+<span class=nt>    app.kubernetes.io/managed-by</span><span class=p>:</span><span class=w> </span><span class=s>"ibm-apiconnect"</span><span class="p p-Indicator">,</span>
+<span class=nt>    app.kubernetes.io/name</span><span class=p>:</span><span class=w> </span><span class=s>"gateway-client-client"</span>
+<span class="p p-Indicator">}</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=nt>commonName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gateway-client-client</span>
+<span class=nt>secretName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gateway-client-client</span>
+<span class=nt>issuerRef</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ingress-issuer</span>
+<span class=nt>usages</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=s>"client</span><span class=nv> </span><span class=s>auth"</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=s>"signing"</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=s>"key</span><span class=nv> </span><span class=s>encipherment"</span>
+<span class=nt>duration</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">17520h</span><span class=w> </span><span class=c1># 2 years</span>
+<span class=nt>renewBefore</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">720h</span><span class=w> </span><span class=c1># 30 days</span>
+<span class=nn>---</span>
+<span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">certmanager.k8s.io/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Certificate</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">analytics-client-client</span>
+<span class=nt>labels</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">{</span>
+<span class=nt>    app.kubernetes.io/instance</span><span class=p>:</span><span class=w> </span><span class=s>"management"</span><span class="p p-Indicator">,</span>
+<span class=nt>    app.kubernetes.io/managed-by</span><span class=p>:</span><span class=w> </span><span class=s>"ibm-apiconnect"</span><span class="p p-Indicator">,</span>
+<span class=nt>    app.kubernetes.io/name</span><span class=p>:</span><span class=w> </span><span class=s>"analytics-client-client"</span>
+<span class="p p-Indicator">}</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=nt>commonName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">analytics-client-client</span>
+<span class=nt>secretName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">analytics-client-client</span>
+<span class=nt>issuerRef</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ingress-issuer</span>
+<span class=nt>usages</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=s>"client</span><span class=nv> </span><span class=s>auth"</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=s>"signing"</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=s>"key</span><span class=nv> </span><span class=s>encipherment"</span>
+<span class=nt>duration</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">17520h</span><span class=w> </span><span class=c1># 2 years</span>
+<span class=nt>renewBefore</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">720h</span><span class=w> </span><span class=c1># 30 days</span>
+<span class=nn>---</span>
+<span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">certmanager.k8s.io/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Certificate</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">analytics-ingestion-client</span>
+<span class=nt>labels</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">{</span>
+<span class=nt>    app.kubernetes.io/instance</span><span class=p>:</span><span class=w> </span><span class=s>"management"</span><span class="p p-Indicator">,</span>
+<span class=nt>    app.kubernetes.io/managed-by</span><span class=p>:</span><span class=w> </span><span class=s>"ibm-apiconnect"</span><span class="p p-Indicator">,</span>
+<span class=nt>    app.kubernetes.io/name</span><span class=p>:</span><span class=w> </span><span class=s>"analytics-ingestion-client"</span>
+<span class="p p-Indicator">}</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=nt>commonName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">analytics-ingestion-client</span>
+<span class=nt>secretName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">analytics-ingestion-client</span>
+<span class=nt>issuerRef</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ingress-issuer</span>
+<span class=nt>usages</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=s>"client</span><span class=nv> </span><span class=s>auth"</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=s>"signing"</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=s>"key</span><span class=nv> </span><span class=s>encipherment"</span>
+<span class=nt>duration</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">17520h</span><span class=w> </span><span class=c1># 2 years</span>
+<span class=nt>renewBefore</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">720h</span><span class=w> </span><span class=c1># 30 days</span>
+</code></pre></div> </li> <li> <p>Apply that <code>ingress-issuer-v1-alpha1.yaml</code> file to get the <code>Issuer</code> and <code>Certificate</code> objects created in the <code>apic</code> namespace of your RedHat OpenShift cluster.</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>apply<span class=w> </span>-f<span class=w> </span>ingress-issuer-v1-alpha1.yaml<span class=w> </span>-n<span class=w> </span>apic
+</code></pre></div> </li> <li> <p>You should see the following output.</p> <div class=highlight><pre><span></span><code>issuer.certmanager.k8s.io/selfsigning-issuer<span class=w> </span>created
+certificate.certmanager.k8s.io/ingress-ca<span class=w> </span>created
+issuer.certmanager.k8s.io/ingress-issuer<span class=w> </span>created
+certificate.certmanager.k8s.io/portal-admin-client<span class=w> </span>created
+certificate.certmanager.k8s.io/gateway-client-client<span class=w> </span>created
+certificate.certmanager.k8s.io/analytics-client-client<span class=w> </span>created
+certificate.certmanager.k8s.io/analytics-ingestion-client<span class=w> </span>created
+</code></pre></div> </li> <li> <p>If you list the certificates on your system, you should see the following:</p> <div class=highlight><pre><span></span><code>oc get certificates -n apic
+
+NAME                         READY   SECRET                       AGE   EXPIRATION
+analytics-client-client      True    analytics-client-client      48s   2023-09-07T11:22:03Z
+analytics-ingestion-client   True    analytics-ingestion-client   47s   2023-09-07T11:22:00Z
+gateway-client-client        True    gateway-client-client        48s   2023-09-07T11:22:15Z
+ingress-ca                   True    ingress-ca                   49s   2031-09-05T11:21:44Z
+portal-admin-client          True    portal-admin-client          49s   2023-09-07T11:22:00Z
+</code></pre></div> <div class="admonition warning"> <p class=admonition-title>Important</p> <p>You must extract the <code>ingress-ca</code> certificates and key that have been used to create the certificate authority to sign all the certificates you just created above. These certificates and key must be provided to create the same certificate authority in the other RedHat OpenShift clusters where you want to deploy any other IBM API Connect component to be part of the same IBM API Connect cluster.</p> </div> </li> <li> <p>Extract the <code>ingress-ca</code> certificates and key that have been used to create the certificate authority to sign all the certificates you created in the previous step.</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>extract<span class=w> </span>secret/ingress-ca<span class=w> </span>--to<span class=o>=</span>.<span class=w> </span>--confirm<span class=w> </span>
+</code></pre></div> </li> <li> <p>You should now have the following certificates and key.</p> <div class=highlight><pre><span></span><code>ls -all
+
+total 24
+drwxr-xr-x  5 user  staff   160B  7 Sep 13:25 ./
+drwxr-xr-x  9 user  staff   288B  7 Sep 13:24 ../
+-rw-------  1 user  staff   1.1K  7 Sep 13:25 ca.crt
+-rw-------  1 user  staff   1.1K  7 Sep 13:25 tls.crt
+-rw-------  1 user  staff   1.6K  7 Sep 13:25 tls.key
+</code></pre></div> </li> </ol> <h4 id=management>Management<a class=headerlink href=#management title="Permanent link">¶</a></h4> <p>In this section we are going to install the IBM API Connect Management component. Refer to the official documentation <a href="https://www.ibm.com/docs/en/api-connect/10.0.x?topic=subsystems-installing-management-subsystem-cluster">here</a> for more detail.</p> <ol> <li> <p>Create the IBM API Connect Management component administrator credentials</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>create<span class=w> </span>secret<span class=w> </span>generic<span class=w> </span>management-admin-credentials<span class=w> </span>--from-literal<span class=o>=</span><span class=nv>email</span><span class=o>=</span>&lt;MGMT_USER_EMAIL&gt;<span class=w> </span>--from-literal<span class=o>=</span><span class=nv>password</span><span class=o>=</span>&lt;MGMT_USER_PASSWORD&gt;<span class=w> </span>-n<span class=w> </span>apic
+</code></pre></div> <p>where</p> <ul> <li><code>MGMT_USER_EMAIL</code> is the email of the IBM API Connect Management component administrator.</li> <li><code>MGMT_USER_PASSWORD</code> is the password for the IBM API Connect Management component administrator credentials.</li> </ul> </li> <li> <p>Create the <code>management_cr.yaml</code> file that contains the <code>ManagementCluster</code> object definition with the content below:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal> 1</span>
+<span class=normal> 2</span>
+<span class=normal> 3</span>
+<span class=normal> 4</span>
+<span class=normal> 5</span>
+<span class=normal> 6</span>
+<span class=normal> 7</span>
+<span class=normal> 8</span>
+<span class=normal> 9</span>
+<span class=normal>10</span>
+<span class=normal>11</span>
+<span class=normal>12</span>
+<span class=normal>13</span>
+<span class=normal>14</span>
+<span class=normal>15</span>
+<span class=normal>16</span>
+<span class=normal>17</span>
+<span class=normal>18</span>
+<span class=normal>19</span>
+<span class=normal>20</span>
+<span class=normal>21</span>
+<span class=normal>22</span>
+<span class=normal>23</span>
+<span class=normal>24</span>
+<span class=normal>25</span>
+<span class=normal>26</span>
+<span class=normal>27</span>
+<span class=normal>28</span>
+<span class=normal>29</span>
+<span class=normal>30</span>
+<span class=normal>31</span>
+<span class=normal>32</span>
+<span class=normal>33</span>
+<span class=normal>34</span>
+<span class=normal>35</span>
+<span class=normal>36</span>
+<span class=normal>37</span>
+<span class=normal>38</span>
+<span class=normal>39</span>
+<span class=normal>40</span>
+<span class=normal>41</span>
+<span class=normal>42</span>
+<span class=normal>43</span>
+<span class=normal>44</span>
+<span class=normal>45</span>
+<span class=normal>46</span>
+<span class=normal>47</span>
+<span class=normal>48</span>
+<span class=normal>49</span>
+<span class=normal>50</span>
+<span class=normal>51</span>
+<span class=normal>52</span>
+<span class=normal>53</span>
+<span class=normal>54</span>
+<span class=normal>55</span>
+<span class=normal>56</span>
+<span class=normal>57</span>
+<span class=normal>58</span>
+<span class=normal>59</span>
+<span class=normal>60</span>
+<span class=normal>61</span></pre></div></td><td class=code><div><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">management.apiconnect.ibm.com/v1beta1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ManagementCluster</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">management</span>
+<span class=nt>labels</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>app.kubernetes.io/instance</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">management</span>
+<span class=w>    </span><span class=nt>app.kubernetes.io/managed-by</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-apiconnect</span>
+<span class=w>    </span><span class=nt>app.kubernetes.io/name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">management</span>
+<span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">apic</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=nt>version</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">10.0.3.0</span>
+<span class=nt>imagePullSecrets</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-entitlement-key</span>
+<span class=hll><span class=nt>profile</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$PROFILE</span>
+</span><span class=nt>portal</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>admin</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>secretName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">portal-admin-client</span>
+<span class=nt>analytics</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>client</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>secretName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">analytics-client-client</span>
+<span class=w>    </span><span class=nt>ingestion</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>secretName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">analytics-ingestion-client</span>
+<span class=nt>gateway</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>client</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>secretName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gateway-client-client</span>
+<span class=nt>cloudManagerEndpoint</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>certmanager.k8s.io/issuer</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ingress-issuer</span>
+<span class=w>    </span><span class=nt>hosts</span><span class=p>:</span>
+<span class=hll><span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">admin.$STACK_HOST</span>
+</span><span class=w>        </span><span class="l l-Scalar l-Scalar-Plain">secretName</span><span class="p p-Indicator">:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">management-cm-endpoint-secret</span>
+<span class=nt>apiManagerEndpoint</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>certmanager.k8s.io/issuer</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ingress-issuer</span>
+<span class=w>    </span><span class=nt>hosts</span><span class=p>:</span>
+<span class=hll><span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">manager.$STACK_HOST</span>
+</span><span class=w>        </span><span class="l l-Scalar l-Scalar-Plain">secretName</span><span class="p p-Indicator">:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">management-apim-endpoint-secret</span>
+<span class=nt>platformAPIEndpoint</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>certmanager.k8s.io/issuer</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ingress-issuer</span>
+<span class=w>    </span><span class=nt>hosts</span><span class=p>:</span>
+<span class=hll><span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">api.$STACK_HOST</span>
+</span><span class=w>        </span><span class="l l-Scalar l-Scalar-Plain">secretName</span><span class="p p-Indicator">:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">management-api-endpoint-secret</span>
+<span class=nt>consumerAPIEndpoint</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>certmanager.k8s.io/issuer</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ingress-issuer</span>
+<span class=w>    </span><span class=nt>hosts</span><span class=p>:</span>
+<span class=hll><span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">consumer.$STACK_HOST</span>
+</span><span class=w>        </span><span class="l l-Scalar l-Scalar-Plain">secretName</span><span class="p p-Indicator">:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">management-consumer-endpoint-secret</span>
+<span class=nt>databaseVolumeClaimTemplate</span><span class=p>:</span>
+<span class=hll><span class=w>    </span><span class=nt>storageClassName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$STORAGE_CLASS</span>
+</span><span class=nt>microServiceSecurity</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">certManager</span>
+<span class=nt>certManagerIssuer</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">selfsigning-issuer</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Issuer</span>
+<span class=nt>adminUser</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>secretName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">management-admin-credentials</span>
+<span class=nt>license</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>accept</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=hll><span class=w>    </span><span class=nt>license</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$LICENSE</span>
+</span><span class=hll><span class=w>    </span><span class=nt>use</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$USE</span>
+</span></code></pre></div></td></tr></table></div> <p>where</p> <ul> <li><code>$PROFILE</code> is either set to <code>n1xc4.m16</code> for development environments or to <code>n3xc4.m16</code> for production environments. If you need high availability use the production profile.</li> <li><code>$STACK_HOST</code> is the desired ingress subdomain for the API Connect stack. You can find the ingress subdomain of you RedHat OpenShift cluster by executing <code>oc get routes</code>. Your subdomain usually is <code>apps.xxx.yyy.zzz</code>.</li> <li><code>$STORAGE_CLASS</code> is the Kubernetes storage class to be used for Persistent Volume Claims. Remember this must be RWO block storage.</li> <li><code>$LICENSE</code> is the License ID for the version of API Connect that you purchased. See <a href="https://www.ibm.com/docs/en/api-connect/10.0.x?topic=requirements-api-connect-licenses">API Connect licenses</a>.</li> <li><code>$USE</code> is either <code>production</code> or <code>nonproduction</code>, to match the license you purchased.</li> </ul> </li> <li> <p>Apply that <code>management_cr.yaml</code> file to get the <code>ManagementCluster</code> object created in the <code>apic</code> namespace of your RedHat OpenShift cluster.</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>apply<span class=w> </span>-f<span class=w> </span>management_cr.yaml<span class=w> </span>-n<span class=w> </span>apic
+</code></pre></div> </li> <li> <p>Verify that the IBM API Connect Management component is fully installed.</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>get<span class=w> </span>ManagementCluster<span class=w> </span>-n<span class=w> </span>apic
+</code></pre></div> </li> <li> <p>You should see a similar output as the following.</p> <div class=highlight><pre><span></span><code>NAME         READY   STATUS    VERSION    RECONCILED VERSION   AGE
+management   16/16   Running   10.0.3.0   10.0.3.0-1320        8d
+</code></pre></div> <p>The installation has completed when the <code>READY</code> attribute reports that all services are online (e.g. 16/16) <code>STATUS</code> attribute reports <code>Running</code>.</p> </li> </ol> <h4 id=developer-portal>Developer Portal<a class=headerlink href=#developer-portal title="Permanent link">¶</a></h4> <p>In this section we are going to install the IBM API Connect Developer Portal component. Refer to the official documentation <a href="https://www.ibm.com/docs/en/api-connect/10.0.x?topic=subsystems-installing-developer-portal-subsystem">here</a> for more detail.</p> <ol> <li> <p>Create the <code>portal_cr.yaml</code> file that contains the <code>PortalCluster</code> object definition with the content below:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal> 1</span>
+<span class=normal> 2</span>
+<span class=normal> 3</span>
+<span class=normal> 4</span>
+<span class=normal> 5</span>
+<span class=normal> 6</span>
+<span class=normal> 7</span>
+<span class=normal> 8</span>
+<span class=normal> 9</span>
+<span class=normal>10</span>
+<span class=normal>11</span>
+<span class=normal>12</span>
+<span class=normal>13</span>
+<span class=normal>14</span>
+<span class=normal>15</span>
+<span class=normal>16</span>
+<span class=normal>17</span>
+<span class=normal>18</span>
+<span class=normal>19</span>
+<span class=normal>20</span>
+<span class=normal>21</span>
+<span class=normal>22</span>
+<span class=normal>23</span>
+<span class=normal>24</span>
+<span class=normal>25</span>
+<span class=normal>26</span>
+<span class=normal>27</span>
+<span class=normal>28</span>
+<span class=normal>29</span>
+<span class=normal>30</span>
+<span class=normal>31</span>
+<span class=normal>32</span>
+<span class=normal>33</span>
+<span class=normal>34</span>
+<span class=normal>35</span>
+<span class=normal>36</span>
+<span class=normal>37</span>
+<span class=normal>38</span>
+<span class=normal>39</span>
+<span class=normal>40</span>
+<span class=normal>41</span>
+<span class=normal>42</span>
+<span class=normal>43</span>
+<span class=normal>44</span>
+<span class=normal>45</span>
+<span class=normal>46</span>
+<span class=normal>47</span>
+<span class=normal>48</span>
+<span class=normal>49</span>
+<span class=normal>50</span>
+<span class=normal>51</span></pre></div></td><td class=code><div><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">portal.apiconnect.ibm.com/v1beta1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">PortalCluster</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">apic</span>
+<span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">portal</span>
+<span class=nt>labels</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>app.kubernetes.io/instance</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">portal</span>
+<span class=w>    </span><span class=nt>app.kubernetes.io/managed-by</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-apiconnect</span>
+<span class=w>    </span><span class=nt>app.kubernetes.io/name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">portal</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=nt>version</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">10.0.3.0</span>
+<span class=hll><span class=nt>profile</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$PROFILE</span>
+</span><span class=nt>imagePullSecrets</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-entitlement-key</span>
+<span class=nt>portalAdminEndpoint</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>certmanager.k8s.io/issuer</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ingress-issuer</span>
+<span class=w>    </span><span class=nt>hosts</span><span class=p>:</span>
+<span class=hll><span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">padmin.$STACK_HOST</span>
+</span><span class=w>        </span><span class="l l-Scalar l-Scalar-Plain">secretName</span><span class="p p-Indicator">:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">portal-admin-endpoint-secret</span>
+<span class=nt>portalUIEndpoint</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>certmanager.k8s.io/issuer</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ingress-issuer</span>
+<span class=w>    </span><span class=nt>hosts</span><span class=p>:</span>
+<span class=hll><span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">portal.$STACK_HOST</span>
+</span><span class=w>        </span><span class="l l-Scalar l-Scalar-Plain">secretName</span><span class="p p-Indicator">:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">portal-web-endpoint-secret</span>
+<span class=nt>databaseLogsVolumeClaimTemplate</span><span class=p>:</span>
+<span class=hll><span class=w>    </span><span class=nt>storageClassName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$STORAGE_CLASS</span>
+</span><span class=w>    </span><span class=nt>volumeSize</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">12Gi</span>
+<span class=nt>databaseVolumeClaimTemplate</span><span class=p>:</span>
+<span class=hll><span class=w>    </span><span class=nt>storageClassName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$STORAGE_CLASS</span>
+</span><span class=w>    </span><span class=nt>volumeSize</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">300Gi</span>
+<span class=nt>backupVolumeClaimTemplate</span><span class=p>:</span>
+<span class=hll><span class=w>    </span><span class=nt>storageClassName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$STORAGE_CLASS</span>
+</span><span class=w>    </span><span class=nt>volumeSize</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">300Gi</span>
+<span class=nt>webVolumeClaimTemplate</span><span class=p>:</span>
+<span class=hll><span class=w>    </span><span class=nt>storageClassName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$STORAGE_CLASS</span>
+</span><span class=w>    </span><span class=nt>volumeSize</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">200Gi</span>
+<span class=nt>adminVolumeClaimTemplate</span><span class=p>:</span>
+<span class=hll><span class=w>    </span><span class=nt>storageClassName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$STORAGE_CLASS</span>
+</span><span class=w>    </span><span class=nt>volumeSize</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">20Gi</span>
+<span class=nt>adminClientSubjectDN</span><span class=p>:</span><span class=w> </span><span class=s>'CN=portal-admin-client'</span>
+<span class=c1># adminClientSubjectDN: 'CN=portal-admin-client,O=cert-manager'</span>
+<span class=nt>microServiceSecurity</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">certManager</span>
+<span class=nt>certManagerIssuer</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">selfsigning-issuer</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Issuer</span><span class=w>  </span>
+<span class=nt>license</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>accept</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=hll><span class=w>    </span><span class=nt>license</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$LICENSE</span>
+</span><span class=hll><span class=w>    </span><span class=nt>use</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$USE</span>
+</span></code></pre></div></td></tr></table></div> <p>where</p> <ul> <li><code>$PROFILE</code> is either set to <code>n1xc2.m8</code> for development environments or to <code>n3xc4.m8</code> for production environments. If you need high availability use the production profile.</li> <li><code>$STACK_HOST</code> is the desired ingress subdomain for the API Connect stack. You can find the ingress subdomain of you RedHat OpenShift cluster by executing <code>oc get routes</code>. Your subdomain usually is <code>apps.xxx.yyy.zzz</code>.</li> <li><code>$STORAGE_CLASS</code> is the Kubernetes storage class to be used for Persistent Volume Claims. Remember this must be RWO block storage.</li> <li><code>$LICENSE</code> is the License ID for the version of API Connect that you purchased. See <a href="https://www.ibm.com/docs/en/api-connect/10.0.x?topic=requirements-api-connect-licenses">API Connect licenses</a>.</li> <li><code>$USE</code> is either <code>production</code> or <code>nonproduction</code>, to match the license you purchased.</li> </ul> </li> <li> <p>Apply that <code>portal_cr.yaml</code> file to get the <code>PortalCluster</code> object created in the <code>apic</code> namespace of your RedHat OpenShift cluster.</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>apply<span class=w> </span>-f<span class=w> </span>portal_cr.yaml<span class=w> </span>-n<span class=w> </span>apic
+</code></pre></div> </li> <li> <p>Verify that the IBM API Connect Portal component is fully installed.</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>get<span class=w> </span>PortalCluster<span class=w> </span>-n<span class=w> </span>apic
+</code></pre></div> </li> <li> <p>You should see a similar output as the following.</p> <div class=highlight><pre><span></span><code>NAME     READY   STATUS    VERSION    RECONCILED VERSION   AGE
+portal   3/3     Running   10.0.3.0   10.0.3.0-1320        8d
+</code></pre></div> <p>The installation has completed when the <code>READY</code> attribute reports that all services are online (e.g. 3/3) <code>STATUS</code> attribute reports <code>Running</code>.</p> </li> </ol> <div class="admonition success"> <p class=admonition-title>Congratulations</p> <p>You have deployed the IBM API Connect Management and Portal components as well as created all the certificates and issuers needed to get all IBM API Connect components to communicate with each other in a secure manner.</p> </div> <h3 id=gateway-and-analytics>Gateway and Analytics<a class=headerlink href=#gateway-and-analytics title="Permanent link">¶</a></h3> <p>In this section, we are going to deploy show how to deploy the IBM API Connect Gateway component to securely expose our application APIs as well as the IBM API Connect Analytics component to gather the IBM API Connect Gateway analytics on any RedHat OpenShift cluster where we might want to host our applications.</p> <p>However, before installing the IBM API Connect Gateway or Analytics components in our RedHat OpenShift clusters, we need to create some certificates that will be used to ensure secure connections not only between these IBM API Connect components but also between these IBM API Connect components and the IBM API Connect Management and Developer Portal components that should have been already deployed on a separate RedHat OpenShift cluster. Refer to the official IBM API Connect documentation for more detail about the different <a href="https://www.ibm.com/docs/en/api-connect/10.0.x?topic=deployment-overview-endpoints-certificates">IBM API Connect component endpoints</a> as well as <a href="https://www.ibm.com/docs/en/api-connect/10.0.x?topic=deployment-certificates-in-kubernetes-environment">certificates</a>.</p> <div class="admonition info"> <p class=admonition-title>Info</p> <p>You can find how to obtain the IBM API Connect official product files that will be used throughout the rest of this document <a href="https://www.ibm.com/docs/en/api-connect/10.0.x?topic=kubernetes-obtaining-product-files">here</a>.</p> </div> <p>The main difference between creating the appropriate certificates for secure communication between all IBM API Connect components that we want to belong to the same IBM API Connect Cluster in these RedHat OpenShift clusters hosting the IBM API Connect Gateway and Analytics components is that we must use the same certificate authority that has been used earlier to sign all the certificates created in the RedHat OpenShift cluster that hosts the IBM API Connect Management and Developer Portal components. </p> <div class="admonition warning"> <p class=admonition-title>Warning</p> <p>You must have extracted the <code>ingress-ca</code> certificates and key that have been used to create the certificate authority to sign all the certificates in the RedHat OpenShift cluster that hosts the IBM API Connect Management and Developer Portal components.</p> </div> <ol> <li> <p>Make sure you have the <code>ingress-ca</code> certificates and key that have been used to create the certificate authority to sign all the certificates in the RedHat OpenShift cluster that hosts the IBM API Connect Management and Developer Portal components.</p> <div class=highlight><pre><span></span><code>ls -all
+
+total 24
+drwxr-xr-x  5 user  staff   160B  7 Sep 13:25 ./
+drwxr-xr-x  9 user  staff   288B  7 Sep 13:24 ../
+-rw-------  1 user  staff   1.1K  7 Sep 13:25 ca.crt
+-rw-------  1 user  staff   1.1K  7 Sep 13:25 tls.crt
+-rw-------  1 user  staff   1.6K  7 Sep 13:25 tls.key
+</code></pre></div> </li> <li> <p>Create the <code>ingress-ca</code> secret that holds the certificates and key to be used to create the certificate authority to sign all the certificates needed to secure communications of all IBM API Connect components belonging to the same IBM API Connect Cluster.</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>create<span class=w> </span>secret<span class=w> </span>generic<span class=w> </span>ingress-ca<span class=w> </span>--from-file<span class=o>=</span>tls.crt<span class=o>=</span>./tls.crt<span class=w> </span>--from-file<span class=o>=</span>tls.key<span class=o>=</span>./tls.key<span class=w> </span>--from-file<span class=o>=</span>ca.crt<span class=o>=</span>./ca.crt<span class=w> </span>-n<span class=w> </span>apic<span class=w>       </span>
+</code></pre></div> </li> <li> <p>Create the <code>ingress-issuer-v1-alpha1-dc2.yaml</code> file that contains the <code>Issuer</code> and <code>Certificate</code> object definitions with the content below:</p> <div class=highlight><pre><span></span><code><span class=c1>#</span>
+<span class=c1># Licensed under the Apache License, Version 2.0 (the "License");</span>
+<span class=c1># you may not use this file except in compliance with the License.</span>
+<span class=c1># You may obtain a copy of the License at</span>
+<span class=c1># </span>
+<span class=c1>#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class=c1># </span>
+<span class=c1># Unless required by applicable law or agreed to in writing, software</span>
+<span class=c1># distributed under the License is distributed on an "AS IS" BASIS,</span>
+<span class=c1># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class=c1># See the License for the specific language governing permissions and</span>
+<span class=c1># limitations under the License.</span>
+<span class=c1>#</span>
+
+<span class=nn>---</span>
+
+<span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">certmanager.k8s.io/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Issuer</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">selfsigning-issuer</span>
+<span class=nt>labels</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">{</span>
+<span class=nt>    app.kubernetes.io/instance</span><span class=p>:</span><span class=w> </span><span class=s>"management"</span><span class="p p-Indicator">,</span>
+<span class=nt>    app.kubernetes.io/managed-by</span><span class=p>:</span><span class=w> </span><span class=s>"ibm-apiconnect"</span><span class="p p-Indicator">,</span>
+<span class=nt>    app.kubernetes.io/name</span><span class=p>:</span><span class=w> </span><span class=s>"selfsigning-issuer"</span>
+<span class="p p-Indicator">}</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=nt>selfSigned</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">{}</span>
+<span class=nn>---</span>
+<span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">certmanager.k8s.io/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Issuer</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ingress-issuer</span>
+<span class=nt>labels</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">{</span>
+<span class=nt>    app.kubernetes.io/instance</span><span class=p>:</span><span class=w> </span><span class=s>"management"</span><span class="p p-Indicator">,</span>
+<span class=nt>    app.kubernetes.io/managed-by</span><span class=p>:</span><span class=w> </span><span class=s>"ibm-apiconnect"</span><span class="p p-Indicator">,</span>
+<span class=nt>    app.kubernetes.io/name</span><span class=p>:</span><span class=w> </span><span class=s>"ingress-issuer"</span>
+<span class="p p-Indicator">}</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=nt>ca</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>secretName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ingress-ca</span>
+<span class=nn>---</span>
+<span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">certmanager.k8s.io/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Certificate</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gateway-service</span>
+<span class=nt>labels</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">{</span>
+<span class=nt>    app.kubernetes.io/instance</span><span class=p>:</span><span class=w> </span><span class=s>"gatewaycluster"</span><span class="p p-Indicator">,</span>
+<span class=nt>    app.kubernetes.io/managed-by</span><span class=p>:</span><span class=w> </span><span class=s>"ibm-apiconnect"</span><span class="p p-Indicator">,</span>
+<span class=nt>    app.kubernetes.io/name</span><span class=p>:</span><span class=w> </span><span class=s>"gateway-service"</span>
+<span class="p p-Indicator">}</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=nt>commonName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gateway-service</span>
+<span class=nt>secretName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gateway-service</span>
+<span class=nt>issuerRef</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ingress-issuer</span>
+<span class=nt>usages</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=s>"client</span><span class=nv> </span><span class=s>auth"</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=s>"signing"</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=s>"key</span><span class=nv> </span><span class=s>encipherment"</span>
+<span class=nt>duration</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">17520h</span><span class=w> </span><span class=c1># 2 years</span>
+<span class=nt>renewBefore</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">720h</span><span class=w> </span><span class=c1># 30 days</span>
+<span class=nn>---</span>
+<span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">certmanager.k8s.io/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Certificate</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gateway-peering</span>
+<span class=nt>labels</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">{</span>
+<span class=nt>    app.kubernetes.io/instance</span><span class=p>:</span><span class=w> </span><span class=s>"gatewaycluster"</span><span class="p p-Indicator">,</span>
+<span class=nt>    app.kubernetes.io/managed-by</span><span class=p>:</span><span class=w> </span><span class=s>"ibm-apiconnect"</span><span class="p p-Indicator">,</span>
+<span class=nt>    app.kubernetes.io/name</span><span class=p>:</span><span class=w> </span><span class=s>"gateway-peering"</span>
+<span class="p p-Indicator">}</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=nt>commonName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gateway-peering</span>
+<span class=nt>secretName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gateway-peering</span>
+<span class=nt>issuerRef</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ingress-issuer</span>
+<span class=nt>usages</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=s>"server</span><span class=nv> </span><span class=s>auth"</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=s>"client</span><span class=nv> </span><span class=s>auth"</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=s>"signing"</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=s>"key</span><span class=nv> </span><span class=s>encipherment"</span>
+<span class=nt>duration</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">17520h</span><span class=w> </span><span class=c1># 2 years</span>
+<span class=nt>renewBefore</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">720h</span><span class=w> </span><span class=c1># 30 days</span>
+</code></pre></div> <div class="admonition info"> <p class=admonition-title>Tip</p> <p>You can check that this <code>ingress-issuer-v1-alpha1-dc2.yaml</code> file does not contain the <code>ingress-ca</code> certificate definition that will be used to sign all the certificates needed for secure communications between the IBM API Connect Gateway and Analytics component and between these and the IBM API Connect Management and Developer Portal components, all belonging to the same IBM API Connect cluster eventually, as it has been manually created before.</p> </div> </li> <li> <p>Apply that <code>ingress-issuer-v1-alpha1-dc2.yaml</code> file to get the <code>Issuer</code> and <code>Certificate</code> objects created in the <code>apic</code> namespace of your RedHat OpenShift cluster.</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>apply<span class=w> </span>-f<span class=w> </span>ingress-issuer-v1-alpha1-dc2.yaml<span class=w> </span>-n<span class=w> </span>apic
+</code></pre></div> </li> <li> <p>You should see the following output.</p> <div class=highlight><pre><span></span><code>issuer.certmanager.k8s.io/selfsigning-issuer<span class=w> </span>created
+issuer.certmanager.k8s.io/ingress-issuer<span class=w> </span>created
+certificate.certmanager.k8s.io/gateway-service<span class=w> </span>created
+certificate.certmanager.k8s.io/gateway-peering<span class=w> </span>created
+</code></pre></div> </li> </ol> <h4 id=analytics>Analytics<a class=headerlink href=#analytics title="Permanent link">¶</a></h4> <p>In this section we are going to install the IBM API Connect Analytics component. Refer to the official documentation <a href="https://www.ibm.com/docs/en/api-connect/10.0.x?topic=subsystems-installing-analytics-subsystem">here</a> for more detail.</p> <ol> <li> <p>Create the <code>analytics_cr.yaml</code> file that contains the <code>AnalyticsCluster</code> object definition with the content below:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal> 1</span>
+<span class=normal> 2</span>
+<span class=normal> 3</span>
+<span class=normal> 4</span>
+<span class=normal> 5</span>
+<span class=normal> 6</span>
+<span class=normal> 7</span>
+<span class=normal> 8</span>
+<span class=normal> 9</span>
+<span class=normal>10</span>
+<span class=normal>11</span>
+<span class=normal>12</span>
+<span class=normal>13</span>
+<span class=normal>14</span>
+<span class=normal>15</span>
+<span class=normal>16</span>
+<span class=normal>17</span>
+<span class=normal>18</span>
+<span class=normal>19</span>
+<span class=normal>20</span>
+<span class=normal>21</span>
+<span class=normal>22</span>
+<span class=normal>23</span>
+<span class=normal>24</span>
+<span class=normal>25</span>
+<span class=normal>26</span>
+<span class=normal>27</span>
+<span class=normal>28</span>
+<span class=normal>29</span>
+<span class=normal>30</span>
+<span class=normal>31</span>
+<span class=normal>32</span>
+<span class=normal>33</span>
+<span class=normal>34</span>
+<span class=normal>35</span>
+<span class=normal>36</span>
+<span class=normal>37</span>
+<span class=normal>38</span>
+<span class=normal>39</span>
+<span class=normal>40</span>
+<span class=normal>41</span>
+<span class=normal>42</span>
+<span class=normal>43</span>
+<span class=normal>44</span>
+<span class=normal>45</span>
+<span class=normal>46</span>
+<span class=normal>47</span>
+<span class=normal>48</span>
+<span class=normal>49</span>
+<span class=normal>50</span>
+<span class=normal>51</span>
+<span class=normal>52</span>
+<span class=normal>53</span>
+<span class=normal>54</span>
+<span class=normal>55</span>
+<span class=normal>56</span>
+<span class=normal>57</span>
+<span class=normal>58</span>
+<span class=normal>59</span></pre></div></td><td class=code><div><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">analytics.apiconnect.ibm.com/v1beta1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">AnalyticsCluster</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">analytics</span>
+<span class=nt>labels</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>app.kubernetes.io/instance</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">analytics</span>
+<span class=w>    </span><span class=nt>app.kubernetes.io/managed-by</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-apiconnect</span>
+<span class=w>    </span><span class=nt>app.kubernetes.io/name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">analytics</span>
+<span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">apic</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=nt>version</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">10.0.3.0</span>
+<span class=nt>license</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>accept</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=hll><span class=w>    </span><span class=nt>license</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$LICENSE</span>
+</span><span class=hll><span class=w>    </span><span class=nt>use</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$USE</span>
+</span><span class=hll><span class=nt>profile</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$PROFILE</span>
+</span><span class=nt>imagePullSecrets</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-entitlement-key</span>
+<span class=nt>microServiceSecurity</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">certManager</span>
+<span class=nt>certManagerIssuer</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">selfsigning-issuer</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Issuer</span>
+<span class=nt>client</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>clientAuthEnabled</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>    </span><span class=nt>clientSubjectDN</span><span class=p>:</span><span class=w> </span><span class=s>'CN=analytics-client-client'</span>
+<span class=w>    </span><span class=c1># clientSubjectDN: 'CN=analytics-client-client,O=cert-manager'</span>
+<span class=w>    </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>    </span><span class=nt>endpoint</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>certmanager.k8s.io/issuer</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ingress-issuer</span>
+<span class=w>    </span><span class=nt>hosts</span><span class=p>:</span>
+<span class=hll><span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ac.$STACK_HOST</span>
+</span><span class=w>        </span><span class=nt>secretName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">analytics-endpoint-secret</span>
+<span class=nt>ingestion</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>    </span><span class=nt>clientSubjectDN</span><span class=p>:</span><span class=w> </span><span class=s>'CN=analytics-ingestion-client'</span>
+<span class=w>    </span><span class=c1># clientSubjectDN: 'CN=analytics-ingestion-client,O=cert-manager'</span>
+<span class=w>    </span><span class=nt>clientAuthEnabled</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>    </span><span class=nt>configReloadAutomatic</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>    </span><span class=nt>endpoint</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>certmanager.k8s.io/issuer</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ingress-issuer</span>
+<span class=w>    </span><span class=nt>hosts</span><span class=p>:</span>
+<span class=hll><span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ai.$STACK_HOST</span>
+</span><span class=w>        </span><span class=nt>secretName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">analytics-ai-endpoint-secret</span>
+<span class=nt>storage</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>clientAuthEnabled</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>    </span><span class=nt>data</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>volumeClaimTemplate</span><span class=p>:</span>
+<span class=hll><span class=w>        </span><span class=nt>storageClassName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$STORAGE_CLASS</span>
+</span><span class=w>        </span><span class=nt>volumeSize</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">200Gi</span>
+<span class=w>    </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>    </span><span class=nt>master</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>volumeClaimTemplate</span><span class=p>:</span>
+<span class=hll><span class=w>        </span><span class=nt>storageClassName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$STORAGE_CLASS</span>
+</span><span class=w>        </span><span class=nt>volumeSize</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">10Gi</span>
+<span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">unique</span>
+<span class=nt>cronjobs</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div></td></tr></table></div> <p>where</p> <ul> <li><code>$PROFILE</code> is either set to <code>n1xc2.m16</code> for development environments or to <code>n3xc4.m16</code> for production environments. If you need high availability use the production profile.</li> <li><code>$STACK_HOST</code> is the desired ingress subdomain for the API Connect stack. You can find the ingress subdomain of you RedHat OpenShift cluster by executing <code>oc get routes</code>. Your subdomain usually is <code>apps.xxx.yyy.zzz</code>.</li> <li><code>$STORAGE_CLASS</code> is the Kubernetes storage class to be used for Persistent Volume Claims. Remember this must be RWO block storage.</li> <li><code>$LICENSE</code> is the License ID for the version of API Connect that you purchased. See <a href="https://www.ibm.com/docs/en/api-connect/10.0.x?topic=requirements-api-connect-licenses">API Connect licenses</a>.</li> <li><code>$USE</code> is either <code>production</code> or <code>nonproduction</code>, to match the license you purchased.</li> </ul> </li> <li> <p>Apply that <code>analytics_cr.yaml</code> file to get the <code>AnalyticsCluster</code> object created in the <code>apic</code> namespace of your RedHat OpenShift cluster.</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>apply<span class=w> </span>-f<span class=w> </span>analytics_cr.yaml<span class=w> </span>-n<span class=w> </span>apic
+</code></pre></div> </li> <li> <p>Verify that the IBM API Connect Analytics component is fully installed.</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>get<span class=w> </span>AnalyticsCluster<span class=w> </span>-n<span class=w> </span>apic
+</code></pre></div> </li> <li> <p>You should see a similar output as the following.</p> <div class=highlight><pre><span></span><code>NAME        READY   STATUS    VERSION    RECONCILED VERSION   AGE
+analytics   8/8     Running   10.0.3.0   10.0.3.0-1320        8d
+</code></pre></div> <p>The installation has completed when the <code>READY</code> attribute reports that all services are online (e.g. 8/8) <code>STATUS</code> attribute reports <code>Running</code>.</p> </li> </ol> <h4 id=gateway>Gateway<a class=headerlink href=#gateway title="Permanent link">¶</a></h4> <p>In this section we are going to install the IBM API Connect Gateway component. Refer to the official documentation <a href="https://www.ibm.com/docs/en/api-connect/10.0.x?topic=subsystems-installing-datapower-gateway-subsystem">here</a> for more detail.</p> <ol> <li> <p>Create the IBM API Connect Gateway component administrator credentials</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>create<span class=w> </span>secret<span class=w> </span>generic<span class=w> </span>datapower-admin-credentials<span class=w> </span>--from-literal<span class=o>=</span><span class=nv>password</span><span class=o>=</span>&lt;PASSWORD&gt;<span class=w> </span>-n<span class=w> </span>apic
+</code></pre></div> <p>where</p> <ul> <li><code>PASSWORD</code> is the password for the IBM API Connect Gateway component administrator credentials.</li> </ul> </li> <li> <p>Create the <code>apigateway_cr.yaml</code> file that contains the <code>GatewayCluster</code> object definition with the content below:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal> 1</span>
+<span class=normal> 2</span>
+<span class=normal> 3</span>
+<span class=normal> 4</span>
+<span class=normal> 5</span>
+<span class=normal> 6</span>
+<span class=normal> 7</span>
+<span class=normal> 8</span>
+<span class=normal> 9</span>
+<span class=normal>10</span>
+<span class=normal>11</span>
+<span class=normal>12</span>
+<span class=normal>13</span>
+<span class=normal>14</span>
+<span class=normal>15</span>
+<span class=normal>16</span>
+<span class=normal>17</span>
+<span class=normal>18</span>
+<span class=normal>19</span>
+<span class=normal>20</span>
+<span class=normal>21</span>
+<span class=normal>22</span>
+<span class=normal>23</span>
+<span class=normal>24</span>
+<span class=normal>25</span>
+<span class=normal>26</span>
+<span class=normal>27</span>
+<span class=normal>28</span>
+<span class=normal>29</span>
+<span class=normal>30</span>
+<span class=normal>31</span>
+<span class=normal>32</span>
+<span class=normal>33</span>
+<span class=normal>34</span>
+<span class=normal>35</span>
+<span class=normal>36</span>
+<span class=normal>37</span>
+<span class=normal>38</span>
+<span class=normal>39</span>
+<span class=normal>40</span>
+<span class=normal>41</span>
+<span class=normal>42</span>
+<span class=normal>43</span></pre></div></td><td class=code><div><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gateway.apiconnect.ibm.com/v1beta1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">GatewayCluster</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gateway</span>
+<span class=nt>labels</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>app.kubernetes.io/instance</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gateway</span>
+<span class=w>    </span><span class=nt>app.kubernetes.io/managed-by</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-apiconnect</span>
+<span class=w>    </span><span class=nt>app.kubernetes.io/name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gateway</span>
+<span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">apic</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=nt>version</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">10.0.3.0</span>
+<span class=hll><span class=nt>profile</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$PROFILE</span>
+</span><span class=nt>imagePullSecrets</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-entitlement-key</span>
+<span class=nt>apicGatewayServiceV5CompatibilityMode</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class=nt>gatewayEndpoint</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>certmanager.k8s.io/issuer</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ingress-issuer</span>
+<span class=w>    </span><span class=nt>hosts</span><span class=p>:</span>
+<span class=hll><span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gw.$STACK_HOST</span>
+</span><span class=w>        </span><span class="l l-Scalar l-Scalar-Plain">secretName</span><span class="p p-Indicator">:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gateway-endpoint-secret</span>
+<span class=nt>gatewayManagerEndpoint</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>certmanager.k8s.io/issuer</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ingress-issuer</span>
+<span class=w>    </span><span class=nt>hosts</span><span class=p>:</span>
+<span class=hll><span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gwmanager.$STACK_HOST</span>
+</span><span class=w>        </span><span class="l l-Scalar l-Scalar-Plain">secretName</span><span class="p p-Indicator">:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gateway-manager-endpoint-secret</span>
+<span class=nt>apicGatewayServiceTLS</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>secretName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gateway-service</span>
+<span class=nt>apicGatewayPeeringTLS</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>secretName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gateway-peering</span>
+<span class=nt>datapowerLogLevel</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class=nt>license</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>accept</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=hll><span class=w>    </span><span class=nt>license</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$LICENSE</span>
+</span><span class=hll><span class=w>    </span><span class=nt>use</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$USE</span>
+</span><span class=nt>tokenManagementService</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>    </span><span class=nt>storage</span><span class=p>:</span>
+<span class=hll><span class=w>    </span><span class=nt>storageClassName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$STORAGE_CLASS</span>
+</span><span class=w>    </span><span class=nt>volumeSize</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">30Gi</span>
+<span class=nt>adminUser</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>secretName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">datapower-admin-credentials</span>
+</code></pre></div></td></tr></table></div> <p>where</p> <ul> <li><code>$PROFILE</code> is either set to <code>n1xc4.m8</code> for development environments or to <code>n3xc4.m8</code> for production environments. If you need high availability use the production profile.</li> <li><code>$STACK_HOST</code> is the desired ingress subdomain for the API Connect stack. You can find the ingress subdomain of you RedHat OpenShift cluster by executing <code>oc get routes</code>. Your subdomain usually is <code>apps.xxx.yyy.zzz</code>.</li> <li><code>$STORAGE_CLASS</code> is the Kubernetes storage class to be used for Persistent Volume Claims. Remember this must be RWO block storage.</li> <li><code>$LICENSE</code> is the License ID for the version of API Connect that you purchased. See <a href="https://www.ibm.com/docs/en/api-connect/10.0.x?topic=requirements-api-connect-licenses">API Connect licenses</a>.</li> <li><code>$USE</code> is either <code>production</code> or <code>nonproduction</code>, to match the license you purchased.</li> </ul> </li> <li> <p>Apply that <code>apigateway_cr.yaml</code> file to get the <code>GatewayCluster</code> object created in the <code>apic</code> namespace of your RedHat OpenShift cluster.</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>apply<span class=w> </span>-f<span class=w> </span>apigateway_cr.yaml<span class=w> </span>-n<span class=w> </span>apic
+</code></pre></div> </li> <li> <p>Verify that the IBM API Connect Gateway component is fully installed.</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>get<span class=w> </span>GatewayCluster<span class=w> </span>-n<span class=w> </span>apic
+</code></pre></div> </li> <li> <p>You should see a similar output as the following.</p> <div class=highlight><pre><span></span><code>NAME      READY   STATUS    VERSION    RECONCILED VERSION   AGE
+gateway   2/2     Running   10.0.3.0   10.0.3.0-1320        8d
+</code></pre></div> <p>The installation has completed when the <code>READY</code> attribute reports that all services are online (e.g. 2/2) <code>STATUS</code> attribute reports <code>Running</code>.</p> </li> </ol> <div class="admonition success"> <p class=admonition-title>Congratulations</p> <p>You have deployed the IBM API Connect Gateway and Analytics components as well as created all the certificates and issuers needed to get all IBM API Connect components to communicate with each other in a secure manner.</p> </div> <div class="admonition info"> <p class=admonition-title>Info</p> <p>Remember to execute this section in all RedHat OpenShift clusters where you want to host your applications as well as the IBM API Connect Gateway component to securely expose these and the IBM API Connect Analytics component to gather analytics from the IBM API Gateway component.</p> </div> <h3 id=post-install-configuration>Post Install Configuration<a class=headerlink href=#post-install-configuration title="Permanent link">¶</a></h3> <p>Now that we have all IBM API Connect components deployed in the different RedHat OpenShift clusters to suit our IBM API Connect hybrid multi-cloud topology we must configure that topology in the IBM API Connect Cloud Manager, the brain of your IBM API Connect Cluster. Refer to the official IBM API Connect documentation for the <a href="https://www.ibm.com/docs/en/api-connect/10.0.x?topic=environment-cloud-manager-configuration-checklist">Cloud Manager configuration checklist</a>, a summary, with links, of the key initial configuration tasks that you must complete in the Cloud Manager user interface after installing and deploying IBM® API Connect, and further supplementary tasks.</p></div> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> Back to top </button> </main> <!-- Footer --> <footer class=md-footer> <!-- Link to previous and/or next page --> <!-- Further information --> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-footer-column> <div class=md-footer-text>Site licensed under <a href=https://creativecommons.org/licenses/by-nc-sa/4.0/ >CC BY-NC-SA 4.0</a></div> </div> <div class=md-footer-column> <!-- Copyright and theme information --> <div class=md-footer-text> Copyright © 2021 Cloud Pak Production Deployment Guides </div> </div> <div class=md-footer-social> <a href=https://github.com/ncolon/deployment-guides target=_blank rel=noopener title="Production Deployment Guides on Github Enterprise" class=md-footer-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 496 512"> <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"> </path> </svg> </a> <a href=https://ibm-cloud.slack.com/archives/C02CQ6M2D2R target=_blank rel=noopener title=Slack class=md-footer-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"> <path d="M94.12 315.1c0 25.9-21.16 47.06-47.06 47.06S0 341 0 315.1c0-25.9 21.16-47.06 47.06-47.06h47.06v47.06zm23.72 0c0-25.9 21.16-47.06 47.06-47.06s47.06 21.16 47.06 47.06v117.84c0 25.9-21.16 47.06-47.06 47.06s-47.06-21.16-47.06-47.06V315.1zm47.06-188.98c-25.9 0-47.06-21.16-47.06-47.06S139 32 164.9 32s47.06 21.16 47.06 47.06v47.06H164.9zm0 23.72c25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06H47.06C21.16 243.96 0 222.8 0 196.9s21.16-47.06 47.06-47.06H164.9zm188.98 47.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06h-47.06V196.9zm-23.72 0c0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06V79.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06V196.9zM283.1 385.88c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06v-47.06h47.06zm0-23.72c-25.9 0-47.06-21.16-47.06-47.06 0-25.9 21.16-47.06 47.06-47.06h117.84c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06H283.1z"> </path> </svg> </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.instant", "navigation.tracking", "navigation.tabs.sticky", "navigation.top", "navigation.sections"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script> <script src=../../../../../assets/javascripts/bundle.d7400e89.min.js></script> </body> </html>

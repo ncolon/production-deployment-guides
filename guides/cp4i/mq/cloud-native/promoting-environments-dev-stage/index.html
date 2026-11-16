@@ -1,0 +1,704 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="The Cloud Pak Production Deployment Guides document and demonstrate how to run cloud-native solutions leveraging IBM Cloud Pak capabilities in a Red Hat OpenShift environment"><meta name=author content="Cloud Pak Production Deployment Guides development team"><link href=../../app-pipeline/topic3/ rel=prev><link href=../promoting-environments-stage-prod/ rel=next><link rel=icon href=../../../../../images/cloudnativetoolkit.png><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.7.7"><title>Promote from dev to staging - Cloud Pak Production Deployment Guides</title><link rel=stylesheet href=../../../../../assets/stylesheets/main.ec1eaa64.min.css><link rel=stylesheet href=../../../../../assets/stylesheets/palette.ab4e12ef.min.css><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback"><style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"IBM Plex Mono"}</style><link rel=stylesheet href=../../../../../css/extra.css><link rel=stylesheet href=../../../../../css/toolkit-code.css><script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script><script id=__analytics>function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-Q0FLL49YN3"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-Q0FLL49YN3",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-Q0FLL49YN3",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script><script>"undefined"!=typeof __md_analytics&&__md_analytics()</script><!-- Determine title --><!-- The image needs to have an absolute URL --><!-- Open graph meta tags --><meta property=og:type content=website><meta property=og:title content="Cloud Pak Production Deployment Guides - Promote from dev to staging"><meta property=og:description content="The Cloud Pak Production Deployment Guides document and demonstrate how to run cloud-native solutions leveraging IBM Cloud Pak capabilities in a Red Hat OpenShift environment"><meta property=og:url content=None><meta property=og:image content=assets/images/banner.png><meta property=og:image:type content=image/png><meta property=og:image:width content=1080><meta property=og:image:height content=568></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=black data-md-color-accent=indigo> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#promoting-from-dev-to-staging-environment class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <header class="md-header md-header--shadow md-header--lifted" data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../../../../.. title="Cloud Pak Production Deployment Guides" class="md-header__button md-logo" aria-label="Cloud Pak Production Deployment Guides" data-md-component=logo> <img src=../../../../../images/cloudnativetoolkit.png alt=logo> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> Cloud Pak Production Deployment Guides </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> Promote from dev to staging </span> </div> </div> </div> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> <div class=md-header__source> <a href=https://github.com/ncolon/production-deployment-guides title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg> </div> <div class=md-source__repository> </div> </a> </div> </nav> <nav class=md-tabs aria-label=Tabs data-md-component=tabs> <div class=md-grid> <ul class=md-tabs__list> <li class=md-tabs__item> <a href=../../../../.. class=md-tabs__link> Home </a> </li> <li class=md-tabs__item> <a href=../../../../../overview/overview/ class=md-tabs__link> Production Considerations </a> </li> <li class=md-tabs__item> <a href=../../../../../quickstart/overview/ class=md-tabs__link> Quick Start Demos </a> </li> <li class="md-tabs__item md-tabs__item--active"> <a href=../../../../guides-overview/ class=md-tabs__link> Tutorials </a> </li> <li class=md-tabs__item> <a href=../../../../../infrastructure/ad/ class=md-tabs__link> References </a> </li> <li class=md-tabs__item> <a href=../../../../../overview/whats-new/ class=md-tabs__link> About </a> </li> </ul> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <!-- Determine class according to configuration --> <!-- Main navigation --> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=nav.title data-md-level=0> <!-- Site title --> <!--
+  <label class="md-nav__title" for="__drawer">
+    <a
+      href="../../../../.."
+      title="Cloud Pak Production Deployment Guides"
+      class="md-nav__button md-logo"
+      aria-label="Cloud Pak Production Deployment Guides"
+      data-md-component="logo"
+    >
+      
+  <img src="../../../../../images/cloudnativetoolkit.png" alt="logo">
+
+    </a>
+    Cloud Pak Production Deployment Guides
+  </label>
+--> <!-- Repository information --> <div class=md-nav__source> <a href=https://github.com/ncolon/production-deployment-guides title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg> </div> <div class=md-source__repository> </div> </a> </div> <!-- Render item list --> <ul class=md-nav__list data-md-scrollfix> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#overview class=md-nav__link> <span class=md-ellipsis> Overview </span> </a> </li> <li class=md-nav__item> <a href=#pre-requisites class=md-nav__link> <span class=md-ellipsis> Pre-requisites </span> </a> </li> <li class=md-nav__item> <a href=#access-the-promotion-pipeline class=md-nav__link> <span class=md-ellipsis> Access the promotion pipeline </span> </a> </li> <li class=md-nav__item> <a href=#run-the-promotion-pipeline class=md-nav__link> <span class=md-ellipsis> Run the promotion pipeline </span> </a> <nav class=md-nav aria-label="Run the promotion pipeline"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#queue-manager class=md-nav__link> <span class=md-ellipsis> Queue Manager </span> </a> </li> <li class=md-nav__item> <a href=#mq-sample-application class=md-nav__link> <span class=md-ellipsis> MQ Sample Application </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#explore-the-promotion-pipeline class=md-nav__link> <span class=md-ellipsis> Explore the promotion pipeline </span> </a> </li> <li class=md-nav__item> <a href=#review-the-resultant-gitops-application-folders class=md-nav__link> <span class=md-ellipsis> Review the resultant GitOps application folders </span> </a> </li> <li class=md-nav__item> <a href=#enable-dynamic-configurations-for-queue-manager-optional class=md-nav__link> <span class=md-ellipsis> Enable Dynamic configurations for queue manager (Optional) </span> </a> </li> <li class=md-nav__item> <a href=#activate-argocd-applications class=md-nav__link> <span class=md-ellipsis> Activate ArgoCD Applications </span> </a> </li> <li class=md-nav__item> <a href=#examine-the-activated-argocd-applications class=md-nav__link> <span class=md-ellipsis> Examine the activated ArgoCD applications </span> </a> <nav class=md-nav aria-label="Examine the activated ArgoCD applications"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#queue-manager_1 class=md-nav__link> <span class=md-ellipsis> Queue Manager </span> </a> </li> <li class=md-nav__item> <a href=#mq-sample-application_1 class=md-nav__link> <span class=md-ellipsis> MQ Sample Application </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#validate-the-queue-manager class=md-nav__link> <span class=md-ellipsis> Validate the Queue Manager </span> </a> </li> <li class=md-nav__item> <a href=#validate-the-application class=md-nav__link> <span class=md-ellipsis> Validate the Application </span> </a> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <div><h1 id=promoting-from-dev-to-staging-environment>Promoting from Dev to Staging environment<a class=headerlink href=#promoting-from-dev-to-staging-environment title="Permanent link">¶</a></h1> <!--- cSpell:ignore  pipelinerun mqsc msqc runmqsc dockerconfigjson queuemanager QMID podman ibmgaragecloud cntk cnkt eventid gitrevision gitrepositoryurl odowdaibm MQSC replicaset eventlistener triggerbinding triggertemplate mqcicd qmgr Artifactory configmaps OIDC CHLAUTH templating sealedsecret jmeter fzgqmv yamls STAGETEST --> <h2 id=overview>Overview<a class=headerlink href=#overview title="Permanent link">¶</a></h2> <p><strong>Audience</strong>: Application developers, Administrators</p> <p>In the <a href=../../app-pipeline/topic1/ >previous topic</a> of this chapter, we ran the application pipeline using the source repository for MQ sample application. The pipeline successfully built and tested the application as well as creating versioned resources in the image registry, and the GitOps repository.</p> <p>In this topic, you will set up a promotion pipeline that promotes the Queue Manager and MQ sample application from <code>dev</code> environment to <code>staging</code> environment. We'll activate the ArgoCD application that will watch the GitOps folder containing the kubernetes resources and use it and its dependent resources to deploy a running queue manager and sample application to the <code>staging</code> namespace in the cluster.</p> <p>Look at the following diagram:</p> <p><img alt="Dev to Staging pipeline" src=../images/mq_dev_to_stage_pipeline.drawio.svg></p> <p>We've highlighted the components we're going to explore in this topic:</p> <ul> <li>The <code>promotion pipeline from dev to staging</code> will perform a set of tasks for functional testing. If successful, the pipeline leaves a PR in the GitOps apps repository.</li> <li>The <code>GitOps apps repository</code> will have a PR for the latest good build and test represented as a bunch of kubernetes resources for <code>staging</code> environment. These resources will be subsequently used by ArgoCD to deploy to the cluster.</li> <li>An <code>ArgoCD application</code> will monitor the GitOps folder where its kubernetes resources are held. Whenever this folder is updated, this ArgoCD application will apply these updates to the cluster, resulting in a new deployment.</li> <li>The instance of <code>Queue Manager</code> running in the cluster is active staging queue manager ready for use by MQ applications under staging.</li> <li>The instance of <code>MQ Sample Application</code> running in the cluster is active staging sample application under staging.</li> </ul> <p>In this topic, we're going to:</p> <ul> <li>Access the promotion pipeline</li> <li>Run the promotion pipeline for <code>Queue Manager</code></li> <li>Run the promotion pipeline for <code>MQ Sample Application</code></li> <li>Explore the promotion pipeline.</li> <li>Activate ArgoCD application for <code>Queue Manager</code> and <code>MQ Sample Application</code> for staging namespace.</li> <li>Review the resultant GitOps application folders for <code>Queue Manager</code> and <code>MQ Sample Application</code>.</li> <li>Examine the activated ArgoCD application that deploys the <code>Queue Manager</code> and <code>MQ Sample Application</code> to the cluster.</li> <li>Validate <code>Queue Manager</code> and <code>MQ Sample Application</code>.</li> </ul> <p>By the end of this topic we'll have a fully functioning dev to staging promotion pipeline that we can use to promote queue manager and sample application from dev environment to staging environment.</p> <hr> <h2 id=pre-requisites>Pre-requisites<a class=headerlink href=#pre-requisites title="Permanent link">¶</a></h2> <p>Before attempting this topic, you should have successfully completed the <a href=../../app-pipeline/topic1/ >previous chapter</a>.</p> <hr> <h2 id=access-the-promotion-pipeline>Access the promotion pipeline<a class=headerlink href=#access-the-promotion-pipeline title="Permanent link">¶</a></h2> <p>As we can see in the diagram above, the promotion pipeline is responsible for promoting the <code>Queue Manager</code> and <code>MQ Sample application</code> from <code>dev</code> to <code>staging</code>. If successful, it leaves a PR with the updated resources for staging in the GitOps apps repository, which are used by ArgoCD to deploy the updated <code>Queue Manager</code> and <code>application</code> to the cluster.</p> <p>It's usually the case a pipeline runs automatically when the Queue Manager or the Sample application is successfully deployed in dev environment. However, our first pipeline run is manual so that you can be in control, making it easier to understand what's happening.</p> <ol> <li> <p><em>Locate the <code>ci</code> pipelines in the web console</em></p> <p>Let's find the promotion pipeline using the OpenShift web console.</p> <p>Navigate to <code>Pipelines-&gt;Pipelines</code> in the left hand pane, and select <code>Project: ci</code>, to show all pipelines in the <code>ci</code> namespace:</p> <p><img alt=diagram19a src=../images/diagram19a.png style=max-height:600px></p> <p>You can see all the pipelines that we installed into the <code>ci</code> namespace in the previous chapter. We'll use different pipelines for different activities throughout the tutorial.</p> <p>For this topic, we're going to use the <code>ibm-mq-promote-dev-stage</code> pipeline. When the <code>Queue Manager</code> or <code>Sample application</code> are successfully deployed to the <code>dev</code> namespace, this pipeline will perform functional testing and on a successful run, it will promote the existing resources in <code>dev</code> to the <code>staging</code> namespace.</p> </li> <li> <p><em>The</em> <code>ibm-mq-promote-dev-stage</code> <em>promotion pipeline</em></p> <p>Select the <code>ibm-mq-promote-dev-stage</code> pipeline from the list of all pipelines:</p> <p><img alt=diagram30 src=../images/diagram30.png style=max-height:600px></p> <p>Like all pipelines, <code>ibm-mq-promote-dev-stage</code> is composed from a set of <strong>tasks</strong>:</p> <ul> <li><code>dev-instance-tests</code></li> <li><code>app-name</code></li> <li><code>gitops</code></li> </ul> <p>The task name often provides a strong hint of each task's specific function. We'll examine these tasks in detail as the pipeline runs.</p> </li> <li> <p><em>The</em> <code>oc</code> <em>command as an alternative to the Web console</em></p> <p>As well as using the OpenShift web console, you can also interact with pipeline using the <code>oc</code> or <code>tekton</code> commands.</p> <p>Ensure you're logged in to cluster, and issue the following command to list the <code>ibm-mq-promote-dev-stage</code> pipeline details:</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>get<span class=w> </span>pipeline<span class=w> </span>ibm-mq-promote-dev-stage<span class=w> </span>-n<span class=w> </span>ci
+</code></pre></div> <p>which shows a brief summary of the pipeline:</p> <div class=highlight><pre><span></span><code>NAME<span class=w>                       </span>AGE
+ibm-mq-promote-dev-stage<span class=w>   </span>4d17h
+</code></pre></div> <p>You can get more detail by adding the <code>-o yaml</code> option; we'll do that later.</p> </li> </ol> <hr> <h2 id=run-the-promotion-pipeline>Run the promotion pipeline<a class=headerlink href=#run-the-promotion-pipeline title="Permanent link">¶</a></h2> <h3 id=queue-manager>Queue Manager<a class=headerlink href=#queue-manager title="Permanent link">¶</a></h3> <ol> <li> <p><em>Configure your first pipeline run</em></p> <p>In <code>pipeline details</code> view above, you'll see an <code>Actions</code> button. Select <code>Start</code> to configure a pipeline run.</p> <p>You'll be presented with the following dialog:</p> <p><img alt=diagram31 src=../images/diagram31.png style=max-height:1200px></p> <p>The supplied arguments allow the user of the pipeline to configure its behavior. For example, a user can use this pipeline with different queue manager source repositories.</p> <p>Configure the run as follows:</p> <ul> <li>Set <code>git-url</code> to your clone of the <code>mq-qm01</code> repository</li> <li>Set <code>git-revision</code> to <code>master</code>.</li> <li>Set <code>src-environment</code> to <code>dev</code>.</li> <li>Set <code>dest-environment</code> to <code>staging</code>.</li> <li>Set the <code>app-path</code> pointing to your <code>GitOps apps repository</code> which in our case is <code>mq/environments</code>.</li> <li>Set <code>git-pr</code> to <code>true</code>.</li> <li>Set <code>test-file</code> pointing to your <code>postman collections</code>. If your source repository don't have any postman collections, just leave the defaults.</li> </ul> <details class=note open=open> <summary>Note</summary> <p>At the moment, Queue Manager <code>mq-qm01</code> repository do not have any functional tests defined in the form of Postman Collections. This pipeline is designed in a way to skip this tests if the definitions are not present. However, MQ Sample application <code>mq-spring-app</code> repository have these tests defined and we will be coming across it in the later section of this tutorial.</p> </details> <p>Hit <code>Start</code> to start the pipeline run.</p> <p>You can also use the command line to run a pipeline; we'll explore that option later.</p> </li> <li> <p><em>Watch a pipeline run executing</em></p> <p>The pipeline run has now started.</p> <p>Notice how the view changes to <code>Pipeline Run details</code>:</p> <p><img alt=diagram32 src=../images/diagram32.png style=max-height:600px></p> <p>We're now looking at the live output from a pipeline run, rather than the pipeline used to create the run.</p> <p>Notice that the pipeline run name <code>ibm-mq-promote-dev-stage-3269qi</code> is based on the pipeline name -- with a unique suffix. Every new pipeline run will have a unique name.</p> <p>See also how the first <code>dev-instance-tests</code> task is running, while the remaining tasks are waiting to start.</p> <p>Hover over <code>dev-instance-tests</code> task and you will see the <strong>steps</strong> that comprise it.</p> </li> <li> <p><em>Watch pipeline steps complete</em></p> <p>As the pipeline run proceeds, notice all the steps got completed:</p> <p><img alt=diagram34 src=../images/diagram34.png style=max-height:600px></p> <p>This pipeline will take about a minute or two to complete.</p> </li> </ol> <h3 id=mq-sample-application>MQ Sample Application<a class=headerlink href=#mq-sample-application title="Permanent link">¶</a></h3> <ol> <li> <p><em>Configure your first pipeline run</em></p> <p>In <code>pipeline details</code> view above, you'll see an <code>Actions</code> button. Select <code>Start</code> to configure a pipeline run.</p> <p>You'll be presented with the following dialog:</p> <p><img alt=diagram35 src=../images/diagram35.png style=max-height:1200px></p> <p>The supplied arguments allow the user of the pipeline to configure its behavior. For example, a user can use this pipeline with different sample application source repositories.</p> <p>Configure the run as follows:</p> <ul> <li>Set <code>git-url</code> to your fork of the <code>mq-spring-app</code> repository</li> <li>Set <code>git-revision</code> to <code>master</code>.</li> <li>Set <code>src-environment</code> to <code>dev</code>.</li> <li>Set <code>dest-environment</code> to <code>staging</code>.</li> <li>Set the <code>app-path</code> pointing to your <code>GitOps apps repository</code> which in our case is <code>mq/environments</code>.</li> <li>Set <code>git-pr</code> to <code>true</code>.</li> <li>Set <code>test-file</code> pointing to your <code>postman collections</code>. If your source repository don't have any postman collections, just leave the defaults. <code>mq-spring-app</code> repository have the postman collections defined at <code>postman/mq-spring-app.postman_collection.json</code>.</li> </ul> <p>Hit <code>Start</code> to start the pipeline run.</p> <p>You can also use the command line to run a pipeline; we'll explore that option later.</p> </li> <li> <p><em>Watch a pipeline run executing</em></p> <p>The pipeline run has now started.</p> <p>Notice how the view changes to <code>Pipeline Run details</code>:</p> <p><img alt=diagram36 src=../images/diagram36.png style=max-height:600px></p> <p>We're now looking at the live output from a pipeline run, rather than the pipeline used to create the run.</p> <p>Notice that the pipeline run name <code>ibm-mq-promote-dev-stage-fzgqmv</code> is based on the pipeline name -- with a unique suffix. Every new pipeline run will have a unique name.</p> <p>See also how the first <code>dev-instance-tests</code> task is running, while the remaining tasks are waiting to start.</p> <p>Hover over <code>dev-instance-tests</code> task and you will see the <strong>steps</strong> that comprise it.</p> </li> <li> <p><em>Watch pipeline steps complete</em></p> <p>As the pipeline run proceeds, notice all the steps got completed:</p> <p><img alt=diagram37 src=../images/diagram37.png style=max-height:600px></p> <p>This pipeline will take about a minute or two to complete. Let's explore its tasks in a little more detail.</p> </li> </ol> <hr> <h2 id=explore-the-promotion-pipeline>Explore the promotion pipeline<a class=headerlink href=#explore-the-promotion-pipeline title="Permanent link">¶</a></h2> <p>Let's look more closely at how the <code>ibm-mq-promote-dev-stage</code> pipeline is structured. Let's also examine the tasks and steps that make up the pipeline, and how they progressively validate the deployments in <code>dev</code> namespace, resulting in the production of a Helm chart ready for deployment in <code>staging</code> namespace.</p> <ol> <li> <p><em>Pipeline, Task, Step</em></p> <p>Let's start with the pipeline, its tasks and steps.</p> <p>Hover over the <code>dev-instance-tests</code> task:</p> <p><img alt=diagram38 src=../images/diagram38.png style=max-height:600px></p> <p>See how our pipeline is made up of tasks such as <code>dev-instance-tests</code>, <code>app-name</code> and <code>gitops</code>. These run in the order defined by the pipeline. Our pipeline is linear, though Tekton supports more sophisticated pipeline graphs if necessary.</p> <p>See how each task comprises a set of steps such as <code>git-clone</code> or <code>setup</code>. These run in the order defined by the task.</p> </li> <li> <p><em>The pipeline run logs</em></p> <p>When a pipeline runs, all its output is captured in a set of logs, one for each task.</p> <p>Click on the <code>dev-instance-tests</code> task to show its logs:</p> <p><img alt=diagram39 src=../images/diagram40.png style=max-height:900px></p> <p>(<em>Alternatively, you can select the <code>Logs</code> tab from the UI, and then select the tasks on the left pane within the pipeline run view.</em>)</p> <p>See how the <code>dev-instance-tests</code> task has its output in a dedicated log. You can select any log for any task that has completed or is executing. When a pipeline run completes, all its logs remain available, which can help diagnosing problems for example.</p> </li> <li> <p><em>Exploring an example task output:</em> <code>dev-instance-tests</code></p> <p>It's easy to examine a task log; you simply select the relevant task and scroll the log up or down. For active tasks the log will be dynamically updated.</p> <p>Click on the <code>dev-instance-tests</code> task:</p> <p><img alt=diagram40 src=../images/diagram39.png style=max-height:500px></p> <p>This console window shows the output generated by <code>dev-instance-tests</code> task. As the task script proceeds, its output is captured; that's what we can see in this window.</p> <p>Notice that the <code>dev-instance-tests</code> task output is from the <strong>first step</strong> in the <code>dev-instance-tests</code> task. This step is called <code>STEP-GIT-CLONE</code>. Note how the step names are capitalized in the web console output.</p> <p>Let's look at another task and its steps more closely.</p> </li> <li> <p><em>Exploring a task step in detail</em>: <code>STEP-RUN-TEST</code></p> <p>A task is built of multiple steps. Let's explore the <code>dev-instance-tests</code> task and its <code>step-run-test</code> step.</p> <p>Select the <code>dev-instance-tests</code> task and scroll through its logs to see its <strong>third step</strong>, <code>STEP-RUN-TEST</code>:</p> <p><img alt=diagram41 src=../images/diagram41.png></p> <p>See how the <code>step-run-test</code> output is captured in the same log as the previous step <code>git-clone</code>.</p> </li> <li> <p><em>The pipeline definition</em></p> <p>Up to this point, we've examined the pipeline run and the logs it generates. Let's now look at how a pipeline is defined.</p> <p>Issue the following command to show the <code>ibm-mq-promote-dev-stage</code> pipeline:</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>describe<span class=w> </span>pipeline<span class=w> </span>ibm-mq-promote-dev-stage<span class=w> </span>-n<span class=w> </span>ci
+</code></pre></div> <p>which shows the pipeline YAML in considerable detail:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">ibm-mq-promote-dev-stage</span>
+<span class=nt>Namespace</span><span class=p>:</span><span class=w>    </span><span class="l l-Scalar l-Scalar-Plain">ci</span>
+<span class=nt>Labels</span><span class=p>:</span><span class=w>       </span><span class="l l-Scalar l-Scalar-Plain">app.kubernetes.io/instance=apps-mq-rest-ci-1</span>
+<span class=nt>Annotations:  app.openshift.io/runtime</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">test</span>
+<span class=nt>API Version</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">tekton.dev/v1beta1</span>
+<span class=nt>Kind</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">Pipeline</span>
+<span class=nt>Metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>Creation Timestamp</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">2022-02-01T08:57:44Z</span>
+<span class=w>  </span><span class=nt>Generation</span><span class=p>:</span><span class=w>          </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class=w>  </span><span class=nt>Managed Fields</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>API Version</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">tekton.dev/v1beta1</span>
+<span class=w>    </span><span class=nt>Fields Type</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">FieldsV1</span>
+<span class=w>    </span><span class=nt>fieldsV1</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>f:metadata</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>f:annotations</span><span class=p>:</span>
+<span class=w>          </span><span class=nt>.</span><span class=p>:</span>
+<span class=w>          </span><span class=nt>f:app.openshift.io/runtime</span><span class=p>:</span>
+<span class=w>          </span><span class=nt>f:kubectl.kubernetes.io/last-applied-configuration</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>f:labels</span><span class=p>:</span>
+<span class=w>          </span><span class=nt>.</span><span class=p>:</span>
+<span class=w>          </span><span class=nt>f:app.kubernetes.io/instance</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>f:spec</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>.</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>f:params</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>f:tasks</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>Manager</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">argocd-application-controller</span>
+<span class=w>    </span><span class=nt>Operation</span><span class=p>:</span><span class=w>       </span><span class="l l-Scalar l-Scalar-Plain">Update</span>
+<span class=w>    </span><span class=nt>Time</span><span class=p>:</span><span class=w>            </span><span class="l l-Scalar l-Scalar-Plain">2022-02-01T08:57:44Z</span>
+<span class=w>  </span><span class=nt>Resource Version</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">3333166</span>
+<span class=w>  </span><span class=nt>UID</span><span class=p>:</span><span class=w>               </span><span class="l l-Scalar l-Scalar-Plain">727e9cae-9582-4646-92c5-d19cbcb0617f</span>
+<span class=nt>Spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>Params</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">The url for the git repository</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">git branch for the test app</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">git-revision</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">environment</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">src-environment</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">staging</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">environment</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">dest-environment</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">mq/environments</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Path in gitops repo</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">app-path</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Enable the pipeline to do a PR for the gitops repo</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">git-pr</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">postman/mq-spring-app.postman_collection.json</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Path of the postman collection</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">test-file</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>  </span><span class=nt>Tasks</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">dev-instance-tests</span>
+<span class=w>    </span><span class=nt>Params</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.git-url)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">src-environment</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.src-environment)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">test-file</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.test-file)</span>
+<span class=w>    </span><span class=nt>Task Ref</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>Kind</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Task</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">ibm-functional-test</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>    </span><span class="l l-Scalar l-Scalar-Plain">app-name</span>
+<span class=w>    </span><span class=nt>Params</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.git-url)</span>
+<span class=w>    </span><span class=nt>Run After</span><span class=p>:</span>
+<span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">dev-instance-tests</span>
+<span class=w>    </span><span class=nt>Task Ref</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>Kind</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Task</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">ibm-app-name</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>    </span><span class="l l-Scalar l-Scalar-Plain">gitops</span>
+<span class=w>    </span><span class=nt>Params</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">app-name</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.app-name.results.app-name)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">src-environment</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.src-environment)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">dest-environment</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.dest-environment)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">app-path</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.app-path)</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">git-pr</span>
+<span class=w>      </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.git-pr)</span>
+<span class=w>    </span><span class=nt>Run After</span><span class=p>:</span>
+<span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">app-name</span>
+<span class=w>    </span><span class=nt>Task Ref</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>Kind</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Task</span>
+<span class=w>      </span><span class=nt>Name</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">ibm-gitops</span>
+<span class=nt>Events</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">&lt;none&gt;</span>
+</code></pre></div> <p>Don't be intimidated by this output -- it's actually just a more detailed source view of the information shown for the <code>ibm-mq-promote-dev-stage</code> pipeline in the web console.</p> <p>Locate the following key structures in the <code>Pipeline</code> YAML:</p> <ul> <li><code>API Version: tekton.dev/v1beta1</code> and <code>Kind: Pipeline</code> identify this as a Tekton pipeline.</li> <li><code>Spec: Params</code> identifies the <strong>pipeline input parameters</strong></li> <li><code>Tasks:</code> is a list of the tasks in this pipeline, each of which has</li> <li>A <code>Name:</code> naming the task</li> <li>A set of <code>Params:</code> identifying the <strong>task input parameters</strong></li> <li>An optional <code>Run After:</code> value indicating when the task is run</li> <li>A <code>Task Ref:</code> identifying the actual task code to be run using the task's input</li> </ul> <p>Notice that there's <strong>no code</strong> in the pipeline definition; instead, the definition specifies the required inputs to the pipeline, as well as the set of required tasks and their order of execution. The code executed by each task is identified by <code>Task Ref:</code>, rather than in the pipeline; the pipeline definition merely defines the order of task execution and how parameters are marshaled between tasks.</p> <p>Let's now examine the pipeline definition in a little more detail.</p> </li> <li> <p><em>The pipeline input</em> <code>Spec: Params</code></p> <p>When we configure a pipeline run, the arguments map precisely to <code>Spec: Params</code> in the pipeline YAML file.</p> <p>Below, we've just shown the <code>Spec: Params:</code> for the <code>ibm-mq-promote-dev-stage</code> pipeline:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>Spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>Params</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">The url for the git repository</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">git branch for the test app</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">git-revision</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">environment</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">src-environment</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">staging</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">environment</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">dest-environment</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">mq/environments</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Path in gitops repo</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">app-path</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Enable the pipeline to do a PR for the gitops repo</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">git-pr</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class=w>    </span><span class=nt>Default</span><span class=p>:</span><span class=w>      </span><span class="l l-Scalar l-Scalar-Plain">postman/mq-spring-app.postman_collection.json</span>
+<span class=w>    </span><span class=nt>Description</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Path of the postman collection</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">test-file</span>
+<span class=w>    </span><span class=nt>Type</span><span class=p>:</span><span class=w>         </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+</code></pre></div> <p>Spend a few moments mapping each of these parameters maps to those on the <code>Start Pipeline</code> input dialog where you specified the pipeline run arguments. For example, map <code>Name:</code>, <code>Description:</code> and <code>Default:</code> to the different fields in the dialog.</p> </li> <li> <p><em>Parameters for the first</em> <code>setup</code> <em>task</em></p> <p>We can see that the first task in the pipeline is called <code>dev-instance-tests</code>. Let's examine its YAML to see how it gets its input parameters:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>Tasks</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>Name</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">dev-instance-tests</span>
+<span class=w>  </span><span class=nt>Params</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>    </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.git-url)</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">src-environment</span>
+<span class=w>    </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.src-environment)</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">test-file</span>
+<span class=w>    </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.test-file)</span>
+<span class=w>  </span><span class=nt>Task Ref</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>Kind</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Task</span>
+<span class=w>    </span><span class=nt>Name</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">ibm-functional-test</span>
+</code></pre></div> <p>See how the <code>dev-instance-tests</code> task derives its <code>git-url</code> parameter using the <strong>pipeline</strong> input parameter value <code>$(params.git-url)</code>. See how <code>src-environment</code> and <code>test-file</code> work in a similar way. The first task in a pipeline typically works like this -- its parameters are mapped from the pipeline's input parameters.</p> <p>Notice also that some pipeline input parameters are not referred to by the <code>dev-instance-tests</code> task; they will be used by subsequent tasks using the appropriate <code>$(params.)</code> value.</p> </li> <li> <p><em>Passing arguments between tasks</em></p> <p>As each task completes, the pipeline proceeds. When a new task starts it often requires one or more results generated by a previous task.</p> <p>We can see a good example of this in the <code>gitops</code> task:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>Name</span><span class=p>:</span><span class=w>    </span><span class="l l-Scalar l-Scalar-Plain">gitops</span>
+<span class=nt>Params</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">app-name</span>
+<span class=w>  </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(tasks.app-name.results.app-name)</span>
+<span class=w>  </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">src-environment</span>
+<span class=w>  </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.src-environment)</span>
+<span class=w>  </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">dest-environment</span>
+<span class=w>  </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.dest-environment)</span>
+<span class=w>  </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">app-path</span>
+<span class=w>  </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.app-path)</span>
+<span class=w>  </span><span class=nt>Name</span><span class=p>:</span><span class=w>   </span><span class="l l-Scalar l-Scalar-Plain">git-pr</span>
+<span class=w>  </span><span class=nt>Value</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">$(params.git-pr)</span>
+<span class=nt>Run After</span><span class=p>:</span>
+<span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">app-name</span>
+<span class=nt>Task Ref</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>Kind</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">Task</span>
+<span class=w>  </span><span class=nt>Name</span><span class=p>:</span><span class=w>  </span><span class="l l-Scalar l-Scalar-Plain">ibm-gitops</span>
+</code></pre></div> <p>See how the <code>gitops</code> task specifies that the <code>app-name</code> parameter should use value generated by the <code>app-name</code> task using the syntax: <code>$(tasks.app-name.results.app-name)</code>.</p> <p>Also notice how the <code>gitops</code> tasks uses <code>Run After:</code> to specify that it should execute <strong>after</strong> the <code>app-name</code> task. This follows the Kubernetes idiom of resources being declarative -- the order of execution is defined by <code>RunAfter:</code> rather than the order in which tasks appear in the YAML.</p> <p>Again, notice that the <code>gitops</code> task <strong>doesn't</strong> contain the code that the task executes. This is contained in <code>Task Ref:</code> which identifies <code>ibm-gitops</code> as the task to execute using the specified parameters. It's the code in <code>ibm-gitops</code> which generates the log output for the task; we'll examine it later.</p> <p>The way pipelines tasks are designed makes them highly reusable. As we'll see later, tasks are written with defined inputs and outputs such that they can be re-used by different pipelines. Pipelines focus on organizing the order of task execution and how parameters are marshaled into and between tasks; it's the tasks that do the actual work.</p> </li> <li> <p><em>Locating the pipeline and tasks source YAMLs</em></p> <p>Finally, let's locate the source for the <code>ibm-mq-promote-dev-stage</code> pipeline and the tasks within it.</p> <p>It is located in the following folder:</p> <div class=highlight><pre><span></span><code><span class=nb>cd</span><span class=w> </span><span class=nv>$GIT_ROOT</span>
+<span class=nb>cd</span><span class=w> </span>multi-tenancy-gitops-apps
+tree<span class=w> </span>mq/environments/ci/pipelines/
+</code></pre></div> <p>We can see the other pipelines for the <code>ci</code> namespace in this folder:</p> <div class="no-copy highlight"><pre><span></span><code>mq/environments/ci/pipelines/
+├── ibm-test-pipeline-for-dev.yaml
+├── ibm-test-pipeline-for-stage.yaml
+├── java-maven-dev-pipeline.yaml
+├── mq-metric-samples-dev-pipeline.yaml
+├── mq-pipeline-dev.yaml
+└── mq-spring-app-dev-pipeline.yaml
+</code></pre></div> <p>These map to the MQ-related pipelines we saw in the <code>Pipelines-&gt;Pipelines</code> view in the web console.</p> </li> <li> <p><em>Exploring the</em> <code>ibm-mq-promote-dev-stage</code> <em>source YAML</em></p> <p>View the source for the <code>ibm-test-pipeline-for-dev.yaml</code> pipeline with the command:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/environments/ci/pipelines/ibm-test-pipeline-for-dev.yaml
+</code></pre></div> <p>which shows the source YAML for the <code>ibm-mq-promote-dev-stage</code> pipeline:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tekton.dev/v1beta1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Pipeline</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-mq-promote-dev-stage</span>
+<span class=w>  </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>app.openshift.io/runtime</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">test</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>params</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>      </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">The url for the git repository</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-revision</span>
+<span class=w>      </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git branch for the test app</span>
+<span class=w>      </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">src-environment</span>
+<span class=w>      </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">environment</span>
+<span class=w>      </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">dest-environment</span>
+<span class=w>      </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">environment</span>
+<span class=w>      </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">staging</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">app-path</span>
+<span class=w>      </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Path in gitops repo</span>
+<span class=w>      </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq/environments</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-pr</span>
+<span class=w>      </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Enable the pipeline to do a PR for the gitops repo</span>
+<span class=w>      </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=s>"true"</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">test-file</span>
+<span class=w>      </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Path of the postman collection</span>
+<span class=w>      </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=s>"postman/mq-spring-app.postman_collection.json"</span>
+<span class=w>  </span><span class=nt>tasks</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">dev-instance-tests</span>
+<span class=w>      </span><span class=nt>taskRef</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-functional-test</span>
+<span class=w>      </span><span class=nt>params</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(params.git-url)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">src-environment</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(params.src-environment)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">test-file</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(params.test-file)"</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">app-name</span>
+<span class=w>      </span><span class=nt>taskRef</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-app-name</span>
+<span class=w>      </span><span class=nt>runAfter</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">dev-instance-tests</span>
+<span class=w>      </span><span class=nt>params</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(params.git-url)"</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gitops</span>
+<span class=w>      </span><span class=nt>taskRef</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-gitops</span>
+<span class=w>      </span><span class=nt>runAfter</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">app-name</span>
+<span class=w>      </span><span class=nt>params</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">app-name</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(tasks.app-name.results.app-name)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">src-environment</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(params.src-environment)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">dest-environment</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(params.dest-environment)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">app-path</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(params.app-path)"</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-pr</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"$(params.git-pr)"</span>
+</code></pre></div> <p>This YAML is <em>slightly</em> different to the output of the <code>oc get pipeline</code> command, because extra information is added during deployment such as <code>Creation Timestamp:</code>.</p> </li> <li> <p><em>Finding the ArgoCD application that manages pipelines</em></p> <p>You can see how the <code>ibm-mq-promote-dev-stage</code> and other pipeline YAMLs were deployed by examining the ArgoCD application that watches the folder containing the <code>ci</code> namespace pipelines.</p> <p>Issue the following command:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/config/argocd/ci/ci-app-rest.yaml
+</code></pre></div> <p>which shows the <code>apps-mq-rest-ci-1</code> ArgoCD application that watches for updates:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Application</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">apps-mq-rest-ci-1</span>
+<span class=w>  </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>argocd.argoproj.io/sync-wave</span><span class=p>:</span><span class=w> </span><span class=s>"300"</span>
+<span class=w>  </span><span class=nt>finalizers</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">resources-finalizer.argocd.argoproj.io</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>destination</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ci</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class=nt>project</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">applications</span>
+<span class=w>  </span><span class=nt>source</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq/environments/ci</span>
+<span class=w>    </span><span class=nt>repoURL</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/prod-ref-guide/multi-tenancy-gitops-apps.git</span>
+<span class=w>    </span><span class=nt>targetRevision</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class=w>  </span><span class=nt>syncPolicy</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>automated</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>prune</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>      </span><span class=nt>selfHeal</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div> <p>See how this <code>apps-mq-rest-ci-1</code> watches: <code>path: mq/environments/ci</code>. As we know, this folder contains the YAML for the <code>ibm-mq-promote-dev-stage</code> and other pipelines under <code>pipelines</code> folder. When this ArgoCD application was made active in the cluster, it installed all the pipelines along with other resources in this folder.</p> </li> </ol> <hr> <h2 id=review-the-resultant-gitops-application-folders>Review the resultant GitOps application folders<a class=headerlink href=#review-the-resultant-gitops-application-folders title="Permanent link">¶</a></h2> <p>The result of our previously successful <code>ibm-mq-promote-dev-stage</code> pipeline runs was to leave a PR in a GitOps folder for <code>Queue Manager</code> and <code>MQ Sample application</code>. This PR creates the artifact resources if they are not present in the <code>staging</code> folder. If the resources are already there, it updates the <code>version</code> of the image in the respective <code>yamls</code> to match the latest deployment currently residing in the <code>dev</code> namespace.</p> <ol> <li> <p><em>Ensure you've set up the $GIT_ORG environment variable</em></p> <p>This chapter also uses environment variables to save typing and reduce errors.</p> <p>Let's set up an environment variable, <code>$GIT_ORG</code>, that contains your GitHub organization name. We'll use this variable in many subsequent commands.</p> <p><strong>Open a new terminal window</strong>.</p> <p>Replace <code>&lt;git-org&gt;</code> in the following command with your GitHub user name:</p> <div class=highlight><pre><span></span><code><span class=nb>export</span><span class=w> </span><span class=nv>GIT_ORG</span><span class=o>=</span>&lt;git-org&gt;
+</code></pre></div> <p>You can verify your <code>$GIT_ORG</code> as follows:</p> <div class=highlight><pre><span></span><code><span class=nb>echo</span><span class=w> </span><span class=nv>$GIT_ORG</span>
+</code></pre></div> <p>which will show your GitHub Organization, for example:</p> <div class="no-copy highlight"><pre><span></span><code>prod-ref-guide
+</code></pre></div> </li> <li> <p><em>Grab the <code>multi-tenancy-gitops-apps</code> repository url</em></p> <p>Issue the below command to get the GitOps apps repository url.</p> <div class=highlight><pre><span></span><code><span class=nb>echo</span><span class=w> </span>https://github.com/<span class=nv>$GIT_ORG</span>/multi-tenancy-gitops-apps/pulls
+</code></pre></div> <p>which will give you an url, for instance:</p> <div class="no-copy highlight"><pre><span></span><code>https://github.com/prod-ref-guide/multi-tenancy-gitops-apps/pulls
+</code></pre></div> </li> <li> <p><em>Review the Pull Requests created by <code>ibm-mq-promote-dev-stage</code> pipeline</em></p> <p>Open the above url in your browser and you will see Pull Requests generated by the <code>ibm-mq-promote-dev-stage</code> pipeline.</p> <p><img alt=diagram42 src=../images/diagram42.png style=max-height:500px></p> <p>Merge these Pull Requests.</p> <p><img alt=diagram43 src=../images/diagram43.png style=max-height:700px></p> <p><img alt=diagram44 src=../images/diagram44.png style=max-height:700px></p> <p><img alt=diagram45 src=../images/diagram45.png style=max-height:700px></p> <p><img alt=diagram46 src=../images/diagram46.png style=max-height:700px></p> </li> <li> <p><em>Re-merging local clone to view staging resources in GitOps apps repository</em></p> <p>The <code>ibm-mq-promote-dev-stage</code> pipeline left a Pull request and we merged the changes in the previous step. This means that our local clone of the GitOps repository is one commit behind GitHub. To allow us to view the changes locally, we must re-merge our local branch with GitHub.</p> <p><strong>Return to the terminal window</strong> you're using for the <code>multi-tenancy-gitops-apps</code> GitOps apps repository.</p> <p>Issue the following command to change to your GitOps apps repository:</p> <div class=highlight><pre><span></span><code><span class=nb>cd</span><span class=w> </span><span class=nv>$GIT_ROOT</span>
+<span class=nb>cd</span><span class=w> </span>multi-tenancy-gitops-apps
+</code></pre></div> <p>Issue the following commands to merge the local branch:</p> <div class=highlight><pre><span></span><code>git<span class=w> </span>fetch<span class=w> </span>origin
+git<span class=w> </span>merge<span class=w> </span>origin/<span class=nv>$GIT_BRANCH</span>
+</code></pre></div> <p>which shows our local branch being updated:</p> <div class="no-copy highlight"><pre><span></span><code>Updating b23c8b1..e5b1241
+Fast-forward
+ mq/environments/staging/mq-qm01/queuemanager/queuemanager.yaml   |  78 ++++++++++++++++++++++++++++++++++++++++++++
+ mq/environments/staging/mq-spring-app/deployment/deployment.yaml | 100 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 178 insertions(+)
+ create mode 100644 mq/environments/staging/mq-qm01/queuemanager/queuemanager.yaml
+ create mode 100644 mq/environments/staging/mq-spring-app/deployment/deployment.yaml
+</code></pre></div> <p>Notice how these files correspond to the resources created in the GitOps apps repository by the <code>ibm-mq-promote-dev-stage</code> pipeline run.</p> </li> <li> <p><em>Explore the resources in the GitOps Apps repository</em></p> <p>Let's examine the newly produced resources in the GitOps apps repository; it was created by the previous pipeline runs.</p> <p>Issue the following command:</p> <div class=highlight><pre><span></span><code>tree<span class=w> </span>mq/environments/staging/mq-qm01/queuemanager/
+</code></pre></div> <p>which shows the newly produced resources:</p> <div class="no-copy highlight"><pre><span></span><code>mq/environments/staging/mq-qm01/queuemanager/
+├── hooks
+│   ├── post-sync-job.sh
+│   └── post-sync-job.yaml_template
+└── queuemanager.yaml
+</code></pre></div> <p>Notice that:</p> <ul> <li>The template for <code>Queue Manager</code> was created in the <code>mq/environments/staging/mq-qm01/queuemanager/</code> folder to reflect the fact this queue manager is part of the <strong>applications</strong> layer.</li> <li>The resource was created in the <code>staging</code> subfolder to reflect the fact that it's going to be deployed to the <code>staging</code> namespace.</li> <li>The resource was created in a new folder <code>/mq-qm01</code>. This folder is dedicated to <code>Queue Manager</code>.</li> </ul> <p>Issue the following command:</p> <div class=highlight><pre><span></span><code>tree<span class=w> </span>mq/environments/staging/mq-spring-app/deployment/
+</code></pre></div> <p>which shows the newly produced resources:</p> <div class="no-copy highlight"><pre><span></span><code>mq/environments/staging/mq-spring-app/deployment/
+├── deployment.yaml
+└── hooks
+    ├── post-sync-job.sh
+    └── post-sync-job.yaml_template
+</code></pre></div> <p>Notice that:</p> <ul> <li>The resources for <code>MQ Sample application</code> was created in the <code>mq/environments/staging/mq-spring-app/deployment/</code> folder to reflect the fact this application is part of the <strong>applications</strong> layer.</li> <li>The resources were created in the <code>staging</code> subfolder to reflect the fact that it's going to be deployed to the <code>staging</code> namespace.</li> <li>The resources were created in a new folder <code>/mq-spring-app</code>. This folder is dedicated to <code>MQ Sample application</code>.</li> </ul> </li> </ol> <hr> <h2 id=enable-dynamic-configurations-for-queue-manager-optional>Enable Dynamic configurations for queue manager (Optional)<a class=headerlink href=#enable-dynamic-configurations-for-queue-manager-optional title="Permanent link">¶</a></h2> <div class="admonition note"> <p class=admonition-title>Note</p> <p>This step is only applicable if you enabled the dynamic configurations for the queue manager in the previous chapters. Otherwise, please ignore this section and move to next section.</p> </div> <ol> <li> <p><em>Check the queue manager resources in staging</em></p> <p>Issue the following command to see how the staging components of queue manager are structured out:</p> <div class=highlight><pre><span></span><code>tree<span class=w> </span>mq/environments/staging/mq-qm01/<span class=w> </span>-L<span class=w> </span><span class=m>3</span>
+</code></pre></div> <p>You should see a set of resources in the GitOps framework at the <code>mq-qm01</code> staging layer:</p> <div class="no-copy highlight"><pre><span></span><code>mq/environments/staging/mq-qm01/
+├── certificates
+│   ├── staging-mq-client-certificate.sh
+│   ├── staging-mq-client-certificate.yaml_template
+│   ├── staging-mq-server-certificate.sh
+│   └── staging-mq-server-certificate.yaml_template
+├── components
+│   ├── dynamic-mqsc
+│   │   └── generic-qmgr
+│   └── scripts
+│       ├── kustomization.yaml
+│       ├── start-mqsc.sh
+│       └── stop-mqsc.sh
+├── configmap
+│   └── static-definitions.mqsc
+├── kustomization.yaml
+├── queuemanager
+│   ├── hooks
+│   │   ├── post-sync-job.sh
+│   │   └── post-sync-job.yaml_template
+│   └── queuemanager.yaml
+├── roles
+│   ├── cphtestp-clusterrole.yaml
+│   └── cphtestp-sa-rolebinding.yaml
+└── secrets
+    ├── mq-client-jks-password-secret.sh
+    └── mq-client-jks-password-secret.yaml
+
+10 directories, 16 files
+</code></pre></div> </li> <li> <p><em>Enable the service that initiates the scripts in the queue manager</em></p> <p>Let’s examine the <code>mq/environments/staging/mq-qm01/configmap/static-definitions.mqsc</code> to see how to enable the service that initiates the scripts in the queue manager.</p> <p>Issue the following command:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/environments/staging/mq-qm01/configmap/static-definitions.mqsc
+</code></pre></div> <p>We can see the contents of the <code>static-definitions.mqsc</code>:</p> <div class="no-copy highlight"><pre><span></span><code>define ql(APPQ)
+define ql(REQUEST)
+define ql(REQUEST1)
+define ql(REQUEST2)
+define ql(REQUEST3)
+define ql(REQUEST4)
+define ql(REQUEST5)
+define ql(REQUEST6)
+define ql(REQUEST7)
+define ql(REQUEST8)
+define ql(REQUEST9)
+define ql(REQUEST10)
+define ql(REPLY)
+define ql(REPLY1)
+define ql(REPLY2)
+define ql(REPLY3)
+define ql(REPLY4)
+define ql(REPLY5)
+define ql(REPLY6)
+define ql(REPLY7)
+define ql(REPLY8)
+define ql(REPLY9)
+define ql(REPLY10)
+DEFINE QLOCAL(IBM.DEMO.Q) BOQNAME(IBM.DEMO.Q.BOQ) BOTHRESH(3) REPLACE
+DEFINE QLOCAL(IBM.DEMO.Q.BOQ) REPLACE
+* Use a different dead letter queue, for undeliverable messages
+DEFINE QLOCAL('DEV.DEAD.LETTER.QUEUE') REPLACE
+ALTER QMGR DEADQ('DEV.DEAD.LETTER.QUEUE')
+DEFINE CHANNEL('IBM.APP.SVRCONN') CHLTYPE(SVRCONN)
+ALTER QMGR CHLAUTH (DISABLED)
+* DEFINE CHANNEL('MONITORING_CHL') CHLTYPE(SVRCONN)
+* SET CHLAUTH(MONITORING_CHL) TYPE(BLOCKUSER) USERLIST(NOBODY)
+REFRESH SECURITY TYPE(CONNAUTH)
+
+* optional
+* DEFINE SERVICE(APPLY_MQSC) CONTROL(QMGR) SERVTYPE(SERVER) STARTCMD('/mq-config/start-mqsc.sh') STARTARG(QM1) STOPCMD('/mq-config/start-mqsc.sh') STOPARG('') STDOUT('') STDERR('')
+</code></pre></div> <p>Open <code>mq/environments/staging/mq-qm01/configmap/static-definitions.mqsc</code> and uncomment the service definition in the above file as follows :</p> <div class=highlight><pre><span></span><code>define ql(APPQ)
+define ql(REQUEST)
+define ql(REQUEST1)
+define ql(REQUEST2)
+define ql(REQUEST3)
+define ql(REQUEST4)
+define ql(REQUEST5)
+define ql(REQUEST6)
+define ql(REQUEST7)
+define ql(REQUEST8)
+define ql(REQUEST9)
+define ql(REQUEST10)
+define ql(REPLY)
+define ql(REPLY1)
+define ql(REPLY2)
+define ql(REPLY3)
+define ql(REPLY4)
+define ql(REPLY5)
+define ql(REPLY6)
+define ql(REPLY7)
+define ql(REPLY8)
+define ql(REPLY9)
+define ql(REPLY10)
+DEFINE QLOCAL(IBM.DEMO.Q) BOQNAME(IBM.DEMO.Q.BOQ) BOTHRESH(3) REPLACE
+DEFINE QLOCAL(IBM.DEMO.Q.BOQ) REPLACE
+* Use a different dead letter queue, for undeliverable messages
+DEFINE QLOCAL('DEV.DEAD.LETTER.QUEUE') REPLACE
+ALTER QMGR DEADQ('DEV.DEAD.LETTER.QUEUE')
+DEFINE CHANNEL('IBM.APP.SVRCONN') CHLTYPE(SVRCONN)
+ALTER QMGR CHLAUTH (DISABLED)
+* DEFINE CHANNEL('MONITORING_CHL') CHLTYPE(SVRCONN)
+* SET CHLAUTH(MONITORING_CHL) TYPE(BLOCKUSER) USERLIST(NOBODY)
+REFRESH SECURITY TYPE(CONNAUTH)
+
+* optional
+DEFINE SERVICE(APPLY_MQSC) CONTROL(QMGR) SERVTYPE(SERVER) STARTCMD('/mq-config/start-mqsc.sh') STARTARG(QM1) STOPCMD('/mq-config/start-mqsc.sh') STOPARG('') STDOUT('') STDERR('')
+</code></pre></div> <p>Commit and push changes to your git repository:</p> <div class=highlight><pre><span></span><code>git<span class=w> </span>add<span class=w> </span>.
+git<span class=w> </span>commit<span class=w> </span>-s<span class=w> </span>-m<span class=w> </span><span class=s2>"Enable svc to pickup the dynamic scripts in staging"</span>
+git<span class=w> </span>push<span class=w> </span>origin<span class=w> </span><span class=nv>$GIT_BRANCH</span>
+</code></pre></div> <p>The changes have now been pushed to your GitOps repository:</p> <div class="no-copy highlight"><pre><span></span><code>Enumerating objects: 15, done.
+Counting objects: 100% (15/15), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (8/8), done.
+Writing objects: 100% (8/8), 675 bytes | 675.00 KiB/s, done.
+Total 8 (delta 6), reused 0 (delta 0)
+remote: Resolving deltas: 100% (6/6), completed with 6 local objects.
+To https://github.com/prod-ref-guide/multi-tenancy-gitops-apps.git
+   1d2d87e..8a008e5  master -&gt; master
+</code></pre></div> </li> <li> <p><em>Add the components to the queue manager</em></p> <p>Examine the <code>kustomization.yaml</code> of <code>mq-qm01</code> at <code>staging</code> environment using the below command:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/environments/staging/mq-qm01/kustomization.yaml
+</code></pre></div> <p>See how the resources and components are defined :</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>resources</span><span class=p>:</span>
+<span class=w> </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">../../base/mq-qm01</span>
+<span class=w> </span><span class=c1># - queuemanager/hooks/post-sync-job.yaml</span>
+<span class=w> </span><span class=c1># - certificates/staging-mq-client-certificate.yaml</span>
+<span class=w> </span><span class=c1># - certificates/staging-mq-server-certificate.yaml</span>
+<span class=w> </span><span class=c1># - secrets/mq-client-jks-password-secret.yaml</span>
+<span class=w> </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">roles/cphtestp-clusterrole.yaml</span>
+<span class=w> </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">roles/cphtestp-sa-rolebinding.yaml</span>
+
+<span class=c1># Add the configMap that will be used for dynamic updates, this should be used queue manager wide i.e. stay the same in each environment.</span>
+<span class=c1># components:</span>
+<span class=c1># - components/dynamic-mqsc/generic-qmgr</span>
+<span class=c1># - components/scripts</span>
+
+<span class=nt>generatorOptions</span><span class=p>:</span>
+<span class=w> </span><span class=nt>disableNameSuffixHash</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=c1># We use a configMapGenerator because it allows us to build up the mqsc from regular MQSC files.</span>
+<span class=nt>configMapGenerator</span><span class=p>:</span>
+<span class=c1># Create an MQSC configMap using generic MQSC which will be added to all queue managers and applied during bootstrap.</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mqsc-configmap</span>
+<span class=w>  </span><span class=nt>behavior</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">create</span>
+<span class=w>  </span><span class=nt>files</span><span class=p>:</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">configmap/static-definitions.mqsc</span>
+<span class=nt>patchesStrategicMerge</span><span class=p>:</span>
+<span class=w> </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">queuemanager/queuemanager.yaml</span>
+<span class=w> </span><span class=c1># - components/dynamic-mqsc/generic-qmgr/queuemanager.yaml</span>
+</code></pre></div> <p>Open <code>mq/environments/staging/mq-qm01/kustomization.yaml</code> and uncomment the below resources: </p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>components</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">components/dynamic-mqsc/generic-qmgr</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">components/scripts</span>
+
+<span class=nt>patchesStrategicMerge</span><span class=p>:</span>
+<span class=w> </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">components/dynamic-mqsc/generic-qmgr/queuemanager.yaml</span>
+</code></pre></div> <p>You will have the following definition now:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>resources</span><span class=p>:</span>
+<span class=w> </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">../../base/mq-qm01</span>
+<span class=w> </span><span class=c1># - queuemanager/hooks/post-sync-job.yaml</span>
+<span class=w> </span><span class=c1># - certificates/staging-mq-client-certificate.yaml</span>
+<span class=w> </span><span class=c1># - certificates/staging-mq-server-certificate.yaml</span>
+<span class=w> </span><span class=c1># - secrets/mq-client-jks-password-secret.yaml</span>
+<span class=w> </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">roles/cphtestp-clusterrole.yaml</span>
+<span class=w> </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">roles/cphtestp-sa-rolebinding.yaml</span>
+
+<span class=c1># Add the configMap that will be used for dynamic updates, this should be used queue manager wide i.e. stay the same in each environment.</span>
+<span class=nt>components</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">components/dynamic-mqsc/generic-qmgr</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">components/scripts</span>
+
+<span class=nt>generatorOptions</span><span class=p>:</span>
+<span class=w> </span><span class=nt>disableNameSuffixHash</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=c1># We use a configMapGenerator because it allows us to build up the mqsc from regular MQSC files.</span>
+<span class=nt>configMapGenerator</span><span class=p>:</span>
+<span class=c1># Create an MQSC configMap using generic MQSC which will be added to all queue managers and applied during bootstrap.</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mqsc-configmap</span>
+<span class=w>  </span><span class=nt>behavior</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">create</span>
+<span class=w>  </span><span class=nt>files</span><span class=p>:</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">configmap/static-definitions.mqsc</span>
+<span class=nt>patchesStrategicMerge</span><span class=p>:</span>
+<span class=w> </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">queuemanager/queuemanager.yaml</span>
+<span class=w> </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">components/dynamic-mqsc/generic-qmgr/queuemanager.yaml</span>
+</code></pre></div> <p>Commit and push changes to your git repository:</p> <div class=highlight><pre><span></span><code>git<span class=w> </span>add<span class=w> </span>.
+git<span class=w> </span>commit<span class=w> </span>-s<span class=w> </span>-m<span class=w> </span><span class=s2>"Enable qmgr dynamic configurations in staging"</span>
+git<span class=w> </span>push<span class=w> </span>origin<span class=w> </span><span class=nv>$GIT_BRANCH</span>
+</code></pre></div> <p>The changes have now been pushed to your GitOps repository:</p> <div class="no-copy highlight"><pre><span></span><code>Enumerating objects: 13, done.
+Counting objects: 100% (13/13), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (7/7), done.
+Writing objects: 100% (7/7), 602 bytes | 602.00 KiB/s, done.
+Total 7 (delta 6), reused 0 (delta 0)
+remote: Resolving deltas: 100% (6/6), completed with 6 local objects.
+To https://github.com/prod-ref-guide/multi-tenancy-gitops-apps.git
+   809d3ff..d4d7605  master -&gt; master
+</code></pre></div> <p>The intention of this operation is to indicate that we'd like the resources and components declared in <code>mq/environments/staging/mq-qm01/kustomization.yaml</code> to be deployed in the cluster in staging environment.</p> </li> </ol> <hr> <h2 id=activate-argocd-applications>Activate ArgoCD Applications<a class=headerlink href=#activate-argocd-applications title="Permanent link">¶</a></h2> <p>We're now going to activate the ArgoCD applications to manage the deployment of <code>Queue Manager</code> and <code>MQ Sample application</code> to the <code>staging</code> namespace.</p> <ol> <li> <p><em>Ensure you're logged in to the cluster</em></p> <p>Start a terminal window and log into your OCP cluster, substituting the <code>--token</code> and <code>--server</code> parameters with your values:</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>login<span class=w> </span>--token<span class=o>=</span>&lt;token&gt;<span class=w> </span>--server<span class=o>=</span>&lt;server&gt;
+</code></pre></div> <p>If you are unsure of these values, click your user ID in the OpenShift web console and select "Copy Login Command".</p> </li> <li> <p><em>Locate your GitOps repository</em></p> <p>If necessary, change to the root of your GitOps repository, which is stored in the <code>$GIT_ROOT</code> environment variable.</p> <p>Issue the following command to change to your GitOps repository:</p> <div class=highlight><pre><span></span><code><span class=nb>cd</span><span class=w> </span><span class=nv>$GIT_ROOT</span>
+<span class=nb>cd</span><span class=w> </span>multi-tenancy-gitops
+</code></pre></div> </li> <li> <p><em>Select resources to deploy</em></p> <p>Access the <code>0-bootstrap/single-cluster/3-apps/kustomization.yaml</code>:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span><span class=m>0</span>-bootstrap/single-cluster/3-apps/kustomization.yaml
+</code></pre></div> <p>Open <code>0-bootstrap/single-cluster/3-apps/kustomization.yaml</code> and uncomment the below:</p> <div class="no-copy highlight"><pre><span></span><code>- argocd/mq/stage.yaml
+</code></pre></div> <p>Once modified, it should be something like below:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>resources</span><span class=p>:</span>
+<span class=c1>#- argocd/ace/cicd.yaml</span>
+<span class=c1>#- argocd/ace/dev.yaml</span>
+<span class=c1>#- argocd/ace/stage.yaml</span>
+<span class=c1>#- argocd/ace/prod.yaml</span>
+
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/mq/cicd.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/mq/dev.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/mq/stage.yaml</span>
+<span class=c1>#- argocd/mq/prod.yaml</span>
+
+<span class=c1>#- argocd/apic/cicd.yaml</span>
+<span class=c1>#- argocd/apic/dev.yaml</span>
+<span class=c1>#- argocd/apic/stage.yaml</span>
+<span class=c1>#- argocd/apic/prod.yaml</span>
+
+<span class=c1>#- argocd/bookinfo/cicd.yaml</span>
+<span class=c1>#- argocd/bookinfo/dev.yaml</span>
+<span class=c1>#- argocd/bookinfo/stage.yaml</span>
+<span class=c1>#- argocd/bookinfo/prod.yaml</span>
+
+<span class=c1>#- argocd/soapserver/soapserver.yaml</span>
+
+<span class=nt>patches</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>target</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Application</span>
+<span class=w>    </span><span class=nt>labelSelector</span><span class=p>:</span><span class=w> </span><span class=s>"gitops.tier.layer=applications"</span>
+<span class=w>  </span><span class=nt>patch</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|-</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/source/repoURL</span>
+<span class=w>      </span><span class=no>value: https://github.com/prod-ref-guide/multi-tenancy-gitops-apps.git</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/source/targetRevision</span>
+<span class=w>      </span><span class=no>value: master</span>
+</code></pre></div> </li> <li> <p><em>Push GitOps changes to GitHub</em></p> <p>Let’s make these GitOps changes visible to the ArgoCD <code>applications</code> application via GitHub.</p> <p>Add all changes in the current folder to a git index, commit them, and push them to GitHub:</p> <div class=highlight><pre><span></span><code>git<span class=w> </span>add<span class=w> </span>.
+git<span class=w> </span>commit<span class=w> </span>-s<span class=w> </span>-m<span class=w> </span><span class=s2>"Activating staging instance for queue manager and sample app"</span>
+git<span class=w> </span>push<span class=w> </span>origin<span class=w> </span><span class=nv>$GIT_BRANCH</span>
+</code></pre></div> <p>The changes have now been pushed to your GitOps repository:</p> <div class="no-copy highlight"><pre><span></span><code>Enumerating objects: 11, done.
+Counting objects: 100% (11/11), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 517 bytes | 517.00 KiB/s, done.
+Total 6 (delta 5), reused 0 (delta 0)
+remote: Resolving deltas: 100% (5/5), completed with 5 local objects.
+To https://github.com/prod-ref-guide/multi-tenancy-gitops.git
+   2de3f9c..3225847  master -&gt; master
+</code></pre></div> <p>This change to the GitOps repository can now be used by ArgoCD.</p> </li> <li> <p><em>The <code>applications</code> argocd application</em></p> <p>Let's examine the ArgoCD application that manage the <strong>applications</strong> in our reference architecture.</p> <p>In the ArgoCD UI <strong>Applications</strong> view, click on the icon for the <code>applications</code> application:</p> <p><img alt=diagram17 src=../images/diagram17.png style=max-height:600px></p> </li> </ol> <hr> <h2 id=examine-the-activated-argocd-applications>Examine the activated ArgoCD applications<a class=headerlink href=#examine-the-activated-argocd-applications title="Permanent link">¶</a></h2> <p>We're now going to examine the activated ArgoCD applications that uses the above resources to manage the deployment of <code>Queue Manager</code> and <code>MQ Sample application</code> to the <code>staging</code> namespace.</p> <h3 id=queue-manager_1>Queue Manager<a class=headerlink href=#queue-manager_1 title="Permanent link">¶</a></h3> <ol> <li> <p><em>The ArgoCD application for Queue Manager</em></p> <p><code>QM1</code> has its deployment to the cluster managed by a dedicated ArgoCD application called <code>staging-mq-qm01-instance</code>.</p> <p>Issue the following commands to show the ArgoCD application details:</p> <div class=highlight><pre><span></span><code><span class=nb>cd</span><span class=w> </span><span class=nv>$GIT_ROOT</span>
+<span class=nb>cd</span><span class=w> </span>multi-tenancy-gitops-apps
+
+cat<span class=w> </span>mq/config/argocd/staging/staging-mq-qm01-instance.yaml
+</code></pre></div> <p>which shows a YAML file typical of those we've seen before:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Application</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">staging-mq-qm01-instance</span>
+<span class=w>  </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>argocd.argoproj.io/sync-wave</span><span class=p>:</span><span class=w> </span><span class=s>"300"</span>
+<span class=w>  </span><span class=nt>finalizers</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">resources-finalizer.argocd.argoproj.io</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>destination</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">staging</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class=nt>project</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">applications</span>
+<span class=w>  </span><span class=nt>source</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq/environments/staging/mq-qm01/</span>
+<span class=w>    </span><span class=nt>repoURL</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/prod-ref-guide/multi-tenancy-gitops-apps.git</span>
+<span class=w>    </span><span class=nt>targetRevision</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class=w>  </span><span class=nt>syncPolicy</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>automated</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>prune</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>      </span><span class=nt>selfHeal</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>    </span><span class=nt>syncOptions</span><span class=p>:</span>
+<span class=w>      </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Replace=true</span>
+</code></pre></div> <p>See how the resources we explored in the previous section of this topic is referenced by <code>path: mq/environments/staging/mq-qm01/</code>:</p> <div class="no-copy highlight"><pre><span></span><code>mq/environments/staging/mq-qm01/queuemanager/
+├── hooks
+│   ├── post-sync-job.sh
+│   └── post-sync-job.yaml_template
+└── queuemanager.yaml
+</code></pre></div> <p>The ArgoCD application applies these resources to the cluster to instantiate <code>QM1</code> as a set of cluster resources.</p> </li> <li> <p><em>Look at active</em> <code>Queue Manager</code> <em>ArgoCD application</em></p> <p>Let's examine <code>QM1</code> and its Kubernetes resources using the ArgoCD UI.</p> <p>In the ArgoCD UI search the <strong>Applications</strong> view with the keyword <code>staging-mq-qm01</code>:</p> <p>(<em>You may need to launch the ArgoCD UI again. Refer to <a href=../../cluster-config/gitops-tekton-argocd/ >these instructions</a>.</em>)</p> <p><img alt=diagram60 src=../images/diagram60.png style=max-height:600px></p> </li> <li> <p><em>View the new</em> <code>Queue Manager</code> <em>Kubernetes resources</em></p> <p>We can look at the deployed instance of <code>QM1</code> and its dependent kubernetes resources.</p> <p>Click on the <code>staging-mq-qm01-instance</code> ArgoCD application:</p> <p><img alt=diagram61a src=../images/diagram61a.png style=max-height:900px></p> <p>If dynamic configurations enabled, it is as follows:</p> <p><img alt=diagram61b src=../images/diagram61b.png style=max-height:900px></p> </li> </ol> <h3 id=mq-sample-application_1>MQ Sample Application<a class=headerlink href=#mq-sample-application_1 title="Permanent link">¶</a></h3> <ol> <li> <p><em>The ArgoCD application for MQ Sample Application</em></p> <p><code>MQ Sample Application</code> has its deployment to the cluster managed by a dedicated ArgoCD application called <code>staging-mq-spring-app-instance</code>.</p> <p>Issue the following command to show the ArgoCD application details:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/config/argocd/staging/staging-mq-spring-app-instance.yaml
+</code></pre></div> <p>which shows a YAML file typical of those we've seen before:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Application</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">staging-mq-spring-app-instance</span>
+<span class=w>  </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>argocd.argoproj.io/sync-wave</span><span class=p>:</span><span class=w> </span><span class=s>"300"</span>
+<span class=w>  </span><span class=nt>finalizers</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">resources-finalizer.argocd.argoproj.io</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>destination</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">staging</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class=nt>project</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">applications</span>
+<span class=w>  </span><span class=nt>source</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq/environments/staging/mq-spring-app/</span>
+<span class=w>    </span><span class=nt>repoURL</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/prod-ref-guide/multi-tenancy-gitops-apps.git</span>
+<span class=w>    </span><span class=nt>targetRevision</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class=w>  </span><span class=nt>syncPolicy</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>automated</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>prune</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>      </span><span class=nt>selfHeal</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div> <p>See how the resources we explored in the previous section of this topic is referenced by <code>path: mq/environments/staging/mq-spring-app/</code>:</p> <div class="no-copy highlight"><pre><span></span><code>mq/environments/staging/mq-spring-app/deployment/
+├── deployment.yaml
+└── hooks
+    ├── post-sync-job.sh
+    └── post-sync-job.yaml_template
+</code></pre></div> <p>The ArgoCD application applies these resources to the cluster to instantiate <code>MQ Sample Application</code> as a set of cluster resources.</p> </li> <li> <p><em>Look at active</em> <code>MQ Sample Application</code> <em>ArgoCD application</em></p> <p>Let's examine <code>MQ Sample Application</code> and its Kubernetes resources using the ArgoCD UI.</p> <p>In the ArgoCD UI search the <strong>Applications</strong> view with the keyword <code>staging-mq-spring</code>:</p> <p>(<em>You may need to launch the ArgoCD UI again. Refer to <a href=../../cluster-config/gitops-tekton-argocd/ >these instructions</a>.</em>)</p> <p><img alt=diagram62 src=../images/diagram62.png style=max-height:600px></p> </li> <li> <p><em>View the new</em> <code>MQ Sample Application</code> <em>Kubernetes resources</em></p> <p>We can look at the deployed instance of <code>MQ Sample Application</code> and its dependent kubernetes resources.</p> <p>Click on the <code>staging-mq-spring-app-instance</code> ArgoCD application:</p> <p><img alt=diagram63 src=../images/diagram63.png style=max-height:900px></p> </li> </ol> <hr> <h2 id=validate-the-queue-manager>Validate the Queue Manager<a class=headerlink href=#validate-the-queue-manager title="Permanent link">¶</a></h2> <ol> <li> <p><em>Connect to the queue manager pod</em></p> <p>Let's connect to this container, so that we can explore the queue manager.</p> <p>Issue the following command:</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span><span class=nb>exec</span><span class=w> </span>-n<span class=w> </span>staging<span class=w> </span>qm1-ibm-mq-0<span class=w> </span>-it<span class=w> </span>--<span class=w> </span>/bin/bash
+</code></pre></div> <p>to connect you to the pod default container, where you'll see the <code>bash</code> prompt:</p> <div class="no-copy highlight"><pre><span></span><code>bash-4.4$
+</code></pre></div> <p>Your terminal is now connected to the container running the queue manager.</p> </li> <li> <p><em>Use MQ command line</em></p> <p>The container we've connected to has a fully running instance of the queue manager configured according to the YAML generated by the Helm chart. We can use regular MQ commands to verify that this is a regular queue manager.</p> <p>Issue the following command:</p> <div class=highlight><pre><span></span><code>dspmq<span class=w> </span>-o<span class=w> </span>all
+</code></pre></div> <p>to see a full list of the queue managers running in the container:</p> <div class="no-copy highlight"><pre><span></span><code>QMNAME(QM1) STATUS(Running) DEFAULT(yes) STANDBY(Permitted) INSTNAME(Installation1) INSTPATH(/opt/mqm) INSTVER(9.2.3.0) ROLE(Not configured) INSTANCE() INSYNC() QUORUM()
+</code></pre></div> <p>We can see that <code>QM1</code> is running, it's the default queue manager, where it's installed in the container file system, and it's version.</p> </li> <li> <p><em>Display queue manager properties</em></p> <p>We can also run an MQSC command to display the queue manager properties. These properties were defined in the MQSC file.</p> <p>Issue the following command:</p> <div class=highlight><pre><span></span><code>runmqsc<span class=w> </span>QM1<span class=w> </span><span class=o>&lt;&lt;&lt;</span><span class=w> </span><span class=s2>"dis qmgr"</span>
+</code></pre></div> <p>to see the full set of queue manager properties for <code>QM1</code>:</p> <div class="no-copy highlight"><pre><span></span><code>5724-H72 (C) Copyright IBM Corp. 1994, 2021.
+Starting MQSC for queue manager QM1.
+
+
+     1 : dis qmgr
+AMQ8408I: Display Queue Manager details.
+   QMNAME(QM1)                             ACCTCONO(DISABLED)
+   ACCTINT(1800)                           ACCTMQI(OFF)
+   ACCTQ(OFF)                              ACTIVREC(MSG)
+   ACTVCONO(DISABLED)                      ACTVTRC(OFF)
+   ADVCAP(ENABLED)                         ALTDATE(2021-09-29)
+   ALTTIME(09.20.18)                       AMQPCAP(NO)
+   AUTHOREV(DISABLED)                      CCSID(819)
+   CERTLABL( )                             CERTVPOL(ANY)
+   CHAD(DISABLED)                          CHADEV(DISABLED)
+   CHADEXIT( )                             CHLEV(DISABLED)
+   CHLAUTH(DISABLED)                       CLWLDATA( )
+   CLWLEXIT( )                             CLWLLEN(100)
+   CLWLMRUC(999999999)                     CLWLUSEQ(LOCAL)
+   CMDEV(DISABLED)                         CMDLEVEL(923)
+   COMMANDQ(SYSTEM.ADMIN.COMMAND.QUEUE)    CONFIGEV(DISABLED)
+   CONNAUTH(SYSTEM.DEFAULT.AUTHINFO.IDPWOS)
+   CRDATE(2021-09-29)                      CRTIME(09.20.14)
+   CUSTOM( )                               DEADQ(DEV.DEAD.LETTER.QUEUE)
+   DEFCLXQ(SCTQ)                           DEFXMITQ( )
+   DESCR( )                                DISTL(YES)
+   IMGINTVL(60)                            IMGLOGLN(OFF)
+   IMGRCOVO(YES)                           IMGRCOVQ(YES)
+   IMGSCHED(MANUAL)                        INHIBTEV(DISABLED)
+   IPADDRV(IPV4)                           LOCALEV(DISABLED)
+   LOGGEREV(DISABLED)                      MARKINT(5000)
+   MAXHANDS(256)                           MAXMSGL(4194304)
+   MAXPROPL(NOLIMIT)                       MAXPRTY(9)
+   MAXUMSGS(10000)                         MONACLS(QMGR)
+   MONCHL(OFF)                             MONQ(OFF)
+   PARENT( )                               PERFMEV(DISABLED)
+   PLATFORM(UNIX)                          PSMODE(ENABLED)
+   PSCLUS(ENABLED)                         PSNPMSG(DISCARD)
+   PSNPRES(NORMAL)                         PSRTYCNT(5)
+   PSSYNCPT(IFPER)                         QMID(QM1_2021-09-29_09.20.14)
+   REMOTEEV(DISABLED)                      REPOS( )
+   REPOSNL( )                              REVDNS(ENABLED)
+   ROUTEREC(MSG)                           SCHINIT(QMGR)
+   SCMDSERV(QMGR)                          SPLCAP(ENABLED)
+   SSLCRLNL( )                             SSLCRYP( )
+   SSLEV(DISABLED)                         SSLFIPS(NO)
+   SSLKEYR(/run/runmqserver/tls/key)       SSLRKEYC(0)
+   STATACLS(QMGR)                          STATCHL(OFF)
+   STATINT(1800)                           STATMQI(OFF)
+   STATQ(OFF)                              STRSTPEV(ENABLED)
+   SUITEB(NONE)                            SYNCPT
+   TREELIFE(1800)                          TRIGINT(999999999)
+   VERSION(09020300)                       XRCAP(NO)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+</code></pre></div> <p>Note how <code>CHLAUTH(DISABLED)</code> has been set. This was set in the MQSC file configuration for <code>QM1</code> in via the <code>mqsc-configmap</code> configmap.</p> <p>Feel free to run other <code>runmqsc</code> commands to explore the queue manager properties.</p> </li> <li> <p><em>Display the dynamic queues</em></p> <p>We can also run an MQSC command to check if the dynamic queue got created.</p> <p>Issue the following command:</p> <div class=highlight><pre><span></span><code>runmqsc<span class=w> </span>QM1<span class=w> </span><span class=o>&lt;&lt;&lt;</span><span class=w> </span><span class=s2>"dis qlocal(STAGETEST.DYNAMIC.QUEUE)"</span>
+</code></pre></div> <p>to see the full set of queue properties for <code>STAGETEST.DYNAMIC.QUEUE</code>:</p> <div class="no-copy highlight"><pre><span></span><code>5724-H72 (C) Copyright IBM Corp. 1994, 2021.
+Starting MQSC for queue manager QM1.
+
+     1 : dis qlocal(STAGETEST.DYNAMIC.QUEUE)
+AMQ8409I: Display Queue details.
+   QUEUE(STAGETEST.DYNAMIC.QUEUE)          TYPE(QLOCAL)
+   ACCTQ(QMGR)                             ALTDATE(2022-07-08)
+   ALTTIME(11.44.53)                       BOQNAME( )
+   BOTHRESH(0)                             CLUSNL( )
+   CLUSTER( )                              CLCHNAME( )
+   CLWLPRTY(0)                             CLWLRANK(0)
+   CLWLUSEQ(QMGR)                          CRDATE(2022-07-08)
+   CRTIME(11.44.53)                        CURDEPTH(0)
+   CUSTOM( )                               DEFBIND(OPEN)
+   DEFPRTY(0)                              DEFPSIST(NO)
+   DEFPRESP(SYNC)                          DEFREADA(NO)
+   DEFSOPT(SHARED)                         DEFTYPE(PREDEFINED)
+   DESCR( )                                DISTL(NO)
+   GET(ENABLED)                            HARDENBO
+   IMGRCOVQ(QMGR)                          INITQ( )
+   IPPROCS(0)                              MAXDEPTH(5000)
+   MAXMSGL(4194304)                        MAXFSIZE(DEFAULT)
+   MONQ(QMGR)                              MSGDLVSQ(PRIORITY)
+   NOTRIGGER                               NPMCLASS(NORMAL)
+   OPPROCS(0)                              PROCESS( )
+   PUT(ENABLED)                            PROPCTL(COMPAT)
+   QDEPTHHI(80)                            QDEPTHLO(20)
+   QDPHIEV(DISABLED)                       QDPLOEV(DISABLED)
+   QDPMAXEV(ENABLED)                       QSVCIEV(NONE)
+   QSVCINT(999999999)                      RETINTVL(999999999)
+   SCOPE(QMGR)                             SHARE
+   STATQ(QMGR)                             STREAMQ( )
+   STRMQOS(BESTEF)                         TRIGDATA( )
+   TRIGDPTH(1)                             TRIGMPRI(0)
+   TRIGTYPE(FIRST)                         USAGE(NORMAL)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+</code></pre></div> </li> <li> <p><em>Exit from queue manager container</em></p> <p>When we're finished exploring the queue manager container, we can exit it.</p> <p>Issue the following command:</p> <div class=highlight><pre><span></span><code><span class=nb>exit</span>
+</code></pre></div> <p>to return to your local machine's command prompt.</p> </li> </ol> <hr> <h2 id=validate-the-application>Validate the Application<a class=headerlink href=#validate-the-application title="Permanent link">¶</a></h2> <ol> <li> <p><em>Check the application is running</em></p> <p>Using the <code>location</code> value from the <code>route</code> we can call the application to check its health by appending <code>/health</code>, for example:</p> <div class=highlight><pre><span></span><code><span class=nb>export</span><span class=w> </span><span class=nv>STAGING_APP_URL</span><span class=o>=</span><span class=k>$(</span>oc<span class=w> </span>get<span class=w> </span>route<span class=w> </span>-n<span class=w> </span>staging<span class=w> </span>mq-spring-app<span class=w> </span>-o<span class=w> </span><span class=nv>jsonpath</span><span class=o>=</span><span class=s2>"{.spec.host}"</span><span class=k>)</span>
+curl<span class=w> </span>-X<span class=w> </span>GET<span class=w> </span>https://<span class=nv>$STAGING_APP_URL</span>/actuator/health
+</code></pre></div> <div class="no-copy highlight"><pre><span></span><code><span class=p>{</span><span class=nt>"status"</span><span class=p>:</span><span class=s2>"UP"</span><span class=p>,</span><span class=nt>"components"</span><span class=p>:{</span><span class=nt>"HeathEndPointMain"</span><span class=p>:{</span><span class=nt>"status"</span><span class=p>:</span><span class=s2>"UP"</span><span class=p>},</span><span class=nt>"diskSpace"</span><span class=p>:{</span><span class=nt>"status"</span><span class=p>:</span><span class=s2>"UP"</span><span class=p>,</span><span class=nt>"details"</span><span class=p>:{</span><span class=nt>"total"</span><span class=p>:</span><span class=mi>105552732160</span><span class=p>,</span><span class=nt>"free"</span><span class=p>:</span><span class=mi>74874388480</span><span class=p>,</span><span class=nt>"threshold"</span><span class=p>:</span><span class=mi>10485760</span><span class=p>,</span><span class=nt>"exists"</span><span class=p>:</span><span class=kc>true</span><span class=p>}},</span><span class=nt>"jms"</span><span class=p>:{</span><span class=nt>"status"</span><span class=p>:</span><span class=s2>"UP"</span><span class=p>,</span><span class=nt>"details"</span><span class=p>:{</span><span class=nt>"provider"</span><span class=p>:</span><span class=s2>"IBM MQ JMS Provider"</span><span class=p>}},</span><span class=nt>"livenessState"</span><span class=p>:{</span><span class=nt>"status"</span><span class=p>:</span><span class=s2>"UP"</span><span class=p>},</span><span class=nt>"ping"</span><span class=p>:{</span><span class=nt>"status"</span><span class=p>:</span><span class=s2>"UP"</span><span class=p>},</span><span class=nt>"readinessState"</span><span class=p>:{</span><span class=nt>"status"</span><span class=p>:</span><span class=s2>"UP"</span><span class=p>}},</span><span class=nt>"groups"</span><span class=p>:[</span><span class=s2>"liveness"</span><span class=p>,</span><span class=s2>"readiness"</span><span class=p>]}</span>
+</code></pre></div> </li> <li> <p><em>Call the application to put a message to a queue</em></p> <p>Using the same <code>location</code> value we can call the application to to put a message to a queue on the queue manager, for example:</p> <div class=highlight><pre><span></span><code>curl<span class=w> </span>-X<span class=w> </span>GET<span class=w> </span>https://<span class=nv>$STAGING_APP_URL</span>/api/send-hello-world
+</code></pre></div> </li> <li> <p><em>Call the application to get a message from a queue</em></p> <p>Using the same <code>location</code> value we can call the application to to get a message from a queue on the queue manager, for example:</p> <div class=highlight><pre><span></span><code>curl<span class=w> </span>-X<span class=w> </span>GET<span class=w> </span>https://<span class=nv>$STAGING_APP_URL</span>/api/recv
+</code></pre></div> </li> <li> <p><em>Call the application to put a JSON message to a queue</em></p> <p>Using the same <code>location</code> value we can call the application to to put a message with a JSON payload to a queue on the queue manager, for example:</p> <div class=highlight><pre><span></span><code>curl<span class=w> </span>-X<span class=w> </span>POST<span class=w> </span>-H<span class=w> </span><span class=s2>"Content-Type: application/json"</span><span class=w> </span>https://<span class=nv>$STAGING_APP_URL</span>/api/send-json<span class=w> </span>--data<span class=w> </span><span class=s2>"{\"data\":\"Hola Mundo\"}"</span>
+</code></pre></div> <p>Note the use of the <code>POST</code> verb in the above command. This can be followed with a call to get the message from the queue.</p> </li> </ol> <hr> <div class="admonition success"> <p class=admonition-title>Congratulations!</p> <p>You've completed your first run of the promotion pipeline from dev to staging.</p> <p>Feel free to run the <code>ibm-mq-promote-dev-stage</code> pipeline more than once to get a feeling for how it works.</p> <p>You've used it to promote an instance of <code>QM1</code> and <code>MQ sample application</code> from <code>dev</code> environment to <code>staging</code> environment in the cluster. You've explored how the promotion pipeline for dev to staging is structured as tasks and steps. You've examined it's pipeline run log to understand how this pipeline works and how tasks are implemented. Finally, you've examined how the GitOps apps repository is updated with the <code>staging</code> resources from a successful run of the pipeline.</p> <p>You've completed set up continuous deployment for the <code>Queue Manager</code> as well as the <code>MQ sample application</code> and deployed their instances to the <code>staging</code> namespace in the cluster. You've interacted with this queue manager using the command line as well as verified the application.</p> <p>In the next topic of this chapter we're going to promote the changes from <code>staging</code> environment to <code>prod</code> environment.</p> </div></div> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> Back to top </button> </main> <!-- Footer --> <footer class=md-footer> <!-- Link to previous and/or next page --> <nav class="md-footer__inner md-grid" aria-label=footer.title> <!-- Link to previous page --> <a href=../../app-pipeline/topic3/ class="md-footer__link md-footer__link--prev" rel=prev> <div class="md-footer__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </div> <div class=md-footer__title> <div class=md-ellipsis> <span class=md-footer__direction> Previous </span> Managing an application change </div> </div> </a> <!-- Link to next page --> <a href=../promoting-environments-stage-prod/ class="md-footer__link md-footer__link--next" rel=next> <div class=md-footer__title> <div class=md-ellipsis> <span class=md-footer__direction> Next </span> Promote from staging to prod </div> </div> <div class="md-footer__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg> </div> </a> </nav> <!-- Further information --> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-footer-column> <div class=md-footer-text>Site licensed under <a href=https://creativecommons.org/licenses/by-nc-sa/4.0/ >CC BY-NC-SA 4.0</a></div> </div> <div class=md-footer-column> <!-- Copyright and theme information --> <div class=md-footer-text> Copyright © 2021 Cloud Pak Production Deployment Guides </div> </div> <div class=md-footer-social> <a href=https://github.com/ncolon/deployment-guides target=_blank rel=noopener title="Production Deployment Guides on Github Enterprise" class=md-footer-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 496 512"> <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"> </path> </svg> </a> <a href=https://ibm-cloud.slack.com/archives/C02CQ6M2D2R target=_blank rel=noopener title=Slack class=md-footer-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"> <path d="M94.12 315.1c0 25.9-21.16 47.06-47.06 47.06S0 341 0 315.1c0-25.9 21.16-47.06 47.06-47.06h47.06v47.06zm23.72 0c0-25.9 21.16-47.06 47.06-47.06s47.06 21.16 47.06 47.06v117.84c0 25.9-21.16 47.06-47.06 47.06s-47.06-21.16-47.06-47.06V315.1zm47.06-188.98c-25.9 0-47.06-21.16-47.06-47.06S139 32 164.9 32s47.06 21.16 47.06 47.06v47.06H164.9zm0 23.72c25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06H47.06C21.16 243.96 0 222.8 0 196.9s21.16-47.06 47.06-47.06H164.9zm188.98 47.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06h-47.06V196.9zm-23.72 0c0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06V79.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06V196.9zM283.1 385.88c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06v-47.06h47.06zm0-23.72c-25.9 0-47.06-21.16-47.06-47.06 0-25.9 21.16-47.06 47.06-47.06h117.84c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06H283.1z"> </path> </svg> </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.instant", "navigation.tracking", "navigation.tabs.sticky", "navigation.top", "navigation.sections"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script> <script src=../../../../../assets/javascripts/bundle.d7400e89.min.js></script> </body> </html>

@@ -1,0 +1,858 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="The Cloud Pak Production Deployment Guides document and demonstrate how to run cloud-native solutions leveraging IBM Cloud Pak capabilities in a Red Hat OpenShift environment"><meta name=author content="Cloud Pak Production Deployment Guides development team"><link href=../gitops-config/ rel=prev><link href=../applications/ rel=next><link rel=icon href=../../../../../images/cloudnativetoolkit.png><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.7.7"><title>Add services - Cloud Pak Production Deployment Guides</title><link rel=stylesheet href=../../../../../assets/stylesheets/main.ec1eaa64.min.css><link rel=stylesheet href=../../../../../assets/stylesheets/palette.ab4e12ef.min.css><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback"><style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"IBM Plex Mono"}</style><link rel=stylesheet href=../../../../../css/extra.css><link rel=stylesheet href=../../../../../css/toolkit-code.css><script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script><script id=__analytics>function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-Q0FLL49YN3"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-Q0FLL49YN3",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-Q0FLL49YN3",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script><script>"undefined"!=typeof __md_analytics&&__md_analytics()</script><!-- Determine title --><!-- The image needs to have an absolute URL --><!-- Open graph meta tags --><meta property=og:type content=website><meta property=og:title content="Cloud Pak Production Deployment Guides - Add services"><meta property=og:description content="The Cloud Pak Production Deployment Guides document and demonstrate how to run cloud-native solutions leveraging IBM Cloud Pak capabilities in a Red Hat OpenShift environment"><meta property=og:url content=None><meta property=og:image content=assets/images/banner.png><meta property=og:image:type content=image/png><meta property=og:image:width content=1080><meta property=og:image:height content=568></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=black data-md-color-accent=indigo> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#installing-services-with-argocd class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <header class="md-header md-header--shadow md-header--lifted" data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../../../../.. title="Cloud Pak Production Deployment Guides" class="md-header__button md-logo" aria-label="Cloud Pak Production Deployment Guides" data-md-component=logo> <img src=../../../../../images/cloudnativetoolkit.png alt=logo> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> Cloud Pak Production Deployment Guides </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> Add services </span> </div> </div> </div> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> <div class=md-header__source> <a href=https://github.com/ncolon/production-deployment-guides title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg> </div> <div class=md-source__repository> </div> </a> </div> </nav> <nav class=md-tabs aria-label=Tabs data-md-component=tabs> <div class=md-grid> <ul class=md-tabs__list> <li class=md-tabs__item> <a href=../../../../.. class=md-tabs__link> Home </a> </li> <li class=md-tabs__item> <a href=../../../../../overview/overview/ class=md-tabs__link> Production Considerations </a> </li> <li class=md-tabs__item> <a href=../../../../../quickstart/overview/ class=md-tabs__link> Quick Start Demos </a> </li> <li class="md-tabs__item md-tabs__item--active"> <a href=../../../../guides-overview/ class=md-tabs__link> Tutorials </a> </li> <li class=md-tabs__item> <a href=../../../../../infrastructure/ad/ class=md-tabs__link> References </a> </li> <li class=md-tabs__item> <a href=../../../../../overview/whats-new/ class=md-tabs__link> About </a> </li> </ul> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <!-- Determine class according to configuration --> <!-- Main navigation --> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=nav.title data-md-level=0> <!-- Site title --> <!--
+  <label class="md-nav__title" for="__drawer">
+    <a
+      href="../../../../.."
+      title="Cloud Pak Production Deployment Guides"
+      class="md-nav__button md-logo"
+      aria-label="Cloud Pak Production Deployment Guides"
+      data-md-component="logo"
+    >
+      
+  <img src="../../../../../images/cloudnativetoolkit.png" alt="logo">
+
+    </a>
+    Cloud Pak Production Deployment Guides
+  </label>
+--> <!-- Repository information --> <div class=md-nav__source> <a href=https://github.com/ncolon/production-deployment-guides title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg> </div> <div class=md-source__repository> </div> </a> </div> <!-- Render item list --> <ul class=md-nav__list data-md-scrollfix> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#overview class=md-nav__link> <span class=md-ellipsis> Overview </span> </a> </li> <li class=md-nav__item> <a href=#introduction class=md-nav__link> <span class=md-ellipsis> Introduction </span> </a> </li> <li class=md-nav__item> <a href=#pre-requisites class=md-nav__link> <span class=md-ellipsis> Pre-requisites </span> </a> </li> <li class=md-nav__item> <a href=#video-walkthrough class=md-nav__link> <span class=md-ellipsis> Video Walkthrough </span> </a> </li> <li class=md-nav__item> <a href=#post-cluster-provisioning-tasks class=md-nav__link> <span class=md-ellipsis> Post cluster provisioning tasks </span> </a> <nav class=md-nav aria-label="Post cluster provisioning tasks"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#red-hat-openshift-cluster class=md-nav__link> <span class=md-ellipsis> Red Hat OpenShift cluster </span> </a> </li> <li class=md-nav__item> <a href=#cli-tools class=md-nav__link> <span class=md-ellipsis> CLI tools </span> </a> </li> <li class=md-nav__item> <a href=#ibm-entitlement-key class=md-nav__link> <span class=md-ellipsis> IBM Entitlement Key </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#installing-tekton-for-gitops class=md-nav__link> <span class=md-ellipsis> Installing Tekton for GitOps </span> </a> </li> <li class=md-nav__item> <a href=#deploy-services-to-the-cluster class=md-nav__link> <span class=md-ellipsis> Deploy services to the cluster </span> </a> </li> <li class=md-nav__item> <a href=#other-important-argocd-features class=md-nav__link> <span class=md-ellipsis> Other important ArgoCD features </span> </a> <nav class=md-nav aria-label="Other important ArgoCD features"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#syncwave class=md-nav__link> <span class=md-ellipsis> SyncWave </span> </a> </li> </ul> </nav> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <div><h1 id=installing-services-with-argocd>Installing services with ArgoCD<a class=headerlink href=#installing-services-with-argocd title="Permanent link">¶</a></h1> <!--- cSpell:ignore Progesssing Artificatory resyncs rolebindings configmaps CICD qube cntk autoplay allowfullscreen webkitallowfullscreen msallowfullscreen Walkthrough walkthrough--> <p><strong>Audience</strong>: Architects, Application developers, Administrators</p> <p><strong>Timing</strong>: Configuration 90 minutes - Waiting 60 minutes</p> <h2 id=overview>Overview<a class=headerlink href=#overview title="Permanent link">¶</a></h2> <p>In this topic, we're going to:</p> <ul> <li>Deploy services to the cluster using GitOps</li> <li>Explore the ArgoCD applications that manage these services</li> <li>Explore how more complex services work using <code>Artifactory</code> as an example</li> <li>Review how ArgoCD projects work</li> <li>See how <code>infra</code> and <code>services</code> ArgoCD applications manage the <strong>infrastructure</strong> and <strong>services</strong> layers in our architecture.</li> </ul> <p>By the end of this topic we'll have a fully configured cluster which is ready for us to deploy MQ applications and queue managers.</p> <hr> <h2 id=introduction>Introduction<a class=headerlink href=#introduction title="Permanent link">¶</a></h2> <p>In the <a href=../gitops-config/ >previous topic</a> of this chapter, we used GitOps to create the <strong>infrastructure</strong> components in our cluster. In this topic, we're going complete the installation of all the necessary <strong>services</strong> required by our MQ CICD process:</p> <p><img alt=cluster-tech src=../images/mq-cicd3.png style=max-height:500px></p> <p>We'll examine these highlighted components in more detail throughout this section of the tutorial; here's an overview of their function.</p> <ul> <li><code>Tekton</code> is used for Continuous Integration. Often, the Tekton pipeline will perform its changes under a pull-request (PR) to provide an explicit approval mechanism or through a push based on the requirements for cluster changes.</li> <li><code>Sonarqube</code> is used by the MQ application pipeline for code quality and security scanning. It helps ensure the quality of a deployed application.</li> <li><code>ArgoCD applications</code> will be created for each of these resources. Specifically, ArgoCD applications will keep the cluster synchronized with the application and queue manager YAML definitions stored in Artifactory and Git.</li> </ul> <p>Note how these application services are installed in the <code>ci</code> and <code>tools</code> namespaces we created in the previous topic.</p> <p>This section will reinforce our understanding of GitOps. We will then be ready to create MQ applications and queue managers that use the infrastructure we previously created and these services we are going to install further.</p> <hr> <h2 id=pre-requisites>Pre-requisites<a class=headerlink href=#pre-requisites title="Permanent link">¶</a></h2> <p>Before attempting this section, you must have completed the following tasks:</p> <ul> <li>You have completed all previous steps in this tutorial.</li> </ul> <hr> <h2 id=video-walkthrough>Video Walkthrough<a class=headerlink href=#video-walkthrough title="Permanent link">¶</a></h2> <p>This video demonstrates how to install Tekton. It also shows how to use the GitOps repository to set up different service related components.</p> <div align=center><iframe width=560 height=315 src=https://www.youtube.com/embed/N7LKRTwlCR8 title="YouTube video player" frameborder=0 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div> <p>This is a video walkthrough and it takes you step by step through the below sections.</p> <hr> <h2 id=post-cluster-provisioning-tasks>Post cluster provisioning tasks<a class=headerlink href=#post-cluster-provisioning-tasks title="Permanent link">¶</a></h2> <h3 id=red-hat-openshift-cluster>Red Hat OpenShift cluster<a class=headerlink href=#red-hat-openshift-cluster title="Permanent link">¶</a></h3> <ul> <li>An OpenShift v4.7+ cluster is required. </li> </ul> <h3 id=cli-tools>CLI tools<a class=headerlink href=#cli-tools title="Permanent link">¶</a></h3> <ul> <li> <p>Install the OpenShift CLI oc (version 4.7+) . The binary can be downloaded from the Help menu from the OpenShift Console. <details> <summary>Download oc cli</summary></details></p> <p><img alt="oc cli" src=../images/oc-cli.png style=max-height:400px> </p> </li> <li> <p>Log in from a terminal window. </p><div class=highlight><pre><span></span><code>oc<span class=w> </span>login<span class=w> </span>--token<span class=o>=</span>&lt;token&gt;<span class=w> </span>--server<span class=o>=</span>&lt;server&gt;
+</code></pre></div> </li> </ul> <h3 id=ibm-entitlement-key>IBM Entitlement Key<a class=headerlink href=#ibm-entitlement-key title="Permanent link">¶</a></h3> <ul> <li> <p>The <code>IBM Entitlement Key</code> is required to pull IBM Cloud Pak specific container images from the IBM Entitled Registry. To get an entitlement key, </p> <ol> <li>Log in to <a class=external href=https://myibm.ibm.com/products-services/containerlibrary target=_blank>MyIBM Container Software Library</a> with an IBMid and password associated with the entitled software. </li> <li>Select the <strong>View library</strong> option to verify your entitlement(s). </li> <li>Select the <strong>Get entitlement key</strong> to retrieve the key.</li> </ol> </li> <li> <p>In the following command, replace <code>&lt;entitlement_key&gt;</code> with the value of <code>IBM Entitlement Key</code> retrieved in the previous step.</p> <div class=highlight><pre><span></span><code><span class=nb>export</span><span class=w> </span><span class=nv>IBM_ENTITLEMENT_KEY</span><span class=o>=</span>&lt;entitlement_key&gt;
+</code></pre></div> </li> <li> <p>A <strong>Secret</strong> containing the entitlement key is created in the <code>tools</code> namespace. </p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>new-project<span class=w> </span>tools<span class=w> </span><span class=o>||</span><span class=w> </span><span class=nb>true</span>
+oc<span class=w> </span>create<span class=w> </span>secret<span class=w> </span>docker-registry<span class=w> </span>ibm-entitlement-key<span class=w> </span>-n<span class=w> </span>tools<span class=w> </span><span class=se>\</span>
+--docker-username<span class=o>=</span>cp<span class=w> </span><span class=se>\</span>
+--docker-password<span class=o>=</span><span class=s2>"</span><span class=nv>$IBM_ENTITLEMENT_KEY</span><span class=s2>"</span><span class=w> </span><span class=se>\</span>
+--docker-server<span class=o>=</span>cp.icr.io
+</code></pre></div> <p>which confirms that the <code>ibm-entitlement-key</code> secret has been created:</p> <div class="no-copy highlight"><pre><span></span><code>secret/ibm-entitlement-key created
+</code></pre></div> </li> </ul> <hr> <h2 id=installing-tekton-for-gitops>Installing Tekton for GitOps<a class=headerlink href=#installing-tekton-for-gitops title="Permanent link">¶</a></h2> <!--- cSpell:ignore resynched resyncs configmaps consolenotification subfolders rolebindings rolebinding CICD qube cntk autoplay allowfullscreen --> <p>Tekton is made available to your Red Hat OpenShift cluster through the <code>Red Hat OpenShift Pipelines</code> operator. Let's see how to get that operator installed on your cluster.</p> <ol> <li> <p><em>Ensure environment variables are set</em></p> <div class="admonition tip"> <p class=admonition-title>Tip</p> <p>If you're returning to the tutorial after restarting your computer, ensure that the $GIT_ORG, $GIT_BRANCH and $GIT_ROOT environment variables are set.</p> </div> <p>(Replace <code>&lt;your organization name&gt;</code> appropriately:)</p> <div class=highlight><pre><span></span><code><span class=nb>export</span><span class=w> </span><span class=nv>GIT_BRANCH</span><span class=o>=</span>master
+<span class=nb>export</span><span class=w> </span><span class=nv>GIT_ORG</span><span class=o>=</span>&lt;your<span class=w> </span>organization<span class=w> </span>name&gt;
+<span class=nb>export</span><span class=w> </span><span class=nv>GIT_ROOT</span><span class=o>=</span><span class=nv>$HOME</span>/git/<span class=nv>$GIT_ORG</span>-root
+</code></pre></div> <p>You can verify your environment variables as follows:</p> <div class=highlight><pre><span></span><code><span class=nb>echo</span><span class=w> </span><span class=nv>$GIT_BRANCH</span>
+<span class=nb>echo</span><span class=w> </span><span class=nv>$GIT_ORG</span>
+<span class=nb>echo</span><span class=w> </span><span class=nv>$GIT_ROOT</span>
+</code></pre></div> <p><br></p> </li> <li> <p><em>Ensure you're logged in to the cluster</em></p> <p>Log into your OCP cluster, substituting the <code>--token</code> and <code>--server</code> parameters with your values:</p> <div class=highlight><pre><span></span><code><span class=w>  </span>oc<span class=w> </span>login<span class=w> </span>--token<span class=o>=</span>&lt;token&gt;<span class=w> </span>--server<span class=o>=</span>&lt;server&gt;
+</code></pre></div> <p>If you are unsure of these values, click your user ID in the OpenShift web console and select "Copy Login Command".</p> <p><br></p> </li> <li> <p><em>Locate your GitOps repository</em></p> <p>If necessary, change to the root of your GitOps repository, which is stored in the <code>$GIT_ROOT</code> environment variable.</p> <p>Issue the following command to change to your GitOps repository:</p> <div class=highlight><pre><span></span><code><span class=nb>cd</span><span class=w> </span><span class=nv>$GIT_ROOT</span>
+<span class=nb>cd</span><span class=w> </span>multi-tenancy-gitops
+</code></pre></div> <p><br></p> </li> <li> <p><em>Install Tekton into the cluster</em></p> <p>We use the Red Hat Pipelines operator to install Tekton into the cluster. The sample repository contains the YAML necessary to do this. We’ll examine it later, but first let’s use it.</p> <p>Open <code>0-bootstrap/single-cluster/2-services/kustomization.yaml</code> and uncomment the below resources:</p> <div class="no-copy highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/operators/openshift-pipelines.yaml</span>
+</code></pre></div> <p>Your <code>kustomization.yaml</code> for services should match the following:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>resources</span><span class=p>:</span>
+<span class=c1># IBM Software</span>
+
+<span class=c1>## Cloud Pak for Integration</span>
+<span class=c1>#- argocd/operators/ibm-ace-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-apic-operator.yaml</span>
+<span class=c1>#- argocd/instances/ibm-apic-instance.yaml</span>
+<span class=c1>#- argocd/instances/ibm-apic-management-portal-instance.yaml</span>
+<span class=c1>#- argocd/instances/ibm-apic-gateway-analytics-instance.yaml</span>
+<span class=c1>#- argocd/operators/ibm-aspera-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-assetrepository-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-cp4i-operators.yaml</span>
+<span class=c1>#- argocd/operators/ibm-datapower-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-eventstreams-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-mq-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-opsdashboard-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-platform-navigator.yaml</span>
+<span class=c1>#- argocd/instances/ibm-platform-navigator-instance.yaml</span>
+
+<span class=c1>## Cloud Pak for Business Automation</span>
+<span class=c1>#- argocd/operators/ibm-cp4a-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-db2u-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-process-mining-operator.yaml</span>
+<span class=c1>#- argocd/instances/ibm-process-mining-instance.yaml</span>
+
+<span class=c1>## Cloud Pak for Data</span>
+<span class=c1>#- argocd/operators/ibm-cp4d-watson-studio-operator.yaml</span>
+<span class=c1>#- argocd/instances/ibm-cp4d-watson-studio-instance.yaml</span>
+<span class=c1>#- argocd/operators/ibm-cpd-platform-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-cpd-scheduling-operator.yaml</span>
+<span class=c1>#- argocd/instances/ibm-cpd-instance.yaml</span>
+
+<span class=c1>## Cloud Pak for Security</span>
+<span class=c1>#- argocd/operators/ibm-cp4s-operator.yaml</span>
+<span class=c1>#- argocd/instances/ibm-cp4sthreatmanagements-instance.yaml</span>
+
+<span class=c1>## IBM Foundational Services / Common Services</span>
+<span class=c1>#- argocd/operators/ibm-foundations.yaml</span>
+<span class=c1>#- argocd/instances/ibm-foundational-services-instance.yaml</span>
+<span class=c1>#- argocd/operators/ibm-automation-foundation-core-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-automation-foundation-operator.yaml</span>
+
+<span class=c1>## IBM Catalogs</span>
+<span class=c1>#- argocd/operators/ibm-catalogs.yaml</span>
+
+
+<span class=c1># Required for IBM MQ</span>
+<span class=c1>#- argocd/instances/openldap.yaml</span>
+<span class=c1># Required for IBM ACE, IBM MQ</span>
+<span class=c1>#- argocd/operators/cert-manager.yaml</span>
+<span class=c1>#- argocd/instances/cert-manager-instance.yaml</span>
+
+<span class=c1># Sealed Secrets</span>
+<span class=c1>#- argocd/instances/sealed-secrets.yaml</span>
+
+<span class=c1># CICD</span>
+<span class=c1>#- argocd/operators/grafana-operator.yaml</span>
+<span class=c1>#- argocd/instances/grafana-instance.yaml</span>
+<span class=c1>#- argocd/instances/artifactory.yaml</span>
+<span class=c1>#- argocd/instances/chartmuseum.yaml</span>
+<span class=c1>#- argocd/instances/developer-dashboard.yaml</span>
+<span class=c1>#- argocd/instances/swaggereditor.yaml</span>
+<span class=c1>#- argocd/instances/sonarqube.yaml</span>
+<span class=c1>#- argocd/instances/pact-broker.yaml</span>
+<span class=c1># In OCP 4.7+ we need to install openshift-pipelines and possibly privileged scc to the pipeline serviceaccount</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/operators/openshift-pipelines.yaml</span>
+
+<span class=c1># Service Mesh</span>
+<span class=c1>#- argocd/operators/elasticsearch.yaml</span>
+<span class=c1>#- argocd/operators/jaeger.yaml</span>
+<span class=c1>#- argocd/operators/kiali.yaml</span>
+<span class=c1>#- argocd/operators/openshift-service-mesh.yaml</span>
+<span class=c1>#- argocd/instances/openshift-service-mesh-instance.yaml</span>
+
+<span class=c1># Monitoring</span>
+<span class=c1>#- argocd/instances/instana-agent.yaml</span>
+<span class=c1>#- argocd/instances/instana-robot-shop.yaml</span>
+
+<span class=c1># Spectrum Protect Plus</span>
+<span class=c1>#- argocd/operators/spp-catalog.yaml</span>
+<span class=c1>#- argocd/operators/spp-operator.yaml</span>
+<span class=c1>#- argocd/instances/spp-instance.yaml</span>
+<span class=c1>#- argocd/operators/oadp-operator.yaml</span>
+<span class=c1>#- argocd/instances/oadp-instance.yaml</span>
+<span class=c1>#- argocd/instances/baas-instance.yaml</span>
+
+<span class=nt>patches</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>target</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Application</span>
+<span class=w>    </span><span class=nt>labelSelector</span><span class=p>:</span><span class=w> </span><span class=s>"gitops.tier.layer=services,gitops.tier.source=git"</span>
+<span class=w>  </span><span class=nt>patch</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|-</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/source/repoURL</span>
+<span class=w>      </span><span class=no>value: https://github.com/prod-ref-guide/multi-tenancy-gitops-services.git</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/source/targetRevision</span>
+<span class=w>      </span><span class=no>value: master</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>target</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Application</span>
+<span class=w>    </span><span class=nt>labelSelector</span><span class=p>:</span><span class=w> </span><span class=s>"gitops.tier.layer=applications,gitops.tier.source=git"</span>
+<span class=w>  </span><span class=nt>patch</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|-</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/source/repoURL</span>
+<span class=w>      </span><span class=no>value: https://github.com/prod-ref-guide/multi-tenancy-gitops-apps.git</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/source/targetRevision</span>
+<span class=w>      </span><span class=no>value: master</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>target</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Application</span>
+<span class=w>    </span><span class=nt>labelSelector</span><span class=p>:</span><span class=w> </span><span class=s>"gitops.tier.layer=services,gitops.tier.source=helm"</span>
+<span class=w>  </span><span class=nt>patch</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|-</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/source/repoURL</span>
+<span class=w>      </span><span class=no>value: https://charts.cloudnativetoolkit.dev</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>target</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-automation-foundation-operator</span>
+<span class=w>  </span><span class=nt>patch</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|-</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/source/helm/parameters/-</span>
+<span class=w>      </span><span class=no>value:</span>
+<span class=w>        </span><span class=no>name: spec.channel</span>
+<span class=w>        </span><span class=no>value: v1.1</span>
+</code></pre></div> <p>Commit and push changes to your git repository:</p> <div class=highlight><pre><span></span><code>git<span class=w> </span>add<span class=w> </span>.
+git<span class=w> </span>commit<span class=w> </span>-s<span class=w> </span>-m<span class=w> </span><span class=s2>"Install tekton using Red Hat OpenShift Pipelines Operator"</span>
+git<span class=w> </span>push<span class=w> </span>origin<span class=w> </span><span class=nv>$GIT_BRANCH</span>
+</code></pre></div> <p>The changes have now been pushed to your GitOps repository:</p> <div class="no-copy highlight"><pre><span></span><code>Enumerating objects: 11, done.
+Counting objects: 100% (11/11), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 524 bytes | 524.00 KiB/s, done.
+Total 6 (delta 5), reused 0 (delta 0)
+remote: Resolving deltas: 100% (5/5), completed with 5 local objects.
+To https://github.com/prod-ref-guide/multi-tenancy-gitops.git
+   85a4c46..61e15b0  master -&gt; master
+</code></pre></div> <p><br></p> </li> <li> <p><em>Activate the services in the GitOps repo</em></p> <p>Access the <code>0-bootstrap/single-cluster/kustomization.yaml</code>:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span><span class=m>0</span>-bootstrap/single-cluster/kustomization.yaml
+</code></pre></div> <p>Let us only deploy <code>services</code> resources to the cluster. Open <code>0-bootstrap/single-cluster/kustomization.yaml</code> and uncomment <code>2-services/2-services.yaml</code> as follows:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>resources</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">1-infra/1-infra.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">2-services/2-services.yaml</span>
+<span class=c1># - 3-apps/3-apps.yaml</span>
+<span class=nt>patches</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>target</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Application</span>
+<span class=w>    </span><span class=nt>labelSelector</span><span class=p>:</span><span class=w> </span><span class=s>"gitops.tier.layer=gitops"</span>
+<span class=w>  </span><span class=nt>patch</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|-</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/source/repoURL</span>
+<span class=w>      </span><span class=no>value: https://github.com/prod-ref-guide/multi-tenancy-gitops.git</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/source/targetRevision</span>
+<span class=w>      </span><span class=no>value: master</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>target</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">AppProject</span>
+<span class=w>    </span><span class=nt>labelSelector</span><span class=p>:</span><span class=w> </span><span class=s>"gitops.tier.layer=infra"</span>
+<span class=w>  </span><span class=nt>patch</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|-</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/sourceRepos/-</span>
+<span class=w>      </span><span class=no>value: https://github.com/prod-ref-guide/multi-tenancy-gitops.git</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/sourceRepos/-</span>
+<span class=w>      </span><span class=no>value: https://github.com/prod-ref-guide/multi-tenancy-gitops-infra.git</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>target</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">AppProject</span>
+<span class=w>    </span><span class=nt>labelSelector</span><span class=p>:</span><span class=w> </span><span class=s>"gitops.tier.layer=services"</span>
+<span class=w>  </span><span class=nt>patch</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|-</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/sourceRepos/-</span>
+<span class=w>      </span><span class=no>value: https://github.com/prod-ref-guide/multi-tenancy-gitops.git</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/sourceRepos/-</span>
+<span class=w>      </span><span class=no>value: https://github.com/prod-ref-guide/multi-tenancy-gitops-services.git</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>target</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">AppProject</span>
+<span class=w>    </span><span class=nt>labelSelector</span><span class=p>:</span><span class=w> </span><span class=s>"gitops.tier.layer=applications"</span>
+<span class=w>  </span><span class=nt>patch</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|-</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/sourceRepos/-</span>
+<span class=w>      </span><span class=no>value: https://github.com/prod-ref-guide/multi-tenancy-gitops.git</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/sourceRepos/-</span>
+<span class=w>      </span><span class=no>value: https://github.com/prod-ref-guide/multi-tenancy-gitops-apps.git</span>
+</code></pre></div> <p>Once we push this change to GitHub, it will be seen by the <code>bootstrap-single-cluster</code> application in ArgoCD, and the resources it refers to will be applied to the cluster.</p> <p><br></p> </li> <li> <p><em>Push GitOps changes to GitHub</em></p> <p>Let’s make these GitOps changes visible to the ArgoCD <code>bootstrap-single-cluster</code> application via GitHub.</p> <p>Add all changes in the current folder to a git index, commit them, and push them to GitHub:</p> <div class=highlight><pre><span></span><code>git<span class=w> </span>add<span class=w> </span>.
+git<span class=w> </span>commit<span class=w> </span>-s<span class=w> </span>-m<span class=w> </span><span class=s2>"Deploying services"</span>
+git<span class=w> </span>push<span class=w> </span>origin<span class=w> </span><span class=nv>$GIT_BRANCH</span>
+</code></pre></div> <p>The changes have now been pushed to your GitOps repository:</p> <div class="no-copy highlight"><pre><span></span><code>Enumerating objects: 9, done.
+Counting objects: 100% (9/9), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (5/5), 431 bytes | 431.00 KiB/s, done.
+Total 5 (delta 4), reused 0 (delta 0)
+remote: Resolving deltas: 100% (4/4), completed with 4 local objects.
+To https://github.com/prod-ref-guide/multi-tenancy-gitops.git
+   533602c..85a4c46  master -&gt; master
+</code></pre></div> <p>This change to the GitOps repository can now be used by ArgoCD.</p> <p><br></p> </li> <li> <p><em>The</em> <code>bootstrap-single-cluster</code> <em>application detects the change and resyncs</em></p> <p>Once these changes to our GitOps repository are seen by ArgoCD, it will resync the cluster to the desired new state.</p> <p>Switch to the ArgoCD UI <strong>Applications</strong> view to see the start of this resync process:</p> <p><img alt=argocd80 src=../images-gitops-tekton-install/argo80.png style=max-height:500px></p> <p>Notice how the <code>bootstrap-single-cluster</code> application has detected the changes and is automatically synching the cluster.</p> <p>(<em>You can manually</em> <code>sync</code> the <code>bootstrap-single-cluster</code> <em>ArgoCD application in the UI if you don't want to wait for ArgoCD to detect the change.</em>)</p> <p><br></p> </li> <li> <p><em>The new ArgoCD applications</em></p> <p>After a short while, you'll see <code>openshift-pipelines</code> ArgoCD application have been created as follows:</p> <p><img alt=argocd88 src=../images-gitops-tekton-install/argo88.png style=max-height:500px></p> <p><br></p> </li> <li> <p><em>Wait for the Tekton installation to complete</em></p> <p>Installation is an asynchronous process, so we can issue a command that will complete when installation is done.</p> <p>Wait 30 seconds for the installation to get started, then issue the following command:</p> <div class=highlight><pre><span></span><code>sleep<span class=w> </span><span class=m>30</span><span class=p>;</span><span class=w> </span>oc<span class=w> </span><span class=nb>wait</span><span class=w> </span>--for<span class=w> </span><span class=nv>condition</span><span class=o>=</span>available<span class=w> </span>--timeout<span class=w> </span>60s<span class=w> </span>deployment.apps/openshift-pipelines-operator<span class=w> </span>-n<span class=w> </span>openshift-operators
+</code></pre></div> <p>After a while, you should see the following message informing us that operator installation is complete:</p> <div class="no-copy highlight"><pre><span></span><code>deployment.apps/openshift-pipelines-operator condition met
+</code></pre></div> <p>Tekton is now installed and ready to use. We’ll explore Tekton in later topics.</p> <p>If you see something like:</p> <div class="no-copy highlight"><pre><span></span><code>Error from server (NotFound): deployments.apps "openshift-pipelines-operator" not found
+</code></pre></div> <p>then re-issue the command; the error occurred because the subscription took a little longer to create than expected.</p> <p><br></p> </li> </ol> <hr> <h2 id=deploy-services-to-the-cluster>Deploy services to the cluster<a class=headerlink href=#deploy-services-to-the-cluster title="Permanent link">¶</a></h2> <!--- cSpell:ignore resynched resyncs configmaps consolenotification subfolders rolebindings rolebinding CICD qube cntk autoplay allowfullscreen storageclass --> <p>We've just had our first successful GitOps experience, using an ArgoCD application to create the <code>ci</code>, <code>tools</code> and <code>dev</code> namespaces in our cluster at the <code>infrastructure</code> layer level as well as using ArgoCD to deploy the <code>Red Hat OpenShift Pipelines</code> operator at the <code>services</code> layer level. There are few more components you need to create for this IBM MQ tutorial: IBM MQ, IBM Platform navigator, IBM foundations, IBM automation foundations, IBM Catalog, Sealed secrets, Sonarqube and Artifactory.</p> <p>These components are part of the <strong>services</strong> layer in our architecture, and that requires us to access <strong>/0-bootstrap/single-cluster/2-services</strong> within our GitOps repository.</p> <ol> <li> <p><em>Check services layer components</em></p> <p>As we saw earlier, the <code>bootstrap-single-cluster</code> application uses the contents of the <code>/0-bootstrap/single-cluster/2-services</code> folder to determine which Kubernetes resources are available to be deployed in the cluster.</p> <p>Issue the following command to see what could be deployed in the cluster:</p> <div class=highlight><pre><span></span><code>tree<span class=w> </span><span class=m>0</span>-bootstrap/single-cluster/2-services/<span class=w> </span>-L<span class=w> </span><span class=m>3</span>
+</code></pre></div> <p>You should see a set of operators and instances of these available in the GitOps framework at the services layer:</p> <div class="no-copy highlight"><pre><span></span><code><span class=m>0</span>-bootstrap/single-cluster/2-services/
+├──<span class=w> </span><span class=m>2</span>-services.yaml
+├──<span class=w> </span>argocd
+│<span class=w>   </span>├──<span class=w> </span>instances
+│<span class=w>   </span>│<span class=w>   </span>├──<span class=w> </span>artifactory.yaml
+│<span class=w>   </span>│<span class=w>   </span>├──<span class=w> </span>baas-instance.yaml
+│<span class=w>   </span>│<span class=w>   </span>├──<span class=w> </span>cert-manager-instance.yaml
+│<span class=w>   </span>│<span class=w>   </span>├──<span class=w> </span>chartmuseum.yaml
+│<span class=w>   </span>│<span class=w>   </span>├──<span class=w> </span>developer-dashboard.yaml
+│<span class=w>   </span>│<span class=w>   </span>├──<span class=w> </span>grafana-instance.yaml
+│<span class=w>   </span>│<span class=w>   </span>├──<span class=w> </span>ibm-apic-gateway-analytics-instance.yaml
+│<span class=w>   </span>│<span class=w>   </span>├──<span class=w> </span>ibm-apic-instance.yaml
+│<span class=w>   </span>│<span class=w>   </span>├──<span class=w> </span>ibm-apic-management-portal-instance.yaml
+│<span class=w>   </span>│<span class=w>   </span>├──<span class=w> </span>ibm-cp4d-watson-studio-instance.yaml
+│<span class=w>   </span>│<span class=w>   </span>├──<span class=w> </span>ibm-cp4sthreatmanagements-instance.yaml
+│<span class=w>   </span>│<span class=w>   </span>├──<span class=w> </span>ibm-cpd-instance.yaml
+│<span class=w>   </span>│<span class=w>   </span>├──<span class=w> </span>ibm-foundational-services-instance.yaml
+│<span class=w>   </span>│<span class=w>   </span>├──<span class=w> </span>ibm-platform-navigator-instance.yaml
+│<span class=w>   </span>│<span class=w>   </span>├──<span class=w> </span>ibm-process-mining-instance.yaml
+│<span class=w>   </span>│<span class=w>   </span>├──<span class=w> </span>instana-agent.yaml
+│<span class=w>   </span>│<span class=w>   </span>├──<span class=w> </span>instana-robot-shop.yaml
+│<span class=w>   </span>│<span class=w>   </span>├──<span class=w> </span>oadp-instance.yaml
+│<span class=w>   </span>│<span class=w>   </span>├──<span class=w> </span>openldap.yaml
+│<span class=w>   </span>│<span class=w>   </span>├──<span class=w> </span>openshift-service-mesh-instance.yaml
+│<span class=w>   </span>│<span class=w>   </span>├──<span class=w> </span>pact-broker.yaml
+│<span class=w>   </span>│<span class=w>   </span>├──<span class=w> </span>sealed-secrets.yaml
+│<span class=w>   </span>│<span class=w>   </span>├──<span class=w> </span>sonarqube.yaml
+│<span class=w>   </span>│<span class=w>   </span>├──<span class=w> </span>spp-instance.yaml
+│<span class=w>   </span>│<span class=w>   </span>└──<span class=w> </span>swaggereditor.yaml
+│<span class=w>   </span>└──<span class=w> </span>operators
+│<span class=w>       </span>├──<span class=w> </span>cert-manager.yaml
+│<span class=w>       </span>├──<span class=w> </span>elasticsearch.yaml
+│<span class=w>       </span>├──<span class=w> </span>grafana-operator.yaml
+│<span class=w>       </span>├──<span class=w> </span>ibm-ace-operator.yaml
+│<span class=w>       </span>├──<span class=w> </span>ibm-apic-operator.yaml
+│<span class=w>       </span>├──<span class=w> </span>ibm-aspera-operator.yaml
+│<span class=w>       </span>├──<span class=w> </span>ibm-assetrepository-operator.yaml
+│<span class=w>       </span>├──<span class=w> </span>ibm-automation-foundation-core-operator.yaml
+│<span class=w>       </span>├──<span class=w> </span>ibm-automation-foundation-operator.yaml
+│<span class=w>       </span>├──<span class=w> </span>ibm-catalogs.yaml
+│<span class=w>       </span>├──<span class=w> </span>ibm-cp4a-operator.yaml
+│<span class=w>       </span>├──<span class=w> </span>ibm-cp4d-watson-studio-operator.yaml
+│<span class=w>       </span>├──<span class=w> </span>ibm-cp4i-operators.yaml
+│<span class=w>       </span>├──<span class=w> </span>ibm-cp4s-operator.yaml
+│<span class=w>       </span>├──<span class=w> </span>ibm-cpd-platform-operator.yaml
+│<span class=w>       </span>├──<span class=w> </span>ibm-cpd-scheduling-operator.yaml
+│<span class=w>       </span>├──<span class=w> </span>ibm-datapower-operator.yaml
+│<span class=w>       </span>├──<span class=w> </span>ibm-db2u-operator.yaml
+│<span class=w>       </span>├──<span class=w> </span>ibm-eventstreams-operator.yaml
+│<span class=w>       </span>├──<span class=w> </span>ibm-foundations.yaml
+│<span class=w>       </span>├──<span class=w> </span>ibm-mq-operator.yaml
+│<span class=w>       </span>├──<span class=w> </span>ibm-opsdashboard-operator.yaml
+│<span class=w>       </span>├──<span class=w> </span>ibm-platform-navigator.yaml
+│<span class=w>       </span>├──<span class=w> </span>ibm-process-mining-operator.yaml
+│<span class=w>       </span>├──<span class=w> </span>jaeger.yaml
+│<span class=w>       </span>├──<span class=w> </span>kiali.yaml
+│<span class=w>       </span>├──<span class=w> </span>oadp-operator.yaml
+│<span class=w>       </span>├──<span class=w> </span>openshift-gitops.yaml
+│<span class=w>       </span>├──<span class=w> </span>openshift-pipelines.yaml
+│<span class=w>       </span>├──<span class=w> </span>openshift-service-mesh.yaml
+│<span class=w>       </span>├──<span class=w> </span>spp-catalog.yaml
+│<span class=w>       </span>└──<span class=w> </span>spp-operator.yaml
+└──<span class=w> </span>kustomization.yaml
+</code></pre></div> </li> <li> <p><em>Review ArgoCD services folder</em></p> <p>Let’s examine the <code>0-bootstrap/single-cluster/2-services/kustomization.yaml</code> to see how ArgoCD manages the resources deployed to the cluster.</p> <p>Issue the following command:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span><span class=m>0</span>-bootstrap/single-cluster/2-services/kustomization.yaml
+</code></pre></div> <p>We can see the contents of the <code>kustomization.yaml</code>:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>resources</span><span class=p>:</span>
+<span class=c1># IBM Software</span>
+
+<span class=c1>## Cloud Pak for Integration</span>
+<span class=c1>#- argocd/operators/ibm-ace-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-apic-operator.yaml</span>
+<span class=c1>#- argocd/instances/ibm-apic-instance.yaml</span>
+<span class=c1>#- argocd/instances/ibm-apic-management-portal-instance.yaml</span>
+<span class=c1>#- argocd/instances/ibm-apic-gateway-analytics-instance.yaml</span>
+<span class=c1>#- argocd/operators/ibm-aspera-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-assetrepository-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-cp4i-operators.yaml</span>
+<span class=c1>#- argocd/operators/ibm-datapower-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-eventstreams-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-mq-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-opsdashboard-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-platform-navigator.yaml</span>
+<span class=c1>#- argocd/instances/ibm-platform-navigator-instance.yaml</span>
+
+<span class=c1>## Cloud Pak for Business Automation</span>
+<span class=c1>#- argocd/operators/ibm-cp4a-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-db2u-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-process-mining-operator.yaml</span>
+<span class=c1>#- argocd/instances/ibm-process-mining-instance.yaml</span>
+
+<span class=c1>## Cloud Pak for Data</span>
+<span class=c1>#- argocd/operators/ibm-cp4d-watson-studio-operator.yaml</span>
+<span class=c1>#- argocd/instances/ibm-cp4d-watson-studio-instance.yaml</span>
+<span class=c1>#- argocd/operators/ibm-cpd-platform-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-cpd-scheduling-operator.yaml</span>
+<span class=c1>#- argocd/instances/ibm-cpd-instance.yaml</span>
+
+<span class=c1>## Cloud Pak for Security</span>
+<span class=c1>#- argocd/operators/ibm-cp4s-operator.yaml</span>
+<span class=c1>#- argocd/instances/ibm-cp4sthreatmanagements-instance.yaml</span>
+
+<span class=c1>## IBM Foundational Services / Common Services</span>
+<span class=c1>#- argocd/operators/ibm-foundations.yaml</span>
+<span class=c1>#- argocd/instances/ibm-foundational-services-instance.yaml</span>
+<span class=c1>#- argocd/operators/ibm-automation-foundation-core-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-automation-foundation-operator.yaml</span>
+
+<span class=c1>## IBM Catalogs</span>
+<span class=c1>#- argocd/operators/ibm-catalogs.yaml</span>
+
+
+<span class=c1># Required for IBM MQ</span>
+<span class=c1>#- argocd/instances/openldap.yaml</span>
+<span class=c1># Required for IBM ACE, IBM MQ</span>
+<span class=c1>#- argocd/operators/cert-manager.yaml</span>
+<span class=c1>#- argocd/instances/cert-manager-instance.yaml</span>
+
+<span class=c1># Sealed Secrets</span>
+<span class=c1>#- argocd/instances/sealed-secrets.yaml</span>
+
+<span class=c1># CICD</span>
+<span class=c1>#- argocd/operators/grafana-operator.yaml</span>
+<span class=c1>#- argocd/instances/grafana-instance.yaml</span>
+<span class=c1>#- argocd/instances/artifactory.yaml</span>
+<span class=c1>#- argocd/instances/chartmuseum.yaml</span>
+<span class=c1>#- argocd/instances/developer-dashboard.yaml</span>
+<span class=c1>#- argocd/instances/swaggereditor.yaml</span>
+<span class=c1>#- argocd/instances/sonarqube.yaml</span>
+<span class=c1>#- argocd/instances/pact-broker.yaml</span>
+<span class=c1># In OCP 4.7+ we need to install openshift-pipelines and possibly privileged scc to the pipeline serviceaccount</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/operators/openshift-pipelines.yaml</span>
+
+<span class=c1># Service Mesh</span>
+<span class=c1>#- argocd/operators/elasticsearch.yaml</span>
+<span class=c1>#- argocd/operators/jaeger.yaml</span>
+<span class=c1>#- argocd/operators/kiali.yaml</span>
+<span class=c1>#- argocd/operators/openshift-service-mesh.yaml</span>
+<span class=c1>#- argocd/instances/openshift-service-mesh-instance.yaml</span>
+
+<span class=c1># Monitoring</span>
+<span class=c1>#- argocd/instances/instana-agent.yaml</span>
+<span class=c1>#- argocd/instances/instana-robot-shop.yaml</span>
+
+<span class=c1># Spectrum Protect Plus</span>
+<span class=c1>#- argocd/operators/spp-catalog.yaml</span>
+<span class=c1>#- argocd/operators/spp-operator.yaml</span>
+<span class=c1>#- argocd/instances/spp-instance.yaml</span>
+<span class=c1>#- argocd/operators/oadp-operator.yaml</span>
+<span class=c1>#- argocd/instances/oadp-instance.yaml</span>
+<span class=c1>#- argocd/instances/baas-instance.yaml</span>
+
+<span class=nt>patches</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>target</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Application</span>
+<span class=w>    </span><span class=nt>labelSelector</span><span class=p>:</span><span class=w> </span><span class=s>"gitops.tier.layer=services,gitops.tier.source=git"</span>
+<span class=w>  </span><span class=nt>patch</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|-</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/source/repoURL</span>
+<span class=w>      </span><span class=no>value: https://github.com/prod-ref-guide/multi-tenancy-gitops-services.git</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/source/targetRevision</span>
+<span class=w>      </span><span class=no>value: master</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>target</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Application</span>
+<span class=w>    </span><span class=nt>labelSelector</span><span class=p>:</span><span class=w> </span><span class=s>"gitops.tier.layer=applications,gitops.tier.source=git"</span>
+<span class=w>  </span><span class=nt>patch</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|-</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/source/repoURL</span>
+<span class=w>      </span><span class=no>value: https://github.com/prod-ref-guide/multi-tenancy-gitops-apps.git</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/source/targetRevision</span>
+<span class=w>      </span><span class=no>value: master</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>target</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Application</span>
+<span class=w>    </span><span class=nt>labelSelector</span><span class=p>:</span><span class=w> </span><span class=s>"gitops.tier.layer=services,gitops.tier.source=helm"</span>
+<span class=w>  </span><span class=nt>patch</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|-</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/source/repoURL</span>
+<span class=w>      </span><span class=no>value: https://charts.cloudnativetoolkit.dev</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>target</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-automation-foundation-operator</span>
+<span class=w>  </span><span class=nt>patch</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|-</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/source/helm/parameters/-</span>
+<span class=w>      </span><span class=no>value:</span>
+<span class=w>        </span><span class=no>name: spec.channel</span>
+<span class=w>        </span><span class=no>value: v1.1</span>
+</code></pre></div> </li> <li> <p><em>Add the services to the cluster</em></p> <div class="admonition note"> <p class=admonition-title>Note</p> <p>The <code>IBM Platform Navigator</code> instance requires a RWX storageclass and it is set to <code>managed-nfs-storage</code> by default in the ArgoCD Application <code>0-bootstrap/single-cluster/2-services/argocd/instances/ibm-platform-navigator-instance.yaml</code>. This storageclass is available for Red Hat OpenShift on IBM Cloud cluster provisioned from IBM Technology Zone with NFS storage selected. </p> </div> <p>Open <code>0-bootstrap/single-cluster/2-services/kustomization.yaml</code> and uncomment the below resources: </p> <div class="no-copy highlight"><pre><span></span><code><span class=c1>## Cloud Pak for Integration</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/operators/ibm-mq-operator.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/operators/ibm-platform-navigator.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/instances/ibm-platform-navigator-instance.yaml</span>
+
+<span class=c1>## IBM Foundational Services / Common Services</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/operators/ibm-foundations.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/instances/ibm-foundational-services-instance.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/operators/ibm-automation-foundation-core-operator.yaml</span>
+
+<span class=c1>## IBM Catalogs</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/operators/ibm-catalogs.yaml</span>
+
+<span class=c1># Sealed Secrets</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/instances/sealed-secrets.yaml</span>
+
+<span class=c1># CICD</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/instances/sonarqube.yaml</span>
+</code></pre></div> <p>You will have the following resources deployed for services:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>resources</span><span class=p>:</span>
+<span class=c1># IBM Software</span>
+
+<span class=c1>## Cloud Pak for Integration</span>
+<span class=c1>#- argocd/operators/ibm-ace-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-apic-operator.yaml</span>
+<span class=c1>#- argocd/instances/ibm-apic-instance.yaml</span>
+<span class=c1>#- argocd/instances/ibm-apic-management-portal-instance.yaml</span>
+<span class=c1>#- argocd/instances/ibm-apic-gateway-analytics-instance.yaml</span>
+<span class=c1>#- argocd/operators/ibm-aspera-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-assetrepository-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-cp4i-operators.yaml</span>
+<span class=c1>#- argocd/operators/ibm-datapower-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-eventstreams-operator.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/operators/ibm-mq-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-opsdashboard-operator.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/operators/ibm-platform-navigator.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/instances/ibm-platform-navigator-instance.yaml</span>
+
+<span class=c1>## Cloud Pak for Business Automation</span>
+<span class=c1>#- argocd/operators/ibm-cp4a-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-db2u-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-process-mining-operator.yaml</span>
+<span class=c1>#- argocd/instances/ibm-process-mining-instance.yaml</span>
+
+<span class=c1>## Cloud Pak for Data</span>
+<span class=c1>#- argocd/operators/ibm-cpd-scheduling-operator.yaml</span>
+<span class=c1>#- argocd/instances/ibm-cpd-scheduling-instance.yaml</span>
+<span class=c1>#- argocd/operators/ibm-cpd-platform-operator.yaml</span>
+<span class=c1>#- argocd/instances/ibm-cpd-instance.yaml</span>
+<span class=c1>#- argocd/operators/ibm-cpd-ws-operator.yaml</span>
+<span class=c1>#- argocd/instances/ibm-cpd-ws-instance.yaml</span>
+<span class=c1>#- argocd/operators/ibm-cpd-wkc-operator.yaml</span>
+<span class=c1>#- argocd/instances/ibm-cpd-wkc-instance.yaml</span>
+<span class=c1>#- argocd/operators/ibm-cpd-ds-operator.yaml</span>
+<span class=c1>#- argocd/instances/ibm-cpd-ds-instance.yaml</span>
+
+<span class=c1>## Cloud Pak for Security</span>
+<span class=c1>#- argocd/operators/ibm-cp4s-operator.yaml</span>
+<span class=c1>#- argocd/instances/ibm-cp4sthreatmanagements-instance.yaml</span>
+
+<span class=c1>## IBM Foundational Services / Common Services</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/operators/ibm-foundations.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/instances/ibm-foundational-services-instance.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/operators/ibm-automation-foundation-core-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-automation-foundation-operator.yaml</span>
+<span class=c1>#- argocd/operators/ibm-license-service-operator.yaml</span>
+<span class=c1>#- argocd/instances/ibm-license-service-instance.yaml</span>
+
+<span class=c1>## IBM Catalogs</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/operators/ibm-catalogs.yaml</span>
+
+<span class=c1># B2BI</span>
+<span class=c1>#- argocd/instances/ibm-sfg-db2.yaml</span>
+<span class=c1>#- argocd/instances/ibm-sfg-mq.yaml</span>
+<span class=c1>#- argocd/instances/ibm-sfg-b2bi-setup.yaml</span>
+<span class=c1>#- argocd/instances/ibm-sfg-b2bi.yaml</span>
+
+<span class=c1># Required for IBM MQ</span>
+<span class=c1>#- argocd/instances/openldap.yaml</span>
+<span class=c1># Required for IBM ACE, IBM MQ</span>
+<span class=c1>#- argocd/operators/cert-manager.yaml</span>
+<span class=c1>#- argocd/instances/cert-manager-instance.yaml</span>
+
+<span class=c1># Sealed Secrets</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/instances/sealed-secrets.yaml</span>
+
+<span class=c1># CICD</span>
+<span class=c1>#- argocd/operators/grafana-operator.yaml</span>
+<span class=c1>#- argocd/instances/grafana-instance.yaml</span>
+<span class=c1>#- argocd/instances/grafana-instana.yaml</span>
+<span class=c1>#- argocd/instances/artifactory.yaml</span>
+<span class=c1>#- argocd/instances/chartmuseum.yaml</span>
+<span class=c1>#- argocd/instances/developer-dashboard.yaml</span>
+<span class=c1>#- argocd/instances/swaggereditor.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/instances/sonarqube.yaml</span>
+<span class=c1>#- argocd/instances/pact-broker.yaml</span>
+<span class=c1># In OCP 4.7+ we need to install openshift-pipelines and possibly privileged scc to the pipeline serviceaccount</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd/operators/openshift-pipelines.yaml</span>
+
+<span class=c1># Serverless</span>
+<span class=c1>#- argocd/operators/openshift-serverless.yaml</span>
+<span class=c1>#- argocd/instances/openshift-serverless-knative-serving-instance.yaml</span>
+
+<span class=c1># Service Mesh</span>
+<span class=c1>#- argocd/operators/elasticsearch.yaml</span>
+<span class=c1>#- argocd/operators/jaeger.yaml</span>
+<span class=c1>#- argocd/operators/kiali.yaml</span>
+<span class=c1>#- argocd/operators/openshift-service-mesh.yaml</span>
+<span class=c1>#- argocd/instances/openshift-service-mesh-instance.yaml</span>
+
+<span class=c1># Monitoring</span>
+<span class=c1>#- argocd/instances/instana-agent.yaml</span>
+<span class=c1>#- argocd/instances/instana-robot-shop.yaml</span>
+
+<span class=c1># Spectrum Protect Plus</span>
+<span class=c1>#- argocd/operators/spp-catalog.yaml</span>
+<span class=c1>#- argocd/operators/spp-operator.yaml</span>
+<span class=c1>#- argocd/instances/spp-instance.yaml</span>
+<span class=c1>#- argocd/operators/oadp-operator.yaml</span>
+<span class=c1>#- argocd/instances/oadp-instance.yaml</span>
+<span class=c1>#- argocd/instances/baas-instance.yaml</span>
+
+<span class=nt>patches</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>target</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Application</span>
+<span class=w>    </span><span class=nt>labelSelector</span><span class=p>:</span><span class=w> </span><span class=s>"gitops.tier.layer=services,gitops.tier.source=git"</span>
+<span class=w>  </span><span class=nt>patch</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|-</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/source/repoURL</span>
+<span class=w>      </span><span class=no>value: https://github.com/prod-ref-guide/multi-tenancy-gitops-services.git</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/source/targetRevision</span>
+<span class=w>      </span><span class=no>value: master</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>target</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Application</span>
+<span class=w>    </span><span class=nt>labelSelector</span><span class=p>:</span><span class=w> </span><span class=s>"gitops.tier.layer=applications,gitops.tier.source=git"</span>
+<span class=w>  </span><span class=nt>patch</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|-</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/source/repoURL</span>
+<span class=w>      </span><span class=no>value: https://github.com/prod-ref-guide/multi-tenancy-gitops-apps.git</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/source/targetRevision</span>
+<span class=w>      </span><span class=no>value: master</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>target</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Application</span>
+<span class=w>    </span><span class=nt>labelSelector</span><span class=p>:</span><span class=w> </span><span class=s>"gitops.tier.layer=services,gitops.tier.source=helm"</span>
+<span class=w>  </span><span class=nt>patch</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|-</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/source/repoURL</span>
+<span class=w>      </span><span class=no>value: https://charts.cloudnativetoolkit.dev</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>target</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-automation-foundation-operator</span>
+<span class=w>  </span><span class=nt>patch</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|-</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/source/helm/parameters/-</span>
+<span class=w>      </span><span class=no>value:</span>
+<span class=w>        </span><span class=no>name: spec.channel</span>
+<span class=w>        </span><span class=no>value: v1.1</span>
+</code></pre></div> <p>Commit and push changes to your git repository:</p> <div class=highlight><pre><span></span><code>git<span class=w> </span>add<span class=w> </span>.
+git<span class=w> </span>commit<span class=w> </span>-s<span class=w> </span>-m<span class=w> </span><span class=s2>"Intial boostrap setup for services"</span>
+git<span class=w> </span>push<span class=w> </span>origin<span class=w> </span><span class=nv>$GIT_BRANCH</span>
+</code></pre></div> <p>The changes have now been pushed to your GitOps repository:</p> <div class="no-copy highlight"><pre><span></span><code>Enumerating objects: 11, done.
+Counting objects: 100% (11/11), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 564 bytes | 564.00 KiB/s, done.
+Total 6 (delta 5), reused 0 (delta 0)
+remote: Resolving deltas: 100% (5/5), completed with 5 local objects.
+To https://github.com/prod-ref-guide/multi-tenancy-gitops.git
+   b49dff5..533602c  master -&gt; master
+</code></pre></div> <p>The intention of this operation is to indicate that we'd like the resources declared in <code>0-bootstrap/single-cluster/2-services/kustomization.yaml</code> to be deployed in the cluster. Like the <code>infra</code> ArgoCD application, the resources created by the <code>services</code> ArgoCD application will manage the Kubernetes relevant services resources applied to the cluster.</p> </li> <li> <p><em>Optional: Activate the services in the GitOps repo</em></p> <p>Run this step if you skip installing tekton in the previous section. If you did not skip that step go to <code>Step 7</code>.</p> <p>Access the <code>0-bootstrap/single-cluster/kustomization.yaml</code>:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span><span class=m>0</span>-bootstrap/single-cluster/kustomization.yaml
+</code></pre></div> <p>Let us deploy <code>services</code> resources to the cluster. Open <code>0-bootstrap/single-cluster/kustomization.yaml</code> and uncomment <code>2-services/2-services.yaml</code> as follows:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>resources</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">1-infra/1-infra.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">2-services/2-services.yaml</span>
+<span class=c1># - 3-apps/3-apps.yaml</span>
+<span class=nt>patches</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>target</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Application</span>
+<span class=w>    </span><span class=nt>labelSelector</span><span class=p>:</span><span class=w> </span><span class=s>"gitops.tier.layer=gitops"</span>
+<span class=w>  </span><span class=nt>patch</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|-</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/source/repoURL</span>
+<span class=w>      </span><span class=no>value: https://github.com/prod-ref-guide/multi-tenancy-gitops.git</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/source/targetRevision</span>
+<span class=w>      </span><span class=no>value: master</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>target</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">AppProject</span>
+<span class=w>    </span><span class=nt>labelSelector</span><span class=p>:</span><span class=w> </span><span class=s>"gitops.tier.layer=infra"</span>
+<span class=w>  </span><span class=nt>patch</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|-</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/sourceRepos/-</span>
+<span class=w>      </span><span class=no>value: https://github.com/prod-ref-guide/multi-tenancy-gitops.git</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/sourceRepos/-</span>
+<span class=w>      </span><span class=no>value: https://github.com/prod-ref-guide/multi-tenancy-gitops-infra.git</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>target</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">AppProject</span>
+<span class=w>    </span><span class=nt>labelSelector</span><span class=p>:</span><span class=w> </span><span class=s>"gitops.tier.layer=services"</span>
+<span class=w>  </span><span class=nt>patch</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|-</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/sourceRepos/-</span>
+<span class=w>      </span><span class=no>value: https://github.com/prod-ref-guide/multi-tenancy-gitops.git</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/sourceRepos/-</span>
+<span class=w>      </span><span class=no>value: https://github.com/prod-ref-guide/multi-tenancy-gitops-services.git</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>target</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">AppProject</span>
+<span class=w>    </span><span class=nt>labelSelector</span><span class=p>:</span><span class=w> </span><span class=s>"gitops.tier.layer=applications"</span>
+<span class=w>  </span><span class=nt>patch</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|-</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/sourceRepos/-</span>
+<span class=w>      </span><span class=no>value: https://github.com/prod-ref-guide/multi-tenancy-gitops.git</span>
+<span class=w>    </span><span class=no>- op: add</span>
+<span class=w>      </span><span class=no>path: /spec/sourceRepos/-</span>
+<span class=w>      </span><span class=no>value: https://github.com/prod-ref-guide/multi-tenancy-gitops-apps.git</span>
+</code></pre></div> <p>Once we push this change to GitHub, it will be seen by the <code>bootstrap-single-cluster</code> application in ArgoCD, and the resources it refers to will be applied to the cluster.</p> </li> <li> <p><em>Push GitOps changes to GitHub</em></p> <p>Let’s make these GitOps changes visible to the ArgoCD <code>bootstrap-single-cluster</code> application via GitHub.</p> <p>Add all changes in the current folder to a git index, commit them, and push them to GitHub:</p> <div class=highlight><pre><span></span><code>git<span class=w> </span>add<span class=w> </span>.
+git<span class=w> </span>commit<span class=w> </span>-s<span class=w> </span>-m<span class=w> </span><span class=s2>"Deploying services"</span>
+git<span class=w> </span>push<span class=w> </span>origin<span class=w> </span><span class=nv>$GIT_BRANCH</span>
+</code></pre></div> <p>The changes have now been pushed to your GitOps repository:</p> <div class="no-copy highlight"><pre><span></span><code>Enumerating objects: 9, done.
+Counting objects: 100% (9/9), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (5/5), 431 bytes | 431.00 KiB/s, done.
+Total 5 (delta 4), reused 0 (delta 0)
+remote: Resolving deltas: 100% (4/4), completed with 4 local objects.
+To https://github.com/prod-ref-guide/multi-tenancy-gitops.git
+   533602c..85a4c46  master -&gt; master
+</code></pre></div> <p>This change to the GitOps repository can now be used by ArgoCD.</p> </li> <li> <p><em>The</em> <code>bootstrap-single-cluster</code> <em>application detects the change and resyncs</em></p> <p>Once these changes to our GitOps repository are seen by ArgoCD, it will resync the cluster to the desired new state.</p> <p>Switch to the ArgoCD UI <strong>Applications</strong> view to see the start of this resync process:</p> <p><img alt=argocd80 src=../images-gitops-deploy-services/argo80.png style=max-height:500px></p> <p>Notice how the <code>bootstrap-single-cluster</code> application has detected the changes and is automatically synching the cluster.</p> <p>(<em>You can manually</em> <code>sync</code> the <code>bootstrap-single-cluster</code> <em>ArgoCD application in the UI if you don't want to wait for ArgoCD to detect the change.</em>)</p> </li> <li> <p><em>The new ArgoCD applications</em></p> <p>After a short while, you'll see lots of new ArgoCD applications have been created to manage the <strong>services</strong> we have deployed by modifying <code>kustomization.yaml</code> under <code>0-bootstrap/single-cluster/2-services</code> folder:</p> <p><img alt=argocd81a src=../images-gitops-deploy-services/argo81a.png style=max-height:500px></p> <p>See how most ArgoCD applications are <code>Synced</code> almost immediately, but some spend time in <code>Progressing</code>. That's because the <code>Sonarqube</code> ArgoCD application is more complex -- it creates more Kubernetes resources than other ArgoCD applications and therefore takes longer to <code>sync</code>.</p> <p>It could take an hour or more for all ArgoCD applications to become <code>Healthy</code> and <code>Synced</code>.</p> <p><img alt=argocd82a src=../images-gitops-deploy-services/argo82a.png style=max-height:500px></p> <p>Notice how many more <code>Synched</code> ArgoCD applications are now in the cluster; these are a result of the newly added <strong>services</strong> layer in our architecture.</p> </li> <li> <p><em>The</em> <code>services</code> <em>application</em></p> <p>Let's examine the ArgoCD application that manages the <strong>services</strong> in our reference architecture.</p> <p>In the ArgoCD UI <strong>Applications</strong> view, click on the icon for the <code>services</code> application:</p> <p><img alt=argocd83 src=../images-gitops-deploy-services/argo83.png style=max-height:500px></p> <p>We can see that the <code>services</code> ArgoCD application creates 10 ArgoCD applications, each of which is responsible for applying specific YAMLs to the cluster according to the folder the ArgoCD application is watching.</p> <p>It’s the <code>services</code> ArgoCD application that watches the <code>0-bootstrap/single-cluster/2-services/argocd</code> folder for ArgoCD applications that apply service resources to our cluster. </p> <p>We’ll continually reinforce these relationships as we work through the tutorial. You might like to spend some time exploring the ArgoCD UI and ArgoCD YAMLs before you proceed, though it’s not necessary, as you’ll get lots of practice as we proceed.</p> </li> <li> <p><em>Examine</em> <code>Sonarqube</code> <em>resources in detail</em></p> <p>You can see the Kubernetes resources that the <code>sonarqube</code> ArgoCD application has created.</p> <p>Click on the <code>sonarqube</code> service:</p> <p><img alt=argocd85a src=../images-gitops-deploy-services/argo85a.png style=max-height:500px></p> <p>See how many different Kubernetes resources were created when the Sonarqube ArgoCD application YAML was applied to the cluster. That's why it took the <code>Sonarqube</code> ArgoCD application a little time to sync.</p> </li> <li> <p><em>The</em> <code>services</code> <em>ArgoCD project</em></p> <p>As we've seen in the ArgoCD UI, the <code>services</code> ArgoCD application is responsible for creating the ArgoCD applications that manage the services within the cluster. Let's examine their definitions to see how they do this.</p> <p>Issue the following command:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span><span class=m>0</span>-bootstrap/single-cluster/2-services/2-services.yaml
+</code></pre></div> <p>The following YAML may initially look a little intimidating; we'll discuss the major elements below:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nn>---</span>
+<span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">AppProject</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">services</span>
+<span class=w>  </span><span class=nt>labels</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>gitops.tier.layer</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">services</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>sourceRepos</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">[]</span><span class=w> </span><span class=c1># Populated by kustomize patches in 2-services/kustomization.yaml</span>
+<span class=w>  </span><span class=nt>destinations</span><span class=p>:</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tools</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-common-services</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">redhat-operators</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">openshift-operators</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">openshift-marketplace</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ci</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">staging</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">prod</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">sealed-secrets</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">istio-system</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">openldap</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">instana-agent</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">openshift-gitops</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class=nt>clusterResourceWhitelist</span><span class=p>:</span>
+<span class=w>  </span><span class=c1># TODO: SCC needs to be moved to 1-infra, here for now for artifactory</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=s>"security.openshift.io"</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">SecurityContextConstraints</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=s>"console.openshift.io"</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ConsoleLink</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=s>"apps"</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">statefulsets</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=s>"apps"</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">deployments</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">services</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">configmaps</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">secrets</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">serviceaccounts</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=s>"batch"</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">jobs</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">roles</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=s>"route.openshift.io"</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">routes</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">RoleBinding</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=s>"rbac.authorization.k8s.io"</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ClusterRoleBinding</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=s>"rbac.authorization.k8s.io"</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">apiextensions.k8s.io</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">CustomResourceDefinition</span>
+<span class=w>  </span><span class=nt>roles</span><span class=p>:</span>
+<span class=w>  </span><span class=c1># A role which provides read-only access to all applications in the project</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">read-only</span>
+<span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Read-only privileges to my-project</span>
+<span class=w>    </span><span class=nt>policies</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">p, proj:my-project:read-only, applications, get, my-project/*, allow</span>
+<span class=w>    </span><span class=nt>groups</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd-admins</span>
+<span class=nn>---</span>
+<span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Application</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">services</span>
+<span class=w>  </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>argocd.argoproj.io/sync-wave</span><span class=p>:</span><span class=w> </span><span class=s>"200"</span>
+<span class=w>  </span><span class=nt>labels</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>gitops.tier.layer</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gitops</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>destination</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">openshift-gitops</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class=nt>project</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">services</span>
+<span class=w>  </span><span class=nt>source</span><span class=p>:</span><span class=w> </span><span class=c1># repoURL  and targetRevision populated by kustomize patches in 2-services/kustomization.yaml</span>
+<span class=w>    </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">0-bootstrap/single-cluster/2-services</span>
+<span class=w>  </span><span class=nt>syncPolicy</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>automated</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>prune</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>      </span><span class=nt>selfHeal</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div> <p>Notice how this YAML defines multiple ArgoCD resources: a <code>services</code> project which manages all the necessary services that are needed by the applications.</p> <p>Notice how the <code>destinations</code> for the <code>services</code> project are limited to the <code>ci</code>, <code>tools</code> and <code>dev</code> namespaces -- as well as a few others that we'll use in the tutorial. These <code>destinations</code> restrict the namespaces where ArgoCD applications in the <code>services</code> project can manage resources.</p> <p>The same is true for <code>clusterResourceWhiteList</code>. It limits the Kubernetes resources that can be managed to <code>configmaps</code>, <code>deployments</code> and <code>rolebindings</code> amongst others.</p> <p>In summary, we see that the <code>service</code> project is used to group all the ArgoCD applications that will manage the services in our cluster. These ArgoCD applications can only perform specific actions on specific resource types in specific namespaces. See how ArgoCD is acting as a well-governed administrator.</p> </li> <li> <p><em>The similar structure of </em><code>services</code> <em>and</em> <code>infra</code> <em>ArgoCD applications</em></p> <p>Even though we didn't closely examine the <code>infra</code> ArgoCD application YAML in the previous topic, it has has a very similar structure to the ArgoCD <code>services</code> applications we've just examined.</p> <p>Type the following command to list the ArgoCD <code>infra</code> app YAML.</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span><span class=m>0</span>-bootstrap/single-cluster/1-infra/1-infra.yaml
+</code></pre></div> <p>Again, although this YAML might look a little intimidating, the overall structure is the same as for <code>services</code>:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nn>---</span>
+<span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">AppProject</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">infra</span>
+<span class=w>  </span><span class=nt>labels</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>gitops.tier.layer</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">infra</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>sourceRepos</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">[]</span><span class=w> </span><span class=c1># Populated by kustomize patches in 1-infra/kustomization.yaml</span>
+<span class=w>  </span><span class=nt>destinations</span><span class=p>:</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ci</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">staging</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">prod</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">sealed-secrets</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tools</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-common-services</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">istio-system</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">openldap</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">instana-agent</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">openshift-gitops</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class=nt>clusterResourceWhitelist</span><span class=p>:</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Namespace</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">RoleBinding</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=s>"security.openshift.io"</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">SecurityContextConstraints</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=s>"console.openshift.io"</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ConsoleNotification</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=s>"console.openshift.io"</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ConsoleLink</span>
+<span class=w>  </span><span class=nt>roles</span><span class=p>:</span>
+<span class=w>  </span><span class=c1># A role which provides read-only access to all applications in the project</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">read-only</span>
+<span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Read-only privileges to my-project</span>
+<span class=w>    </span><span class=nt>policies</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">p, proj:my-project:read-only, applications, get, my-project/*, allow</span>
+<span class=w>    </span><span class=nt>groups</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argocd-admins</span>
+<span class=nn>---</span>
+<span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Application</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">infra</span>
+<span class=w>  </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>argocd.argoproj.io/sync-wave</span><span class=p>:</span><span class=w> </span><span class=s>"100"</span>
+<span class=w>  </span><span class=nt>labels</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>gitops.tier.layer</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gitops</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>destination</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">openshift-gitops</span>
+<span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class=w>  </span><span class=nt>project</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">infra</span>
+<span class=w>  </span><span class=nt>source</span><span class=p>:</span><span class=w> </span><span class=c1># repoURL  and targetRevision populated by kustomize patches in 1-infra/kustomization.yaml</span>
+<span class=w>    </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">0-bootstrap/single-cluster/1-infra</span>
+<span class=w>  </span><span class=nt>syncPolicy</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>automated</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>prune</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>      </span><span class=nt>selfHeal</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div> <p>As with the <code>2-services.yaml</code>, we can see</p> <ul> <li>An ArgoCD project called <code>infra</code>. ArgoCD applications defined in this project will be limited by the <code>destinations:</code> and <code>clusterResourceWhitelist:</code> specified in the YAML.</li> <li>An ArgoCD app called <code>infra</code>. This is the ArgoCD application that we used in the previous section of the tutorial. It watches the <code>path: 0-bootstrap/single-cluster/1-infra</code> folder for ArgoCD applications that it applied to the cluster. It was these applications that managed the <code>ci</code>, <code>tools</code> and <code>dev</code> namespaces for example.</li> </ul> <p>The installation of the operators should have taken approximately 60 minutes.</p> </li> <li> <p>Validate the deployment of IBM MQ and IBM Platform Navigator.</p> <p>Verify the IBM Platform Navigator has been deployed successfully.</p> <p></p><div class=highlight><pre><span></span><code>oc<span class=w> </span>get<span class=w> </span>platformnavigator<span class=w> </span>-n<span class=w> </span>tools<span class=w> </span>-o<span class=o>=</span><span class=nv>jsonpath</span><span class=o>=</span><span class=s1>'{ .items[*].status.conditions[].status }'</span>
+</code></pre></div> Expected output = True <p>The Platform Navigator console has been installed as part of the IBM Cloud Pak for Integration. We use the Platform Navigator to view our queue manager and its queues. The Spring application includes a Swagger interface which we can use to call methods on the Spring application. In the next few steps we will use these to interact with both the queue manager and Spring application.</p> </li> <li> <p>Access the IBM Platform Navigator console</p> <ul> <li> <p>Retrieve the URL for the IBM Platform Navigator console:</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>get<span class=w> </span>route<span class=w> </span>integration-navigator-pn<span class=w> </span>-n<span class=w> </span>tools<span class=w> </span>-o<span class=w> </span><span class=nv>jsonpath</span><span class=o>=</span><span class=s1>'{.spec.host}'</span>
+</code></pre></div> </li> <li> <p>Copy the URL from the <code>HOST/PORT</code> column and paste into a browser, prefixed with <code>https://</code>.</p> </li> <li> <p>Retrieve the <code>admin</code> password:</p> <div class=highlight><pre><span></span><code>oc<span class=w> </span>get<span class=w> </span>secret<span class=w> </span>ibm-iam-bindinfo-platform-auth-idp-credentials<span class=w> </span>-n<span class=w> </span>dev<span class=w> </span>-o<span class=w> </span>json<span class=w> </span>-n<span class=w> </span>ibm-common-services<span class=w> </span><span class=p>|</span><span class=w> </span>jq<span class=w> </span>-r<span class=w> </span><span class=s1>'.data."admin_password"'</span><span class=w> </span><span class=p>|</span><span class=w> </span>base64<span class=w> </span>-D
+</code></pre></div> </li> <li> <p>Log in to the <code>IBM Platform Navigator</code> console with the <code>admin</code> credentials.</p> <p><img alt="Platform Navigator" src=../images-gitops-deploy-services/pn.png style=max-height:800px></p> </li> </ul> </li> </ol> <hr> <h2 id=other-important-argocd-features>Other important ArgoCD features<a class=headerlink href=#other-important-argocd-features title="Permanent link">¶</a></h2> <!--- cSpell:ignore resynched consolenotification subfolders rolebindings rolebinding CICD qube cntk autoplay allowfullscreen --> <p>In this final section of this chapter, let's explore ArgoCD features you may have noticed as you explored different YAML files in this chapter:</p> <h3 id=syncwave><strong>SyncWave</strong><a class=headerlink href=#syncwave title="Permanent link">¶</a></h3> <ol> <li> <p><em>Using</em> <code>SyncWave</code> <em>to control deployment sequencing</em></p> <p>When ArgoCD uses a GitOps repository to apply ArgoCD applications to the cluster, it applies all ArgoCD applications concurrently. Even though Kubernetes use of <strong>eventual consistency</strong> means that resources which depend on each other can be deployed in any order, it often makes sense to help deploy certain resources in a certain order. This can avoid spurious error messages or wasted compute resources for example.</p> <p>Let's compare two ArgoCD YAML files.</p> <p>Firstly, let's examine the <code>namespace-tools</code> in the <strong>infrastructure</strong> layer:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span><span class=m>0</span>-bootstrap/single-cluster/1-infra/argocd/namespace-tools.yaml
+</code></pre></div> <p>which shows the ArgoCD application YAML:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Application</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">namespace-tools</span>
+<span class=w>  </span><span class=nt>labels</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>gitops.tier.layer</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">infra</span>
+<span class=hll><span class=w>  </span><span class=nt>annotations</span><span class=p>:</span>
+</span><span class=hll><span class=w>    </span><span class=nt>argocd.argoproj.io/sync-wave</span><span class=p>:</span><span class=w> </span><span class=s>"100"</span>
+</span><span class=nn>...</span>
+</code></pre></div> <p>Then examine the <code>sonarqube</code> in the <strong>services</strong> layer:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span><span class=m>0</span>-bootstrap/single-cluster/2-services/argocd/instances/sonarqube.yaml
+</code></pre></div> <p>which shows the ArgoCD application YAML:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Application</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">sonarqube</span>
+<span class=hll><span class=w>  </span><span class=nt>annotations</span><span class=p>:</span>
+</span><span class=hll><span class=w>    </span><span class=nt>argocd.argoproj.io/sync-wave</span><span class=p>:</span><span class=w> </span><span class=s>"250"</span>
+</span><span class=w>  </span><span class=nt>labels</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>gitops.tier.group</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">cntk</span>
+<span class=w>    </span><span class=nt>gitops.tier.layer</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">services</span>
+<span class=w>    </span><span class=nt>gitops.tier.source</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git</span>
+<span class=w>  </span><span class=nt>finalizers</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">resources-finalizer.argocd.argoproj.io</span>
+<span class=nn>...</span>
+</code></pre></div> <p>Notice the use of <code>sync-wave: "100"</code> for <code>namespace-tools</code> and how it contrasts with <code>sync-wave: "250"</code> for <code>sonarqube</code>. The lower <code>100</code> will be deployed before the higher sync-wave <code>250</code> because it only makes sense to deploy the pipelines into the <code>tools</code> namespace, <strong>after</strong> the <code>tools</code> namespace has been created.</p> <p>You are free to choose any number for <code>sync-wave</code>. In our deployment, we have chosen <code>100-199</code> for infrastructure, <code>200-299</code> for services and <code>300-399</code> for applications; it provides alignment with high level folder numbering such as <code>1-infra</code> and so on.</p> <p>In our tutorial, we incrementally add infrastructure, services and applications so that you can understand how everything fits together incrementally. This makes <code>sync-wave</code> less important than in a real-world system, where you might be making updates to each of these deployed layers simultaneously. In such cases the use of <code>sync-wave</code> provides a high degree of confidence in the effectiveness of a deployment change because all changes go through in the correct order.</p> <p>We'll make extensive use of <code>sync-wave</code> when we look at <a href=../../high-availability/overview/ >High Availability</a> MQ deployments.</p> </li> </ol> <div class="admonition success"> <p class=admonition-title>Congratulations!</p> <p>You've installed tekton and configured the key services in the cluster to support continuous integration and continuous delivery. These have included services like Sonarqube. We installed them into the <code>tools</code> namespaces we created previously.</p> <p>This chapter is now complete. In the following chapters, we're going to use these components to deploy MQ applications and queue managers to the cluster.</p> </div></div> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> Back to top </button> </main> <!-- Footer --> <footer class=md-footer> <!-- Link to previous and/or next page --> <nav class="md-footer__inner md-grid" aria-label=footer.title> <!-- Link to previous page --> <a href=../gitops-config/ class="md-footer__link md-footer__link--prev" rel=prev> <div class="md-footer__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </div> <div class=md-footer__title> <div class=md-ellipsis> <span class=md-footer__direction> Previous </span> Add infrastructure </div> </div> </a> <!-- Link to next page --> <a href=../applications/ class="md-footer__link md-footer__link--next" rel=next> <div class=md-footer__title> <div class=md-ellipsis> <span class=md-footer__direction> Next </span> Application components </div> </div> <div class="md-footer__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg> </div> </a> </nav> <!-- Further information --> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-footer-column> <div class=md-footer-text>Site licensed under <a href=https://creativecommons.org/licenses/by-nc-sa/4.0/ >CC BY-NC-SA 4.0</a></div> </div> <div class=md-footer-column> <!-- Copyright and theme information --> <div class=md-footer-text> Copyright © 2021 Cloud Pak Production Deployment Guides </div> </div> <div class=md-footer-social> <a href=https://github.com/ncolon/deployment-guides target=_blank rel=noopener title="Production Deployment Guides on Github Enterprise" class=md-footer-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 496 512"> <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"> </path> </svg> </a> <a href=https://ibm-cloud.slack.com/archives/C02CQ6M2D2R target=_blank rel=noopener title=Slack class=md-footer-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"> <path d="M94.12 315.1c0 25.9-21.16 47.06-47.06 47.06S0 341 0 315.1c0-25.9 21.16-47.06 47.06-47.06h47.06v47.06zm23.72 0c0-25.9 21.16-47.06 47.06-47.06s47.06 21.16 47.06 47.06v117.84c0 25.9-21.16 47.06-47.06 47.06s-47.06-21.16-47.06-47.06V315.1zm47.06-188.98c-25.9 0-47.06-21.16-47.06-47.06S139 32 164.9 32s47.06 21.16 47.06 47.06v47.06H164.9zm0 23.72c25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06H47.06C21.16 243.96 0 222.8 0 196.9s21.16-47.06 47.06-47.06H164.9zm188.98 47.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06h-47.06V196.9zm-23.72 0c0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06V79.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06V196.9zM283.1 385.88c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06v-47.06h47.06zm0-23.72c-25.9 0-47.06-21.16-47.06-47.06 0-25.9 21.16-47.06 47.06-47.06h117.84c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06H283.1z"> </path> </svg> </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.instant", "navigation.tracking", "navigation.tabs.sticky", "navigation.top", "navigation.sections"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script> <script src=../../../../../assets/javascripts/bundle.d7400e89.min.js></script> </body> </html>

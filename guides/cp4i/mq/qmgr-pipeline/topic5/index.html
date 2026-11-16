@@ -1,0 +1,399 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="The Cloud Pak Production Deployment Guides document and demonstrate how to run cloud-native solutions leveraging IBM Cloud Pak capabilities in a Red Hat OpenShift environment"><meta name=author content="Cloud Pak Production Deployment Guides development team"><link href=../topic1/ rel=prev><link href=../topic2/ rel=next><link rel=icon href=../../../../../images/cloudnativetoolkit.png><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.7.7"><title>(Optional) Enabling dynamic configurations - Cloud Pak Production Deployment Guides</title><link rel=stylesheet href=../../../../../assets/stylesheets/main.ec1eaa64.min.css><link rel=stylesheet href=../../../../../assets/stylesheets/palette.ab4e12ef.min.css><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback"><style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"IBM Plex Mono"}</style><link rel=stylesheet href=../../../../../css/extra.css><link rel=stylesheet href=../../../../../css/toolkit-code.css><script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script><script id=__analytics>function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-Q0FLL49YN3"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-Q0FLL49YN3",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-Q0FLL49YN3",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script><script>"undefined"!=typeof __md_analytics&&__md_analytics()</script><!-- Determine title --><!-- The image needs to have an absolute URL --><!-- Open graph meta tags --><meta property=og:type content=website><meta property=og:title content="Cloud Pak Production Deployment Guides - (Optional) Enabling dynamic configurations"><meta property=og:description content="The Cloud Pak Production Deployment Guides document and demonstrate how to run cloud-native solutions leveraging IBM Cloud Pak capabilities in a Red Hat OpenShift environment"><meta property=og:url content=None><meta property=og:image content=assets/images/banner.png><meta property=og:image:type content=image/png><meta property=og:image:width content=1080><meta property=og:image:height content=568></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=black data-md-color-accent=indigo> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#enabling-dynamic-configurations-in-queue-manager-optional class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <header class="md-header md-header--shadow md-header--lifted" data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../../../../.. title="Cloud Pak Production Deployment Guides" class="md-header__button md-logo" aria-label="Cloud Pak Production Deployment Guides" data-md-component=logo> <img src=../../../../../images/cloudnativetoolkit.png alt=logo> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> Cloud Pak Production Deployment Guides </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> (Optional) Enabling dynamic configurations </span> </div> </div> </div> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> <div class=md-header__source> <a href=https://github.com/ncolon/production-deployment-guides title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg> </div> <div class=md-source__repository> </div> </a> </div> </nav> <nav class=md-tabs aria-label=Tabs data-md-component=tabs> <div class=md-grid> <ul class=md-tabs__list> <li class=md-tabs__item> <a href=../../../../.. class=md-tabs__link> Home </a> </li> <li class=md-tabs__item> <a href=../../../../../overview/overview/ class=md-tabs__link> Production Considerations </a> </li> <li class=md-tabs__item> <a href=../../../../../quickstart/overview/ class=md-tabs__link> Quick Start Demos </a> </li> <li class="md-tabs__item md-tabs__item--active"> <a href=../../../../guides-overview/ class=md-tabs__link> Tutorials </a> </li> <li class=md-tabs__item> <a href=../../../../../infrastructure/ad/ class=md-tabs__link> References </a> </li> <li class=md-tabs__item> <a href=../../../../../overview/whats-new/ class=md-tabs__link> About </a> </li> </ul> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <!-- Determine class according to configuration --> <!-- Main navigation --> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=nav.title data-md-level=0> <!-- Site title --> <!--
+  <label class="md-nav__title" for="__drawer">
+    <a
+      href="../../../../.."
+      title="Cloud Pak Production Deployment Guides"
+      class="md-nav__button md-logo"
+      aria-label="Cloud Pak Production Deployment Guides"
+      data-md-component="logo"
+    >
+      
+  <img src="../../../../../images/cloudnativetoolkit.png" alt="logo">
+
+    </a>
+    Cloud Pak Production Deployment Guides
+  </label>
+--> <!-- Repository information --> <div class=md-nav__source> <a href=https://github.com/ncolon/production-deployment-guides title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg> </div> <div class=md-source__repository> </div> </a> </div> <!-- Render item list --> <ul class=md-nav__list data-md-scrollfix> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#overview class=md-nav__link> <span class=md-ellipsis> Overview </span> </a> </li> <li class=md-nav__item> <a href=#pre-requisites class=md-nav__link> <span class=md-ellipsis> Pre-requisites </span> </a> </li> <li class=md-nav__item> <a href=#review-the-sample-queue-manager-configurations class=md-nav__link> <span class=md-ellipsis> Review the sample queue manager configurations </span> </a> <nav class=md-nav aria-label="Review the sample queue manager configurations"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#static-configurations class=md-nav__link> <span class=md-ellipsis> Static Configurations </span> </a> </li> <li class=md-nav__item> <a href=#dynamic-configurations class=md-nav__link> <span class=md-ellipsis> Dynamic Configurations </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#enable-the-dynamic-configurations class=md-nav__link> <span class=md-ellipsis> Enable the dynamic configurations </span> </a> </li> <li class=md-nav__item> <a href=#set-up-the-gitops-environment class=md-nav__link> <span class=md-ellipsis> Set up the GitOps environment </span> </a> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <div><h1 id=enabling-dynamic-configurations-in-queue-manager-optional>Enabling dynamic configurations in Queue Manager (Optional)<a class=headerlink href=#enabling-dynamic-configurations-in-queue-manager-optional title="Permanent link">¶</a></h1> <!--- cSpell:ignore  pipelinerun resyncs mqsc msqc runmqsc dockerconfigjson queuemanager QMID podman ibmgaragecloud cntk cnkt eventid gitrevision gitrepositoryurl odowdaibm MQSC replicaset eventlistener triggerbinding triggertemplate mqcicd qmgr Artifactory configmaps OIDC CHLAUTH templating sealedsecret --> <p><strong>Audience</strong>: Architects, Application developers, Administrators</p> <p><strong>Timing</strong>: 40 minutes</p> <h2 id=overview>Overview<a class=headerlink href=#overview title="Permanent link">¶</a></h2> <p>In the <a href=../topic1/ >previous topic</a> of this chapter, we installed and customized the queue manager repository for <code>QM1</code> and configured the queue manager pipeline to access it.</p> <p>In this chapter, we're going to enable dynamic configurations in the queue manager. This will require us to install some additional components into our cluster. Also, this chapter is an optional one and is not mandate. Please only follow these instructions if you are interested in setting up dynamic configurations to the queue manager.</p> <p>In this topic, we're going to:</p> <ul> <li>Review the sample queue manager configurations</li> <li>Enable the dynamic configurations</li> <li>Set up the GitOps environment</li> </ul> <p>By the end of this topic we'll have the set up done for the queue manager to support dynamic configurations and the queue manager will be able to consume all the configuration changes with out any down time.</p> <hr> <h2 id=pre-requisites>Pre-requisites<a class=headerlink href=#pre-requisites title="Permanent link">¶</a></h2> <p>Before attempting this topic, you should have successfully completed the <a href=../topic1/ >previous topic</a>.</p> <hr> <h2 id=review-the-sample-queue-manager-configurations>Review the sample queue manager configurations<a class=headerlink href=#review-the-sample-queue-manager-configurations title="Permanent link">¶</a></h2> <ol> <li> <p><em>Make sure to be in MQ QM01 repository</em></p> <p>Let's ensure we're in the correct folder. Again, we've used typical defaults:</p> <div class=highlight><pre><span></span><code><span class=nb>cd</span><span class=w> </span><span class=nv>$GIT_ROOT</span>
+<span class=nb>cd</span><span class=w> </span>mq-qm01/
+</code></pre></div> </li> </ol> <h3 id=static-configurations>Static Configurations<a class=headerlink href=#static-configurations title="Permanent link">¶</a></h3> <ol> <li> <p><em>Review the queue manager configurations</em></p> <p>By default, the sample queue manager uses static configurations.</p> <p>We can examine the static configurations using the below command:</p> <p></p><div class=highlight><pre><span></span><code>cat<span class=w> </span>kustomize/base/generic-qmgr/static-definitions.mqsc
+</code></pre></div> See how the configurations are defined in the mqsc file : <div class="no-copy highlight"><pre><span></span><code>DEFINE QLOCAL(IBM.DEMO.Q) BOQNAME(IBM.DEMO.Q.BOQ) BOTHRESH(3) REPLACE
+DEFINE QLOCAL(IBM.DEMO.Q.BOQ) REPLACE
+* Use a different dead letter queue, for undeliverable messages
+DEFINE QLOCAL('DEV.DEAD.LETTER.QUEUE') REPLACE
+ALTER QMGR DEADQ('DEV.DEAD.LETTER.QUEUE')
+DEFINE CHANNEL('IBM.APP.SVRCONN') CHLTYPE(SVRCONN)
+ALTER QMGR CHLAUTH (DISABLED)
+* DEFINE CHANNEL('MONITORING_CHL') CHLTYPE(SVRCONN)
+* SET CHLAUTH(MONITORING_CHL) TYPE(BLOCKUSER) USERLIST(NOBODY)
+REFRESH SECURITY TYPE(CONNAUTH)
+* optional
+* DEFINE SERVICE(APPLY_MQSC) CONTROL(QMGR) SERVTYPE(SERVER) STARTCMD('/mq-config/start-mqsc.sh') STARTARG(QM1) STOPCMD('/mq-config/start-mqsc.sh') STOPARG('') STDOUT('') STDERR('')
+</code></pre></div> </li> <li> <p><em>Review the queue manager configmap generation</em></p> <p>We are using <code>configMapGenerator</code> in Kustomize to build the <code>configmap</code> out of the <code>mqsc</code> definitions provided to the queue manager. Similarly, we can also use <code>ini</code> files. The <code>kustomization.yaml</code> includes those definitions.</p> <p>We can examine the <code>kustomization.yaml</code> using the below command:</p> <p></p><div class=highlight><pre><span></span><code>cat<span class=w> </span>kustomize/base/generic-qmgr/kustomization.yaml
+</code></pre></div> See how the <code>configMapGenerator</code> definition is included in the <code>kustomization.yaml</code> file : <div class="no-copy highlight"><pre><span></span><code><span class=nt>resources</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">./queuemanager.yaml</span>
+
+<span class=nt>generatorOptions</span><span class=p>:</span>
+<span class=w> </span><span class=nt>disableNameSuffixHash</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=c1># We use a configMapGenerator because it allows us to build up the mqsc from regular MQSC files.</span>
+<span class=nt>configMapGenerator</span><span class=p>:</span>
+<span class=c1># Create an MQSC configMap using generic MQSC which will be added to all queue managers and applied during bootstrap.</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mqsc-configmap</span>
+<span class=w>  </span><span class=nt>behavior</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">create</span>
+<span class=w>  </span><span class=nt>files</span><span class=p>:</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">static-definitions.mqsc</span>
+
+<span class=c1># Add the configMap that will be used for dynamic updates, this should be used queue manager wide i.e. stay the same in each environment.</span>
+<span class=c1># components:</span>
+<span class=c1># - ../../components/dynamic-mqsc/generic-qmgr</span>
+<span class=c1># - ../../components/scripts</span>
+</code></pre></div> </li> <li> <p><em>Review the queue manager configmap consumption</em></p> <p>As per the above definition, configMapGenerator generates a configmap named <code>mqsc-configmap</code> and this in turn will be consumed by the queue manager.</p> <p>We can examine the <code>queuemanager.yaml</code> using the below command:</p> <p></p><div class=highlight><pre><span></span><code>cat<span class=w> </span>kustomize/base/generic-qmgr/queuemanager.yaml
+</code></pre></div> See how the <code>configmap</code> is being consumed by the queue manager : <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq.ibm.com/v1beta1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">QueueManager</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">qm1</span>
+<span class=w>  </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>argocd.argoproj.io/sync-wave</span><span class=p>:</span><span class=w> </span><span class=s>"300"</span>
+<span class=w>    </span><span class=nt>helm.sh/hook-weight</span><span class=p>:</span><span class=w> </span><span class=s>"300"</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>license</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>accept</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class=w>    </span><span class=nt>license</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">L-RJON-BZFQU2</span>
+
+<span class=w>    </span><span class=nt>use</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">NonProduction</span>
+<span class=w>  </span><span class=nt>queueManager</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>debug</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class=w>    </span><span class=nt>imagePullPolicy</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span>
+<span class=w>    </span><span class=nt>livenessProbe</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>failureThreshold</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class=w>      </span><span class=nt>initialDelaySeconds</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">90</span>
+<span class=w>      </span><span class=nt>periodSeconds</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class=w>      </span><span class=nt>successThreshold</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class=w>      </span><span class=nt>timeoutSeconds</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class=w>    </span><span class=nt>logFormat</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Basic</span>
+<span class=w>    </span><span class=nt>metrics</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">QM1</span>
+<span class=hll><span class=w>    </span><span class=nt>mqsc</span><span class=p>:</span>
+</span><span class=hll><span class=w>      </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>configMap</span><span class=p>:</span>
+</span><span class=hll><span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mqsc-configmap</span>
+</span><span class=hll><span class=w>          </span><span class=nt>items</span><span class=p>:</span>
+</span><span class=hll><span class=w>            </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">static-definitions.mqsc</span>
+</span><span class=w>    </span><span class=nt>readinessProbe</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>failureThreshold</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class=w>      </span><span class=nt>initialDelaySeconds</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class=w>      </span><span class=nt>periodSeconds</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class=w>      </span><span class=nt>successThreshold</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class=w>      </span><span class=nt>timeoutSeconds</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class=w>    </span><span class=nt>resources</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>limits</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>cpu</span><span class=p>:</span><span class=w> </span><span class=s>"1"</span>
+<span class=w>        </span><span class=nt>memory</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">1Gi</span>
+<span class=w>      </span><span class=nt>requests</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>cpu</span><span class=p>:</span><span class=w> </span><span class=s>"1"</span>
+<span class=w>        </span><span class=nt>memory</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">1Gi</span>
+
+<span class=w>    </span><span class=nt>availability</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">SingleInstance</span>
+
+<span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=s>"replace"</span>
+<span class=w>    </span><span class=nt>imagePullPolicy</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Always</span>
+
+<span class=w>    </span><span class=nt>storage</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>persistedData</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class=w>      </span><span class=nt>queueManager</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ephemeral</span>
+<span class=w>      </span><span class=nt>recoveryLogs</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+
+<span class=w>  </span><span class=nt>securityContext</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>initVolumeAsRoot</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class=w>  </span><span class=nt>template</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>pod</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>containers</span><span class=p>:</span>
+<span class=w>      </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">qmgr</span>
+<span class=w>        </span><span class=nt>env</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">MQSNOAUT</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"yes"</span>
+<span class=w>  </span><span class=nt>terminationGracePeriodSeconds</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+<span class=w>  </span><span class=nt>tracing</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>agent</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">{}</span>
+<span class=w>    </span><span class=nt>collector</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">{}</span>
+<span class=w>    </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class=w>    </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>  </span><span class=nt>version</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">9.2.3.0-r1</span>
+<span class=w>  </span><span class=nt>web</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div> </li> </ol> <h3 id=dynamic-configurations>Dynamic Configurations<a class=headerlink href=#dynamic-configurations title="Permanent link">¶</a></h3> <ol> <li> <p><em>Review the queue manager dynamic configurations</em></p> <p>By default, the sample queue manager uses static configurations. If we want to change the existing configurations, we can alter the <code>static-definitions.mqsc</code> and redeploy the queue manager for the new configurations to come in to place.</p> <p>To avoid this downtime, we can optionally enable dynamic configurations. Once we enable this dynamic configurations, any changes in the <code>dynamic-definitions.mqsc</code> will get automatically reflected in the queue manager and there is no need of restarting the queue manager.</p> <p>To define these dynamic configurations, we are using <a href=https://github.com/kubernetes-sigs/kustomize/blob/master/examples/components.md>Kustomize Components</a>.</p> <p>We can examine the dynamic configurations using the below command:</p> <p></p><div class=highlight><pre><span></span><code>cat<span class=w> </span>kustomize/components/dynamic-mqsc/generic-qmgr/dynamic-definitions.mqsc
+</code></pre></div> See how the configurations are defined in the mqsc file : <div class="no-copy highlight"><pre><span></span><code>* Use this file for MQSC that you want to be able to update without restarting the queue manager.
+DEFINE QLOCAL(TEST.DYNAMIC.QUEUE)
+</code></pre></div> </li> <li> <p><em>Review the queue manager configmap generation</em></p> <p>Kustomize is using <code>configMapGenerator</code> to build the <code>configmap</code> out of the <code>mqsc</code> definitions provided to the queue manager. Similarly, we can also use <code>ini</code> files. The <code>kustomization.yaml</code> includes those definitions.</p> <p>We can examine the <code>kustomization.yaml</code> using the below command:</p> <p></p><div class=highlight><pre><span></span><code>cat<span class=w> </span>kustomize/components/dynamic-mqsc/generic-qmgr/kustomization.yaml
+</code></pre></div> See how the <code>configMapGenerator</code> definition is included in the <code>kustomization.yaml</code> file : <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">kustomize.config.k8s.io/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Component</span>
+
+<span class=nt>generatorOptions</span><span class=p>:</span>
+<span class=w> </span><span class=nt>disableNameSuffixHash</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class=c1># Create a configMap that will be used with a volume that is dynamically updated.</span>
+<span class=nt>configMapGenerator</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">dynamic-mqsc-configmap</span>
+<span class=w>  </span><span class=nt>behavior</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">create</span>
+<span class=w>  </span><span class=nt>files</span><span class=p>:</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">dynamic-definitions.mqsc</span>
+
+<span class=nt>patchesStrategicMerge</span><span class=p>:</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">./queuemanager.yaml</span>
+</code></pre></div> </li> <li> <p><em>Review the queue manager configmap consumption</em></p> <p>As per the above definition, configMapGenerator generates a configmap named <code>dynamic-mqsc-configmap</code> and this in turn will be consumed by the queue manager.</p> <p>We can examine the <code>queuemanager.yaml</code> using the below command:</p> <p></p><div class=highlight><pre><span></span><code>cat<span class=w> </span>kustomize/components/dynamic-mqsc/generic-qmgr/queuemanager.yaml
+</code></pre></div> See how the <code>configmap</code> is being consumed by the queue manager : <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq.ibm.com/v1beta1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">QueueManager</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">qm1</span>
+<span class=w>  </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>argocd.argoproj.io/sync-wave</span><span class=p>:</span><span class=w> </span><span class=s>"300"</span>
+<span class=w>    </span><span class=nt>helm.sh/hook-weight</span><span class=p>:</span><span class=w> </span><span class=s>"300"</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>template</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>pod</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>volumes</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">config-volume-scripts</span>
+<span class=w>          </span><span class=nt>configMap</span><span class=p>:</span>
+<span class=w>            </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">scripts-configmap</span>
+<span class=w>            </span><span class=nt>defaultMode</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">0777</span>
+<span class=hll><span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">dynamic-config-volume-mqsc</span>
+</span><span class=hll><span class=w>          </span><span class=nt>configMap</span><span class=p>:</span>
+</span><span class=hll><span class=w>            </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">dynamic-mqsc-configmap</span>
+</span><span class=hll><span class=w>            </span><span class=nt>defaultMode</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">0777</span>
+</span><span class=w>      </span><span class=nt>containers</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>env</span><span class=p>:</span>
+<span class=w>            </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">MQSNOAUT</span>
+<span class=w>              </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>'yes'</span>
+<span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">qmgr</span>
+<span class=w>          </span><span class=nt>volumeMounts</span><span class=p>:</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">config-volume-scripts</span>
+<span class=w>            </span><span class=nt>mountPath</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">/mq-config</span>
+<span class=w>            </span><span class=nt>readOnly</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>            </span><span class=c1>#optional: true</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">dynamic-config-volume-mqsc</span>
+<span class=w>            </span><span class=nt>mountPath</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">/dynamic-mq-config-mqsc</span>
+<span class=w>            </span><span class=nt>readOnly</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>            </span><span class=c1>#optional: true</span>
+</code></pre></div> </li> <li> <p><em>Review the scripts that enable dynamic configurations</em></p> <p>Below scripts continuously monitor the <code>dynamic-definitions.mqsc</code> for updates. If there are any new changes, these scripts will load the latest definition into the queue manager.</p> <p>We can examine the scripts using the below command:</p> <p></p><div class=highlight><pre><span></span><code>cat<span class=w> </span>kustomize/components/scripts/start-mqsc.sh
+</code></pre></div> See how the start script is defined : <div class="no-copy highlight"><pre><span></span><code><span class=ch>#!/bin/bash</span>
+<span class=c1>#</span>
+<span class=c1># A simple MVP script that will run MQSC against a queue manager.</span>
+<span class=nv>ckksum</span><span class=o>=</span><span class=s2>""</span>
+
+<span class=c1># Outer loop that keeps the MQ service running</span>
+<span class=k>while</span><span class=w> </span>true<span class=p>;</span><span class=w> </span><span class=k>do</span>
+
+<span class=w>   </span><span class=nv>tmpCksum</span><span class=o>=</span><span class=sb>`</span>cksum<span class=w> </span>/dynamic-mq-config-mqsc/dynamic-definitions.mqsc<span class=w> </span><span class=p>|</span><span class=w> </span>cut<span class=w> </span>-d<span class=s2>" "</span><span class=w> </span>-f1<span class=sb>`</span>
+
+<span class=w>   </span><span class=k>if</span><span class=w> </span><span class=o>((</span><span class=w> </span>tmpCksum<span class=w> </span>!<span class=o>=</span><span class=w> </span>cksum<span class=w> </span><span class=o>))</span>
+<span class=w>   </span><span class=k>then</span>
+<span class=w>      </span><span class=nv>cksum</span><span class=o>=</span><span class=nv>$tmpCksum</span>
+<span class=w>      </span><span class=nb>echo</span><span class=w> </span><span class=s2>"Applying MQSC"</span>
+<span class=w>      </span>runmqsc<span class=w> </span><span class=nv>$1</span><span class=w> </span>&lt;<span class=w> </span>/dynamic-mq-config-mqsc/dynamic-definitions.mqsc
+<span class=w>   </span><span class=k>else</span>
+<span class=w>      </span>sleep<span class=w> </span><span class=m>3</span>
+<span class=w>   </span><span class=k>fi</span>
+
+<span class=k>done</span>
+</code></pre></div> <p></p><div class=highlight><pre><span></span><code>cat<span class=w> </span>kustomize/components/scripts/stop-mqsc.sh
+</code></pre></div> See how the stop script is defined : <div class="no-copy highlight"><pre><span></span><code><span class=ch>#!/bin/bash</span>
+<span class=nb>echo</span><span class=w> </span><span class=s2>"done"</span>
+</code></pre></div> </li> <li> <p><em>Review the definition to auto-run these scripts in queue manager</em></p> <p>In order to auto run these scripts inside the queue manager, the following definitions are required.</p> <p>We can examine the definition using the below command:</p> <p></p><div class=highlight><pre><span></span><code>cat<span class=w> </span>kustomize/base/generic-qmgr/static-definitions.mqsc
+</code></pre></div> See how the <code>SERVICE</code> is defined : <div class="no-copy highlight"><pre><span></span><code>DEFINE QLOCAL(IBM.DEMO.Q) BOQNAME(IBM.DEMO.Q.BOQ) BOTHRESH(3) REPLACE
+DEFINE QLOCAL(IBM.DEMO.Q.BOQ) REPLACE
+* Use a different dead letter queue, for undeliverable messages
+DEFINE QLOCAL('DEV.DEAD.LETTER.QUEUE') REPLACE
+ALTER QMGR DEADQ('DEV.DEAD.LETTER.QUEUE')
+DEFINE CHANNEL('IBM.APP.SVRCONN') CHLTYPE(SVRCONN)
+ALTER QMGR CHLAUTH (DISABLED)
+* DEFINE CHANNEL('MONITORING_CHL') CHLTYPE(SVRCONN)
+* SET CHLAUTH(MONITORING_CHL) TYPE(BLOCKUSER) USERLIST(NOBODY)
+REFRESH SECURITY TYPE(CONNAUTH)
+* optional
+<span class=hll>* DEFINE SERVICE(APPLY_MQSC) CONTROL(QMGR) SERVTYPE(SERVER) STARTCMD('/mq-config/start-mqsc.sh') STARTARG(QM1) STOPCMD('/mq-config/start-mqsc.sh') STOPARG('') STDOUT('') STDERR('')
+</span></code></pre></div> <p>This service is responsible for starting and stopping the scripts which monitors the dynamic configurations and loads them into the queue manager.</p> </li> </ol> <h2 id=enable-the-dynamic-configurations>Enable the dynamic configurations<a class=headerlink href=#enable-the-dynamic-configurations title="Permanent link">¶</a></h2> <ol> <li> <p><em>Enable the service that initiates the scripts in the queue manager</em></p> <p>Let’s examine the <code>kustomize/base/generic-qmgr/static-definitions.mqsc</code> to see how to enable the service that initiates the scripts in the queue manager.</p> <p>Issue the following command:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>kustomize/base/generic-qmgr/static-definitions.mqsc
+</code></pre></div> <p>We can see the contents of the <code>static-definitions.mqsc</code>:</p> <div class="no-copy highlight"><pre><span></span><code>DEFINE QLOCAL(IBM.DEMO.Q) BOQNAME(IBM.DEMO.Q.BOQ) BOTHRESH(3) REPLACE
+DEFINE QLOCAL(IBM.DEMO.Q.BOQ) REPLACE
+* Use a different dead letter queue, for undeliverable messages
+DEFINE QLOCAL('DEV.DEAD.LETTER.QUEUE') REPLACE
+ALTER QMGR DEADQ('DEV.DEAD.LETTER.QUEUE')
+DEFINE CHANNEL('IBM.APP.SVRCONN') CHLTYPE(SVRCONN)
+ALTER QMGR CHLAUTH (DISABLED)
+* DEFINE CHANNEL('MONITORING_CHL') CHLTYPE(SVRCONN)
+* SET CHLAUTH(MONITORING_CHL) TYPE(BLOCKUSER) USERLIST(NOBODY)
+REFRESH SECURITY TYPE(CONNAUTH)
+* optional
+* DEFINE SERVICE(APPLY_MQSC) CONTROL(QMGR) SERVTYPE(SERVER) STARTCMD('/mq-config/start-mqsc.sh') STARTARG(QM1) STOPCMD('/mq-config/start-mqsc.sh') STOPARG('') STDOUT('') STDERR('')
+</code></pre></div> <p>Open <code>kustomize/base/generic-qmgr/static-definitions.mqsc</code> and uncomment the service definition in the above file as follows :</p> <div class=highlight><pre><span></span><code>DEFINE QLOCAL(IBM.DEMO.Q) BOQNAME(IBM.DEMO.Q.BOQ) BOTHRESH(3) REPLACE
+DEFINE QLOCAL(IBM.DEMO.Q.BOQ) REPLACE
+* Use a different dead letter queue, for undeliverable messages
+DEFINE QLOCAL('DEV.DEAD.LETTER.QUEUE') REPLACE
+ALTER QMGR DEADQ('DEV.DEAD.LETTER.QUEUE')
+DEFINE CHANNEL('IBM.APP.SVRCONN') CHLTYPE(SVRCONN)
+ALTER QMGR CHLAUTH (DISABLED)
+* DEFINE CHANNEL('MONITORING_CHL') CHLTYPE(SVRCONN)
+* SET CHLAUTH(MONITORING_CHL) TYPE(BLOCKUSER) USERLIST(NOBODY)
+REFRESH SECURITY TYPE(CONNAUTH)
+* optional
+DEFINE SERVICE(APPLY_MQSC) CONTROL(QMGR) SERVTYPE(SERVER) STARTCMD('/mq-config/start-mqsc.sh') STARTARG(QM1) STOPCMD('/mq-config/start-mqsc.sh') STOPARG('') STDOUT('') STDERR('')
+</code></pre></div> <p>Commit and push changes to your git repository:</p> <div class=highlight><pre><span></span><code>git<span class=w> </span>add<span class=w> </span>.
+git<span class=w> </span>commit<span class=w> </span>-s<span class=w> </span>-m<span class=w> </span><span class=s2>"Enable svc to pickup the dynamic scripts"</span>
+git<span class=w> </span>push<span class=w> </span>origin<span class=w> </span><span class=nv>$GIT_BRANCH</span>
+</code></pre></div> <p>The changes have now been pushed to your GitOps repository:</p> <div class="no-copy highlight"><pre><span></span><code>Enumerating objects: 11, done.
+Counting objects: 100% (11/11), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 548 bytes | 548.00 KiB/s, done.
+Total 6 (delta 3), reused 0 (delta 0)
+remote: Resolving deltas: 100% (3/3), completed with 3 local objects.
+To https://github.com/prod-ref-guide/mq-qm01
+   b1edbac..9001fc5  master -&gt; master
+</code></pre></div> </li> <li> <p><em>Enable the components in the queue manager (Optional)</em></p> <p>This is an optional step and is only useful if the developers want to test the dynamic configurations from their end while building the queue manager source code locally.</p> <div class="admonition note"> <p class=admonition-title>Note</p> <p>Enabling dynamic configurations at this step is purely optional. If you don't want to enable them in the queue manager source repository, you can simply ignore this step and move to the next step. This is only used to test the queue manager locally and these resources are not consumed by the pipeline.</p> </div> <p>Examine the <code>kustomize/base/generic-qmgr/kustomization.yaml</code> and enable the necessary components.</p> <p>Issue the following command:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>kustomize/base/generic-qmgr/kustomization.yaml
+</code></pre></div> <p>We can see the contents of the <code>kustomization.yaml</code>:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>resources</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">./queuemanager.yaml</span>
+
+<span class=nt>generatorOptions</span><span class=p>:</span>
+<span class=w> </span><span class=nt>disableNameSuffixHash</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=c1># We use a configMapGenerator because it allows us to build up the mqsc from regular MQSC files.</span>
+<span class=nt>configMapGenerator</span><span class=p>:</span>
+<span class=c1># Create an MQSC configMap using generic MQSC which will be added to all queue managers and applied during bootstrap.</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mqsc-configmap</span>
+<span class=w>  </span><span class=nt>behavior</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">create</span>
+<span class=w>  </span><span class=nt>files</span><span class=p>:</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">static-definitions.mqsc</span>
+
+<span class=c1># Add the configMap that will be used for dynamic updates, this should be used queue manager wide i.e. stay the same in each environment.</span>
+<span class=c1># components:</span>
+<span class=c1># - ../../components/dynamic-mqsc/generic-qmgr</span>
+<span class=c1># - ../../components/scripts</span>
+</code></pre></div> <p>Open <code>kustomize/base/generic-qmgr/kustomization.yaml</code> and uncomment the below lines :</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>components</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">../../components/dynamic-mqsc/generic-qmgr</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">../../components/scripts</span>
+</code></pre></div> <p>You will have the following contents after the modification:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>resources</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">./queuemanager.yaml</span>
+
+<span class=nt>generatorOptions</span><span class=p>:</span>
+<span class=w> </span><span class=nt>disableNameSuffixHash</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=c1># We use a configMapGenerator because it allows us to build up the mqsc from regular MQSC files.</span>
+<span class=nt>configMapGenerator</span><span class=p>:</span>
+<span class=c1># Create an MQSC configMap using generic MQSC which will be added to all queue managers and applied during bootstrap.</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mqsc-configmap</span>
+<span class=w>  </span><span class=nt>behavior</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">create</span>
+<span class=w>  </span><span class=nt>files</span><span class=p>:</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">static-definitions.mqsc</span>
+
+<span class=c1># Add the configMap that will be used for dynamic updates, this should be used queue manager wide i.e. stay the same in each environment.</span>
+<span class=nt>components</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">../../components/dynamic-mqsc/generic-qmgr</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">../../components/scripts</span>
+</code></pre></div> <p>Commit and push changes to your git repository:</p> <div class=highlight><pre><span></span><code>git<span class=w> </span>add<span class=w> </span>.
+git<span class=w> </span>commit<span class=w> </span>-s<span class=w> </span>-m<span class=w> </span><span class=s2>"Enable dynamic mqsc components"</span>
+git<span class=w> </span>push<span class=w> </span>origin<span class=w> </span><span class=nv>$GIT_BRANCH</span>
+</code></pre></div> <p>The changes have now been pushed to your GitOps repository:</p> <div class="no-copy highlight"><pre><span></span><code>Enumerating objects: 11, done.
+Counting objects: 100% (11/11), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 578 bytes | 578.00 KiB/s, done.
+Total 6 (delta 3), reused 0 (delta 0)
+remote: Resolving deltas: 100% (3/3), completed with 3 local objects.
+To https://github.com/prod-ref-guide/mq-qm01
+   9001fc5..be5d38d  master -&gt; master
+</code></pre></div> <p>With this settings, we will now be able to deploy a queue manager with dynamic configurations.</p> </li> </ol> <h2 id=set-up-the-gitops-environment>Set up the GitOps environment<a class=headerlink href=#set-up-the-gitops-environment title="Permanent link">¶</a></h2> <ol> <li> <p><em>Navigate to multi-tenancy-gitops-apps repository</em></p> <p>Issue the below command to navigate to apps repository:</p> <div class=highlight><pre><span></span><code><span class=nb>cd</span><span class=w> </span><span class=nv>$GIT_ROOT</span>
+<span class=nb>cd</span><span class=w> </span>multi-tenancy-gitops-apps
+</code></pre></div> </li> <li> <p><em>Check the queue manager resources in dev</em></p> <p>Issue the following command to see how the dev components of queue manager are structured out:</p> <div class=highlight><pre><span></span><code>tree<span class=w> </span>mq/environments/dev/mq-qm01/<span class=w> </span>-L<span class=w> </span><span class=m>3</span>
+</code></pre></div> <p>You should see a set of resources in the GitOps framework at the <code>mq-qm01</code> dev layer:</p> <div class="no-copy highlight"><pre><span></span><code>mq/environments/dev/mq-qm01/
+├── certificates
+│   ├── dev-mq-client-certificate.sh
+│   ├── dev-mq-client-certificate.yaml_template
+│   ├── dev-mq-server-certificate.sh
+│   └── dev-mq-server-certificate.yaml_template
+├── components
+│   ├── dynamic-mqsc
+│   │   └── generic-qmgr
+│   └── scripts
+│       ├── kustomization.yaml
+│       ├── start-mqsc.sh
+│       └── stop-mqsc.sh
+├── configmap
+├── kustomization.yaml
+├── queuemanager
+│   └── hooks
+│       ├── post-sync-job.sh
+│       └── post-sync-job.yaml_template
+└── secrets
+    ├── mq-client-jks-password-secret.sh
+    └── mq-client-jks-password-secret.yaml
+
+9 directories, 12 files
+</code></pre></div> </li> <li> <p><em>Add the components to the queue manager</em></p> <p>Examine the <code>kustomization.yaml</code> of <code>mq-qm01</code> at <code>dev</code> environment using the below command:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/environments/dev/mq-qm01/kustomization.yaml
+</code></pre></div> <p>See how the resources and components are defined :</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>resources</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">../../base/mq-qm01</span>
+<span class=c1># - queuemanager/hooks/post-sync-job.yaml</span>
+<span class=c1># - certificates/dev-mq-client-certificate.yaml</span>
+<span class=c1># - certificates/dev-mq-server-certificate.yaml</span>
+<span class=c1># - secrets/mq-client-jks-password-secret.yaml</span>
+
+<span class=c1># Add the configMap that will be used for dynamic updates, this should be used queue manager wide i.e. stay the same in each environment.</span>
+<span class=c1># components:</span>
+<span class=c1># - components/dynamic-mqsc/generic-qmgr</span>
+<span class=c1># - components/scripts</span>
+
+<span class=nt>generatorOptions</span><span class=p>:</span>
+<span class=w> </span><span class=nt>disableNameSuffixHash</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=c1># We use a configMapGenerator because it allows us to build up the mqsc from regular MQSC files.</span>
+<span class=nt>configMapGenerator</span><span class=p>:</span>
+<span class=c1># Create an MQSC configMap using generic MQSC which will be added to all queue managers and applied during bootstrap.</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mqsc-configmap</span>
+<span class=w>  </span><span class=nt>behavior</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">create</span>
+<span class=w>  </span><span class=nt>files</span><span class=p>:</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">configmap/static-definitions.mqsc</span>
+<span class=nt>patchesStrategicMerge</span><span class=p>:</span>
+<span class=w> </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">queuemanager/queuemanager.yaml</span>
+<span class=w> </span><span class=c1># - components/dynamic-mqsc/generic-qmgr/queuemanager.yaml</span>
+</code></pre></div> <p>Open <code>mq/environments/dev/mq-qm01/kustomization.yaml</code> and uncomment the below resources: </p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>components</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">components/dynamic-mqsc/generic-qmgr</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">components/scripts</span>
+
+<span class=nt>patchesStrategicMerge</span><span class=p>:</span>
+<span class=w> </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">components/dynamic-mqsc/generic-qmgr/queuemanager.yaml</span>
+</code></pre></div> <p>You will have the following definition now:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>resources</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">../../base/mq-qm01</span>
+<span class=c1># - queuemanager/hooks/post-sync-job.yaml</span>
+<span class=c1># - certificates/dev-mq-client-certificate.yaml</span>
+<span class=c1># - certificates/dev-mq-server-certificate.yaml</span>
+<span class=c1># - secrets/mq-client-jks-password-secret.yaml</span>
+
+<span class=c1># Add the configMap that will be used for dynamic updates, this should be used queue manager wide i.e. stay the same in each environment.</span>
+<span class=nt>components</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">components/dynamic-mqsc/generic-qmgr</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">components/scripts</span>
+
+<span class=nt>generatorOptions</span><span class=p>:</span>
+<span class=w> </span><span class=nt>disableNameSuffixHash</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=c1># We use a configMapGenerator because it allows us to build up the mqsc from regular MQSC files.</span>
+<span class=nt>configMapGenerator</span><span class=p>:</span>
+<span class=c1># Create an MQSC configMap using generic MQSC which will be added to all queue managers and applied during bootstrap.</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mqsc-configmap</span>
+<span class=w>  </span><span class=nt>behavior</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">create</span>
+<span class=w>  </span><span class=nt>files</span><span class=p>:</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">configmap/static-definitions.mqsc</span>
+<span class=nt>patchesStrategicMerge</span><span class=p>:</span>
+<span class=w> </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">queuemanager/queuemanager.yaml</span>
+<span class=w> </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">components/dynamic-mqsc/generic-qmgr/queuemanager.yaml</span>
+</code></pre></div> <p>Commit and push changes to your git repository:</p> <div class=highlight><pre><span></span><code>git<span class=w> </span>add<span class=w> </span>.
+git<span class=w> </span>commit<span class=w> </span>-s<span class=w> </span>-m<span class=w> </span><span class=s2>"Enable qmgr dynamic configurations"</span>
+git<span class=w> </span>push<span class=w> </span>origin<span class=w> </span><span class=nv>$GIT_BRANCH</span>
+</code></pre></div> <p>The changes have now been pushed to your GitOps repository:</p> <div class="no-copy highlight"><pre><span></span><code>Enumerating objects: 13, done.
+Counting objects: 100% (13/13), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (7/7), done.
+Writing objects: 100% (7/7), 595 bytes | 595.00 KiB/s, done.
+Total 7 (delta 6), reused 0 (delta 0)
+remote: Resolving deltas: 100% (6/6), completed with 6 local objects.
+To https://github.com/prod-ref-guide/multi-tenancy-gitops-apps.git
+   3696437..3c4f300  master -&gt; master
+</code></pre></div> <p>The intention of this operation is to indicate that we'd like the resources and components declared in <code>mq/environments/dev/mq-qm01/kustomization.yaml</code> to be deployed in the cluster.</p> </li> </ol> <div class="admonition success"> <p class=admonition-title>Congratulations!</p> <p>You've now done the set up for the enabling the dynamic configurations on the queue manager. In the next topic of this chapter, we're going to use the previous pipeline we built to deploy a fully tested queue manager <code>QM1</code> with dynamic configurations enabled to the <code>dev</code> namespace. We'll explore the pipeline, tasks and steps in more detail to see exactly how they work.</p> </div></div> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> Back to top </button> </main> <!-- Footer --> <footer class=md-footer> <!-- Link to previous and/or next page --> <nav class="md-footer__inner md-grid" aria-label=footer.title> <!-- Link to previous page --> <a href=../topic1/ class="md-footer__link md-footer__link--prev" rel=prev> <div class="md-footer__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </div> <div class=md-footer__title> <div class=md-ellipsis> <span class=md-footer__direction> Previous </span> Configuring the pipeline </div> </div> </a> <!-- Link to next page --> <a href=../topic2/ class="md-footer__link md-footer__link--next" rel=next> <div class=md-footer__title> <div class=md-ellipsis> <span class=md-footer__direction> Next </span> Running the pipeline </div> </div> <div class="md-footer__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg> </div> </a> </nav> <!-- Further information --> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-footer-column> <div class=md-footer-text>Site licensed under <a href=https://creativecommons.org/licenses/by-nc-sa/4.0/ >CC BY-NC-SA 4.0</a></div> </div> <div class=md-footer-column> <!-- Copyright and theme information --> <div class=md-footer-text> Copyright © 2021 Cloud Pak Production Deployment Guides </div> </div> <div class=md-footer-social> <a href=https://github.com/ncolon/deployment-guides target=_blank rel=noopener title="Production Deployment Guides on Github Enterprise" class=md-footer-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 496 512"> <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"> </path> </svg> </a> <a href=https://ibm-cloud.slack.com/archives/C02CQ6M2D2R target=_blank rel=noopener title=Slack class=md-footer-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"> <path d="M94.12 315.1c0 25.9-21.16 47.06-47.06 47.06S0 341 0 315.1c0-25.9 21.16-47.06 47.06-47.06h47.06v47.06zm23.72 0c0-25.9 21.16-47.06 47.06-47.06s47.06 21.16 47.06 47.06v117.84c0 25.9-21.16 47.06-47.06 47.06s-47.06-21.16-47.06-47.06V315.1zm47.06-188.98c-25.9 0-47.06-21.16-47.06-47.06S139 32 164.9 32s47.06 21.16 47.06 47.06v47.06H164.9zm0 23.72c25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06H47.06C21.16 243.96 0 222.8 0 196.9s21.16-47.06 47.06-47.06H164.9zm188.98 47.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06h-47.06V196.9zm-23.72 0c0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06V79.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06V196.9zM283.1 385.88c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06v-47.06h47.06zm0-23.72c-25.9 0-47.06-21.16-47.06-47.06 0-25.9 21.16-47.06 47.06-47.06h117.84c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06H283.1z"> </path> </svg> </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.instant", "navigation.tracking", "navigation.tabs.sticky", "navigation.top", "navigation.sections"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script> <script src=../../../../../assets/javascripts/bundle.d7400e89.min.js></script> </body> </html>

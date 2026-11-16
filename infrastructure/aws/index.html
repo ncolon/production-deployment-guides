@@ -1,0 +1,697 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="The Cloud Pak Production Deployment Guides document and demonstrate how to run cloud-native solutions leveraging IBM Cloud Pak capabilities in a Red Hat OpenShift environment"><meta name=author content="Cloud Pak Production Deployment Guides development team"><link href=../aro/ rel=prev><link href=../azure/ rel=next><link rel=icon href=../../images/cloudnativetoolkit.png><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.7.7"><title>Amazon AWS - Cloud Pak Production Deployment Guides</title><link rel=stylesheet href=../../assets/stylesheets/main.ec1eaa64.min.css><link rel=stylesheet href=../../assets/stylesheets/palette.ab4e12ef.min.css><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback"><style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"IBM Plex Mono"}</style><link rel=stylesheet href=../../css/extra.css><link rel=stylesheet href=../../css/toolkit-code.css><script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script><script id=__analytics>function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-Q0FLL49YN3"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-Q0FLL49YN3",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-Q0FLL49YN3",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script><script>"undefined"!=typeof __md_analytics&&__md_analytics()</script><!-- Determine title --><!-- The image needs to have an absolute URL --><!-- Open graph meta tags --><meta property=og:type content=website><meta property=og:title content="Cloud Pak Production Deployment Guides - Amazon AWS"><meta property=og:description content="The Cloud Pak Production Deployment Guides document and demonstrate how to run cloud-native solutions leveraging IBM Cloud Pak capabilities in a Red Hat OpenShift environment"><meta property=og:url content=None><meta property=og:image content=assets/images/banner.png><meta property=og:image:type content=image/png><meta property=og:image:width content=1080><meta property=og:image:height content=568></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=black data-md-color-accent=indigo> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#production-deployment-guide-for-openshift-on-amazon-web-services-aws class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <header class="md-header md-header--shadow md-header--lifted" data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../.. title="Cloud Pak Production Deployment Guides" class="md-header__button md-logo" aria-label="Cloud Pak Production Deployment Guides" data-md-component=logo> <img src=../../images/cloudnativetoolkit.png alt=logo> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> Cloud Pak Production Deployment Guides </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> Amazon AWS </span> </div> </div> </div> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> <div class=md-header__source> <a href=https://github.com/ncolon/production-deployment-guides title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg> </div> <div class=md-source__repository> </div> </a> </div> </nav> <nav class=md-tabs aria-label=Tabs data-md-component=tabs> <div class=md-grid> <ul class=md-tabs__list> <li class=md-tabs__item> <a href=../.. class=md-tabs__link> Home </a> </li> <li class=md-tabs__item> <a href=../../overview/overview/ class=md-tabs__link> Production Considerations </a> </li> <li class=md-tabs__item> <a href=../../quickstart/overview/ class=md-tabs__link> Quick Start Demos </a> </li> <li class="md-tabs__item md-tabs__item--active"> <a href=../../guides/guides-overview/ class=md-tabs__link> Tutorials </a> </li> <li class=md-tabs__item> <a href=../ad/ class=md-tabs__link> References </a> </li> <li class=md-tabs__item> <a href=../../overview/whats-new/ class=md-tabs__link> About </a> </li> </ul> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <!-- Determine class according to configuration --> <!-- Main navigation --> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=nav.title data-md-level=0> <!-- Site title --> <!--
+  <label class="md-nav__title" for="__drawer">
+    <a
+      href="../.."
+      title="Cloud Pak Production Deployment Guides"
+      class="md-nav__button md-logo"
+      aria-label="Cloud Pak Production Deployment Guides"
+      data-md-component="logo"
+    >
+      
+  <img src="../../images/cloudnativetoolkit.png" alt="logo">
+
+    </a>
+    Cloud Pak Production Deployment Guides
+  </label>
+--> <!-- Repository information --> <div class=md-nav__source> <a href=https://github.com/ncolon/production-deployment-guides title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg> </div> <div class=md-source__repository> </div> </a> </div> <!-- Render item list --> <ul class=md-nav__list data-md-scrollfix> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#golden-topology class=md-nav__link> <span class=md-ellipsis> Golden Topology </span> </a> </li> <li class=md-nav__item> <a href=#machinesets class=md-nav__link> <span class=md-ellipsis> MachineSets </span> </a> </li> <li class=md-nav__item> <a href=#storage class=md-nav__link> <span class=md-ellipsis> Storage </span> </a> </li> <li class=md-nav__item> <a href=#installation-scenarios class=md-nav__link> <span class=md-ellipsis> Installation Scenarios </span> </a> <nav class=md-nav aria-label="Installation Scenarios"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#node-sizing class=md-nav__link> <span class=md-ellipsis> Node Sizing </span> </a> </li> <li class=md-nav__item> <a href=#private-endpoints class=md-nav__link> <span class=md-ellipsis> Private Endpoints </span> </a> </li> <li class=md-nav__item> <a href=#bring-your-own-network class=md-nav__link> <span class=md-ellipsis> Bring Your Own Network </span> </a> </li> <li class=md-nav__item> <a href=#bring-your-own-dns class=md-nav__link> <span class=md-ellipsis> Bring Your Own DNS </span> </a> </li> <li class=md-nav__item> <a href=#bring-your-own-credentials class=md-nav__link> <span class=md-ellipsis> Bring Your Own Credentials </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#user-provided-infrastructure class=md-nav__link> <span class=md-ellipsis> User Provided Infrastructure </span> </a> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <div><h1 id=production-deployment-guide-for-openshift-on-amazon-web-services-aws>Production Deployment Guide for OpenShift on Amazon Web Services (AWS)<a class=headerlink href=#production-deployment-guide-for-openshift-on-amazon-web-services-aws title="Permanent link">¶</a></h1> <!--- cSpell:ignore qube cntk autoplay allowfullscreen --> <!--- cSpell:ignore qube cntk autoplay allowfullscreen cloudpak yamls clusterid machineset VNET Loadbalancer loadbalancer loadbalancers ipaddresses xlarge dnsrecords creds --> <h2 id=golden-topology>Golden Topology<a class=headerlink href=#golden-topology title="Permanent link">¶</a></h2> <p>Before reading this document, familiarize yourself with the <a href=../golden-topology/ >Golden Topology</a> section of this Production Deployment Guide. Unless otherwise stated, all the items in that section apply to the Cluster Infrastructure we will provision on AWS.</p> <p>Read Red Hat's documentation on <a href=https://docs.openshift.com/container-platform/4.7/installing/installing_aws/installing-aws-default.html>Installing a cluster quickly on AWS</a> to deploy a cluster with no modifications.</p> <p>Deploying a cluster with <code>openshift-install</code> will provide the following topology.<br> <img alt=ipi-cluster src=../images/aws/aws-ipi.png></p> <hr> <h2 id=machinesets>MachineSets<a class=headerlink href=#machinesets title="Permanent link">¶</a></h2> <p>The following templates can be used to generate your infrastructure, cloudpak and storage MachineSets</p> <div class="tabbed-set tabbed-alternate" data-tabs=1:4><input checked id=__tabbed_1_1 name=__tabbed_1 type=radio><input id=__tabbed_1_2 name=__tabbed_1 type=radio><input id=__tabbed_1_3 name=__tabbed_1 type=radio><input id=__tabbed_1_4 name=__tabbed_1 type=radio><div class=tabbed-labels><label for=__tabbed_1_1>MachineSets</label><label for=__tabbed_1_2>Infrastructure</label><label for=__tabbed_1_3>Storage</label><label for=__tabbed_1_4>CloudPak</label></div> <div class=tabbed-content> <div class=tabbed-block> <div class="admonition note"> <p class=admonition-title>Note</p> <p>Click on each tab above for sample yamls to create your infrastructure</p> </div> </div> <div class=tabbed-block> <p>Infrastructure MachineConfigPool</p> <div class=highlight><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">machineconfiguration.openshift.io/v1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">MachineConfigPool</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">infra</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>machineConfigSelector</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>matchExpressions</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>key</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">machineconfiguration.openshift.io/role</span>
+<span class=w>      </span><span class=nt>operator</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">In</span>
+<span class=w>      </span><span class=nt>values</span><span class=p>:</span><span class=w> </span>
+<span class=w>      </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">worker</span>
+<span class=w>      </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">infra</span>
+<span class=w>  </span><span class=nt>nodeSelector</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>matchLabels</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>node-role.kubernetes.io/infra</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+</code></pre></div> <p>Infrastructure MachineSet</p> <p>Create 3 Infrastructure MachineSets, the $ami, $region, $zone and $clusterid variables in the sample below. <code>zone</code> should be a, b, c and so-on, respectively, on each machineset yaml file. The default node type is m5.xlarge (4CPU, 16GB memory), if your infrastructure needs are bigger, you can increase it to a bigger node type, or increase the replica count per Availability Zone. </p> <ul> <li>To obtain your Cluster ID, you can run the following command.</li> </ul> <div class=highlight><pre><span></span><code>$<span class=w> </span>oc<span class=w> </span>get<span class=w> </span>-o<span class=w> </span><span class=nv>jsonpath</span><span class=o>=</span><span class=s1>'{.status.infrastructureName}{"\n"}'</span><span class=w> </span>infrastructure<span class=w> </span>cluster
+</code></pre></div> <ul> <li>To get your AMI id for your region, you can run the following command (change the OpenShift version accordingly).</li> </ul> <div class=highlight><pre><span></span><code>curl<span class=w> </span>-s<span class=w> </span>https://raw.githubusercontent.com/openshift/installer/release-4.7/data/data/rhcos.json<span class=w> </span><span class=p>|</span><span class=w> </span>jq<span class=w> </span>-r<span class=w> </span><span class=s1>'.amis."us-east-1".hvm'</span>
+</code></pre></div> <p>If you <a href=#bring-your-own-network>Bring Your Own Network</a>, change lines 56-65.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal> 1</span>
+<span class=normal> 2</span>
+<span class=normal> 3</span>
+<span class=normal> 4</span>
+<span class=normal> 5</span>
+<span class=normal> 6</span>
+<span class=normal> 7</span>
+<span class=normal> 8</span>
+<span class=normal> 9</span>
+<span class=normal>10</span>
+<span class=normal>11</span>
+<span class=normal>12</span>
+<span class=normal>13</span>
+<span class=normal>14</span>
+<span class=normal>15</span>
+<span class=normal>16</span>
+<span class=normal>17</span>
+<span class=normal>18</span>
+<span class=normal>19</span>
+<span class=normal>20</span>
+<span class=normal>21</span>
+<span class=normal>22</span>
+<span class=normal>23</span>
+<span class=normal>24</span>
+<span class=normal>25</span>
+<span class=normal>26</span>
+<span class=normal>27</span>
+<span class=normal>28</span>
+<span class=normal>29</span>
+<span class=normal>30</span>
+<span class=normal>31</span>
+<span class=normal>32</span>
+<span class=normal>33</span>
+<span class=normal>34</span>
+<span class=normal>35</span>
+<span class=normal>36</span>
+<span class=normal>37</span>
+<span class=normal>38</span>
+<span class=normal>39</span>
+<span class=normal>40</span>
+<span class=normal>41</span>
+<span class=normal>42</span>
+<span class=normal>43</span>
+<span class=normal>44</span>
+<span class=normal>45</span>
+<span class=normal>46</span>
+<span class=normal>47</span>
+<span class=normal>48</span>
+<span class=normal>49</span>
+<span class=normal>50</span>
+<span class=normal>51</span>
+<span class=normal>52</span>
+<span class=normal>53</span>
+<span class=normal>54</span>
+<span class=normal>55</span>
+<span class=normal>56</span>
+<span class=normal>57</span>
+<span class=normal>58</span>
+<span class=normal>59</span>
+<span class=normal>60</span>
+<span class=normal>61</span>
+<span class=normal>62</span>
+<span class=normal>63</span>
+<span class=normal>64</span>
+<span class=normal>65</span>
+<span class=normal>66</span>
+<span class=normal>67</span>
+<span class=normal>68</span>
+<span class=normal>69</span>
+<span class=normal>70</span></pre></div></td><td class=code><div><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">machine.openshift.io/v1beta1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">MachineSet</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>labels</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>machine.openshift.io/cluster-api-cluster</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid</span>
+<span class=w>    </span><span class=nt>machine.openshift.io/cluster-api-machine-role</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">infra</span>
+<span class=w>    </span><span class=nt>machine.openshift.io/cluster-api-machine-type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">infra</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid-infra-$region$zone</span>
+<span class=w>  </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">openshift-machine-api</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>replicas</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class=w>  </span><span class=nt>selector</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>matchLabels</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>machine.openshift.io/cluster-api-cluster</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid</span>
+<span class=w>      </span><span class=nt>machine.openshift.io/cluster-api-machineset</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid-infra-$region$zone</span>
+<span class=w>  </span><span class=nt>template</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>metadata</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>labels</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>machine.openshift.io/cluster-api-cluster</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid</span>
+<span class=w>        </span><span class=nt>machine.openshift.io/cluster-api-machine-role</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">infra</span>
+<span class=w>        </span><span class=nt>machine.openshift.io/cluster-api-machine-type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">infra</span>
+<span class=w>        </span><span class=nt>machine.openshift.io/cluster-api-machineset</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid-infra-$region$zone</span>
+<span class=w>    </span><span class=nt>spec</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>taints</span><span class=p>:</span>
+<span class=w>      </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>effect</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">NoSchedule</span>
+<span class=w>        </span><span class=nt>key</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">infra</span>
+<span class=w>        </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>      </span><span class=nt>metadata</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>labels</span><span class=p>:</span>
+<span class=w>          </span><span class=nt>node-role.kubernetes.io/infra</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>      </span><span class=nt>providerSpec</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>value</span><span class=p>:</span>
+<span class=w>          </span><span class=nt>ami</span><span class=p>:</span>
+<span class=w>            </span><span class=nt>id</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$ami</span>
+<span class=w>          </span><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">awsproviderconfig.openshift.io/v1beta1</span>
+<span class=w>          </span><span class=nt>blockDevices</span><span class=p>:</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>ebs</span><span class=p>:</span>
+<span class=w>              </span><span class=nt>encrypted</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>              </span><span class=nt>iops</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class=w>              </span><span class=nt>kmsKey</span><span class=p>:</span>
+<span class=w>                </span><span class=nt>arn</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>              </span><span class=nt>volumeSize</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">200</span>
+<span class=w>              </span><span class=nt>volumeType</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gp2</span>
+<span class=w>          </span><span class=nt>credentialsSecret</span><span class=p>:</span>
+<span class=w>            </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">aws-cloud-credentials</span>
+<span class=w>          </span><span class=nt>deviceIndex</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class=w>          </span><span class=nt>iamInstanceProfile</span><span class=p>:</span>
+<span class=w>            </span><span class=nt>id</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid-worker-profile</span>
+<span class=w>          </span><span class=nt>instanceType</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">m5.xlarge</span>
+<span class=w>          </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">AWSMachineProviderConfig</span>
+<span class=w>          </span><span class=nt>metadata</span><span class=p>:</span>
+<span class=w>            </span><span class=nt>creationTimestamp</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class=w>          </span><span class=nt>placement</span><span class=p>:</span>
+<span class=w>            </span><span class=nt>availabilityZone</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$region$zone</span>
+<span class=w>            </span><span class=nt>region</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$region</span>
+<span class=w>          </span><span class=nt>securityGroups</span><span class=p>:</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>filters</span><span class=p>:</span>
+<span class=w>            </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tag:Name</span>
+<span class=w>              </span><span class=nt>values</span><span class=p>:</span>
+<span class=w>              </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid-worker-sg</span>
+<span class=w>          </span><span class=nt>subnet</span><span class=p>:</span>
+<span class=w>            </span><span class=nt>filters</span><span class=p>:</span>
+<span class=w>            </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tag:Name</span>
+<span class=w>              </span><span class=nt>values</span><span class=p>:</span>
+<span class=w>              </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid-private-us-east-2a</span>
+<span class=w>          </span><span class=nt>tags</span><span class=p>:</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.io/cluster/$clusterid</span>
+<span class=w>            </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">owned</span>
+<span class=w>          </span><span class=nt>userDataSecret</span><span class=p>:</span>
+<span class=w>            </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">worker-user-data</span>
+</code></pre></div></td></tr></table></div> <p>Infrastructure Component Placement</p> <p>Follow the <a href=../golden-topology/#image-registry>Golden Topology Guidelines</a> to control placement of infrastructure components.</p> </div> <div class=tabbed-block> <p>Storage MachineConfigPool</p> <div class=highlight><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">machineconfiguration.openshift.io/v1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">MachineConfigPool</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">storage</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>machineConfigSelector</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>matchExpressions</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>key</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">machineconfiguration.openshift.io/role</span>
+<span class=w>      </span><span class=nt>operator</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">In</span>
+<span class=w>      </span><span class=nt>values</span><span class=p>:</span><span class=w> </span>
+<span class=w>      </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">worker</span>
+<span class=w>      </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">storage</span>
+<span class=w>  </span><span class=nt>nodeSelector</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>matchLabels</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>cluster.ocs.openshift.io/openshift-storage</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>      </span><span class=nt>node-role.kubernetes.io/storage</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+</code></pre></div> <p>Storage MachineSet</p> <p>Create 3 Storage MachineSets, the $ami, $region, $zone and $clusterid variables in the sample below. <code>zone</code> should be a, b, c and so-on, respectively, on each machineset yaml file. The default node type is m5.4xlarge (16CPU, 64GB memory), - To obtain your Cluster ID, you can run the following command.</p> <p></p><div class=highlight><pre><span></span><code>$<span class=w> </span>oc<span class=w> </span>get<span class=w> </span>-o<span class=w> </span><span class=nv>jsonpath</span><span class=o>=</span><span class=s1>'{.status.infrastructureName}{"\n"}'</span><span class=w> </span>infrastructure<span class=w> </span>cluster
+</code></pre></div> - To get your AMI id for your region, you can run the following command (change the OpenShift version accordingly). <div class=highlight><pre><span></span><code>curl<span class=w> </span>-s<span class=w> </span>https://raw.githubusercontent.com/openshift/installer/release-4.7/data/data/rhcos.json<span class=w> </span><span class=p>|</span><span class=w> </span>jq<span class=w> </span>-r<span class=w> </span><span class=s1>'.amis."us-east-1".hvm'</span>
+</code></pre></div> <p>If you <a href=#bring-your-own-network>Bring Your Own Network</a>, change lines 56-65.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal> 1</span>
+<span class=normal> 2</span>
+<span class=normal> 3</span>
+<span class=normal> 4</span>
+<span class=normal> 5</span>
+<span class=normal> 6</span>
+<span class=normal> 7</span>
+<span class=normal> 8</span>
+<span class=normal> 9</span>
+<span class=normal>10</span>
+<span class=normal>11</span>
+<span class=normal>12</span>
+<span class=normal>13</span>
+<span class=normal>14</span>
+<span class=normal>15</span>
+<span class=normal>16</span>
+<span class=normal>17</span>
+<span class=normal>18</span>
+<span class=normal>19</span>
+<span class=normal>20</span>
+<span class=normal>21</span>
+<span class=normal>22</span>
+<span class=normal>23</span>
+<span class=normal>24</span>
+<span class=normal>25</span>
+<span class=normal>26</span>
+<span class=normal>27</span>
+<span class=normal>28</span>
+<span class=normal>29</span>
+<span class=normal>30</span>
+<span class=normal>31</span>
+<span class=normal>32</span>
+<span class=normal>33</span>
+<span class=normal>34</span>
+<span class=normal>35</span>
+<span class=normal>36</span>
+<span class=normal>37</span>
+<span class=normal>38</span>
+<span class=normal>39</span>
+<span class=normal>40</span>
+<span class=normal>41</span>
+<span class=normal>42</span>
+<span class=normal>43</span>
+<span class=normal>44</span>
+<span class=normal>45</span>
+<span class=normal>46</span>
+<span class=normal>47</span>
+<span class=normal>48</span>
+<span class=normal>49</span>
+<span class=normal>50</span>
+<span class=normal>51</span>
+<span class=normal>52</span>
+<span class=normal>53</span>
+<span class=normal>54</span>
+<span class=normal>55</span>
+<span class=normal>56</span>
+<span class=normal>57</span>
+<span class=normal>58</span>
+<span class=normal>59</span>
+<span class=normal>60</span>
+<span class=normal>61</span>
+<span class=normal>62</span>
+<span class=normal>63</span>
+<span class=normal>64</span>
+<span class=normal>65</span>
+<span class=normal>66</span>
+<span class=normal>67</span>
+<span class=normal>68</span>
+<span class=normal>69</span>
+<span class=normal>70</span>
+<span class=normal>71</span></pre></div></td><td class=code><div><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">machine.openshift.io/v1beta1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">MachineSet</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>labels</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>machine.openshift.io/cluster-api-cluster</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid</span>
+<span class=w>    </span><span class=nt>machine.openshift.io/cluster-api-machine-role</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">storage</span>
+<span class=w>    </span><span class=nt>machine.openshift.io/cluster-api-machine-type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">storage</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid-storage-$region$zone</span>
+<span class=w>  </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">openshift-machine-api</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>replicas</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class=w>  </span><span class=nt>selector</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>matchLabels</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>machine.openshift.io/cluster-api-cluster</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid</span>
+<span class=w>      </span><span class=nt>machine.openshift.io/cluster-api-machineset</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid-storage-$region$zone</span>
+<span class=w>  </span><span class=nt>template</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>metadata</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>labels</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>machine.openshift.io/cluster-api-cluster</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid</span>
+<span class=w>        </span><span class=nt>machine.openshift.io/cluster-api-machine-role</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">storage</span>
+<span class=w>        </span><span class=nt>machine.openshift.io/cluster-api-machine-type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">storage</span>
+<span class=w>        </span><span class=nt>machine.openshift.io/cluster-api-machineset</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid-storage-$region$zone</span>
+<span class=w>    </span><span class=nt>spec</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>taints</span><span class=p>:</span>
+<span class=w>      </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>effect</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">NoSchedule</span>
+<span class=w>        </span><span class=nt>key</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">node.ocs.openshift.io/storage</span>
+<span class=w>        </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class=s>"true"</span>
+<span class=w>      </span><span class=nt>metadata</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>labels</span><span class=p>:</span>
+<span class=w>          </span><span class=nt>cluster.ocs.openshift.io/openshift-storage</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>          </span><span class=nt>node-role.kubernetes.io/storage</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>      </span><span class=nt>providerSpec</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>value</span><span class=p>:</span>
+<span class=w>          </span><span class=nt>ami</span><span class=p>:</span>
+<span class=w>            </span><span class=nt>id</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$ami</span>
+<span class=w>          </span><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">awsproviderconfig.openshift.io/v1beta1</span>
+<span class=w>          </span><span class=nt>blockDevices</span><span class=p>:</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>ebs</span><span class=p>:</span>
+<span class=w>              </span><span class=nt>encrypted</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>              </span><span class=nt>iops</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class=w>              </span><span class=nt>kmsKey</span><span class=p>:</span>
+<span class=w>                </span><span class=nt>arn</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>              </span><span class=nt>volumeSize</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">200</span>
+<span class=w>              </span><span class=nt>volumeType</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gp2</span>
+<span class=w>          </span><span class=nt>credentialsSecret</span><span class=p>:</span>
+<span class=w>            </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">aws-cloud-credentials</span>
+<span class=w>          </span><span class=nt>deviceIndex</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class=w>          </span><span class=nt>iamInstanceProfile</span><span class=p>:</span>
+<span class=w>            </span><span class=nt>id</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid-worker-profile</span>
+<span class=w>          </span><span class=nt>instanceType</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">m5.4xlarge</span>
+<span class=w>          </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">AWSMachineProviderConfig</span>
+<span class=w>          </span><span class=nt>metadata</span><span class=p>:</span>
+<span class=w>            </span><span class=nt>creationTimestamp</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class=w>          </span><span class=nt>placement</span><span class=p>:</span>
+<span class=w>            </span><span class=nt>availabilityZone</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$region$zone</span>
+<span class=w>            </span><span class=nt>region</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$region</span>
+<span class=w>          </span><span class=nt>securityGroups</span><span class=p>:</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>filters</span><span class=p>:</span>
+<span class=w>            </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tag:Name</span>
+<span class=w>              </span><span class=nt>values</span><span class=p>:</span>
+<span class=w>              </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid-worker-sg</span>
+<span class=w>          </span><span class=nt>subnet</span><span class=p>:</span>
+<span class=w>            </span><span class=nt>filters</span><span class=p>:</span>
+<span class=w>            </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tag:Name</span>
+<span class=w>              </span><span class=nt>values</span><span class=p>:</span>
+<span class=w>              </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid-private-us-east-2a</span>
+<span class=w>          </span><span class=nt>tags</span><span class=p>:</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.io/cluster/$clusterid</span>
+<span class=w>            </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">owned</span>
+<span class=w>          </span><span class=nt>userDataSecret</span><span class=p>:</span>
+<span class=w>            </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">worker-user-data</span>
+</code></pre></div></td></tr></table></div> </div> <div class=tabbed-block> <p>CloudPak MachineConfigPool</p> <div class=highlight><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">machineconfiguration.openshift.io/v1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">MachineConfigPool</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">cp4x</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>machineConfigSelector</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>matchExpressions</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>key</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">machineconfiguration.openshift.io/role</span>
+<span class=w>      </span><span class=nt>operator</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">In</span>
+<span class=w>      </span><span class=nt>values</span><span class=p>:</span><span class=w> </span>
+<span class=w>      </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">worker</span>
+<span class=w>      </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">cp4x</span>
+<span class=w>  </span><span class=nt>nodeSelector</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>matchLabels</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>node-role.kubernetes.io/cp4x</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+</code></pre></div> <p>CloudPak Tuned Configuration</p> <div class=highlight><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tuned.openshift.io/v1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Tuned</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">cp4x-tuned</span>
+<span class=w>  </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">openshift-cluster-node-tuning-operator</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>profile</span><span class=p>:</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">cp4x-tuned</span>
+<span class=w>    </span><span class=nt>data</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|</span>
+<span class=w>      </span><span class=no>[main]</span>
+<span class=w>      </span><span class=no>summary=Tune Kernel parameters on OpenShift Worker Nodes running CloudPak workloads</span>
+<span class=w>      </span><span class=no>[sysctl]</span>
+<span class=w>      </span><span class=no>kernel.shmall = 33554432</span>
+<span class=w>      </span><span class=no>kernel.shmmax = 68719476736</span>
+<span class=w>      </span><span class=no>kernel.shmmni = 16384</span>
+<span class=w>      </span><span class=no>kernel.sem = 250 1024000 100 16384</span>
+<span class=w>      </span><span class=no>kernel.msgmax = 65536</span>
+<span class=w>      </span><span class=no>kernel.msgmnb = 65536</span>
+<span class=w>      </span><span class=no>kernel.msgmni = 32768</span>
+<span class=w>      </span><span class=no>vm.max_map_count = 262144</span>
+<span class=w>  </span><span class=nt>recommend</span><span class=p>:</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>match</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>label</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">node-role.kubernetes.io/cp4x</span><span class=w>    </span>
+<span class=w>    </span><span class=nt>priority</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class=w>    </span><span class=nt>profile</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">cp4x-tuned</span>
+</code></pre></div> <p>CloudPak ContainerRuntimeConfig</p> <div class=highlight><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">machineconfiguration.openshift.io/v1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ContainerRuntimeConfig</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">cp4x-containerruntimeconfig</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>machineConfigPoolSelector</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>matchLabels</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>limits-crio</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">cp4x-containerruntimeconfig</span>
+<span class=w>  </span><span class=nt>containerRuntimeConfig</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>pidsLimit</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">12288</span>
+</code></pre></div> <p>CloudPak MachineSet</p> <p>Create 3 Storage MachineSets, the $ami, $region, $zone and $clusterid variables in the sample below. <code>zone</code> should be a, b, c and so-on, respectively, on each machineset yaml file. The default node type is m5.4xlarge (16CPU, 64GB memory), - To obtain your Cluster ID, you can run the following command.</p> <p></p><div class=highlight><pre><span></span><code>$<span class=w> </span>oc<span class=w> </span>get<span class=w> </span>-o<span class=w> </span><span class=nv>jsonpath</span><span class=o>=</span><span class=s1>'{.status.infrastructureName}{"\n"}'</span><span class=w> </span>infrastructure<span class=w> </span>cluster
+</code></pre></div> - To get your AMI id for your region, you can run the following command (change the OpenShift version accordingly). <div class=highlight><pre><span></span><code>curl<span class=w> </span>-s<span class=w> </span>https://raw.githubusercontent.com/openshift/installer/release-4.7/data/data/rhcos.json<span class=w> </span><span class=p>|</span><span class=w> </span>jq<span class=w> </span>-r<span class=w> </span><span class=s1>'.amis."us-east-1".hvm'</span>
+</code></pre></div> <p>If you <a href=#bring-your-own-network>Bring Your Own Network</a>, change lines 56-65.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal> 1</span>
+<span class=normal> 2</span>
+<span class=normal> 3</span>
+<span class=normal> 4</span>
+<span class=normal> 5</span>
+<span class=normal> 6</span>
+<span class=normal> 7</span>
+<span class=normal> 8</span>
+<span class=normal> 9</span>
+<span class=normal>10</span>
+<span class=normal>11</span>
+<span class=normal>12</span>
+<span class=normal>13</span>
+<span class=normal>14</span>
+<span class=normal>15</span>
+<span class=normal>16</span>
+<span class=normal>17</span>
+<span class=normal>18</span>
+<span class=normal>19</span>
+<span class=normal>20</span>
+<span class=normal>21</span>
+<span class=normal>22</span>
+<span class=normal>23</span>
+<span class=normal>24</span>
+<span class=normal>25</span>
+<span class=normal>26</span>
+<span class=normal>27</span>
+<span class=normal>28</span>
+<span class=normal>29</span>
+<span class=normal>30</span>
+<span class=normal>31</span>
+<span class=normal>32</span>
+<span class=normal>33</span>
+<span class=normal>34</span>
+<span class=normal>35</span>
+<span class=normal>36</span>
+<span class=normal>37</span>
+<span class=normal>38</span>
+<span class=normal>39</span>
+<span class=normal>40</span>
+<span class=normal>41</span>
+<span class=normal>42</span>
+<span class=normal>43</span>
+<span class=normal>44</span>
+<span class=normal>45</span>
+<span class=normal>46</span>
+<span class=normal>47</span>
+<span class=normal>48</span>
+<span class=normal>49</span>
+<span class=normal>50</span>
+<span class=normal>51</span>
+<span class=normal>52</span>
+<span class=normal>53</span>
+<span class=normal>54</span>
+<span class=normal>55</span>
+<span class=normal>56</span>
+<span class=normal>57</span>
+<span class=normal>58</span>
+<span class=normal>59</span>
+<span class=normal>60</span>
+<span class=normal>61</span>
+<span class=normal>62</span>
+<span class=normal>63</span>
+<span class=normal>64</span>
+<span class=normal>65</span>
+<span class=normal>66</span></pre></div></td><td class=code><div><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">machine.openshift.io/v1beta1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">MachineSet</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>labels</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>machine.openshift.io/cluster-api-cluster</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid</span>
+<span class=w>    </span><span class=nt>machine.openshift.io/cluster-api-machine-role</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">cp4x</span>
+<span class=w>    </span><span class=nt>machine.openshift.io/cluster-api-machine-type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">cp4x</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid-cp4x-$region$zone</span>
+<span class=w>  </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">openshift-machine-api</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>replicas</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class=w>  </span><span class=nt>selector</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>matchLabels</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>machine.openshift.io/cluster-api-cluster</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid</span>
+<span class=w>      </span><span class=nt>machine.openshift.io/cluster-api-machineset</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid-cp4x-$region$zone</span>
+<span class=w>  </span><span class=nt>template</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>metadata</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>labels</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>machine.openshift.io/cluster-api-cluster</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid</span>
+<span class=w>        </span><span class=nt>machine.openshift.io/cluster-api-machine-role</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">worker</span>
+<span class=w>        </span><span class=nt>machine.openshift.io/cluster-api-machine-type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">worker</span>
+<span class=w>        </span><span class=nt>machine.openshift.io/cluster-api-machineset</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid-cp4x-$region$zone</span>
+<span class=w>    </span><span class=nt>spec</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>metadata</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>labels</span><span class=p>:</span>
+<span class=w>          </span><span class=nt>node-role.kubernetes.io/cp4x</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>      </span><span class=nt>providerSpec</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>value</span><span class=p>:</span>
+<span class=w>          </span><span class=nt>ami</span><span class=p>:</span>
+<span class=w>            </span><span class=nt>id</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$ami</span>
+<span class=w>          </span><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">awsproviderconfig.openshift.io/v1beta1</span>
+<span class=w>          </span><span class=nt>blockDevices</span><span class=p>:</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>ebs</span><span class=p>:</span>
+<span class=w>              </span><span class=nt>encrypted</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class=w>              </span><span class=nt>iops</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class=w>              </span><span class=nt>kmsKey</span><span class=p>:</span>
+<span class=w>                </span><span class=nt>arn</span><span class=p>:</span><span class=w> </span><span class=s>""</span>
+<span class=w>              </span><span class=nt>volumeSize</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">200</span>
+<span class=w>              </span><span class=nt>volumeType</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gp2</span>
+<span class=w>          </span><span class=nt>credentialsSecret</span><span class=p>:</span>
+<span class=w>            </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">aws-cloud-credentials</span>
+<span class=w>          </span><span class=nt>deviceIndex</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class=w>          </span><span class=nt>iamInstanceProfile</span><span class=p>:</span>
+<span class=w>            </span><span class=nt>id</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid-worker-profile</span>
+<span class=w>          </span><span class=nt>instanceType</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">m5.4xlarge</span>
+<span class=w>          </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">AWSMachineProviderConfig</span>
+<span class=w>          </span><span class=nt>metadata</span><span class=p>:</span>
+<span class=w>            </span><span class=nt>creationTimestamp</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class=w>          </span><span class=nt>placement</span><span class=p>:</span>
+<span class=w>            </span><span class=nt>availabilityZone</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$region$zone</span>
+<span class=w>            </span><span class=nt>region</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$region</span>
+<span class=w>          </span><span class=nt>securityGroups</span><span class=p>:</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>filters</span><span class=p>:</span>
+<span class=w>            </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tag:Name</span>
+<span class=w>              </span><span class=nt>values</span><span class=p>:</span>
+<span class=w>              </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid-worker-sg</span>
+<span class=w>          </span><span class=nt>subnet</span><span class=p>:</span>
+<span class=w>            </span><span class=nt>filters</span><span class=p>:</span>
+<span class=w>            </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tag:Name</span>
+<span class=w>              </span><span class=nt>values</span><span class=p>:</span>
+<span class=w>              </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">$clusterid-private-us-east-2a</span>
+<span class=w>          </span><span class=nt>tags</span><span class=p>:</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.io/cluster/$clusterid</span>
+<span class=w>            </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">owned</span>
+<span class=w>          </span><span class=nt>userDataSecret</span><span class=p>:</span>
+<span class=w>            </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">worker-user-data</span>
+</code></pre></div></td></tr></table></div> </div> </div> </div> <hr> <h2 id=storage>Storage<a class=headerlink href=#storage title="Permanent link">¶</a></h2> <p>In a default OpenShift deployment on AWS, you will have storage classes called <code>gp2</code> and <code>gp2-csi</code> which only provides ReadWriteOnce (RWO) access modes.</p> <div class=highlight><pre><span></span><code>$<span class=w> </span>oc<span class=w> </span>get<span class=w> </span>storageclass
+NAME<span class=w>            </span>PROVISIONER<span class=w>             </span>RECLAIMPOLICY<span class=w>   </span>VOLUMEBINDINGMODE<span class=w>      </span>ALLOWVOLUMEEXPANSION<span class=w>   </span>AGE
+gp2<span class=w> </span><span class=o>(</span>default<span class=o>)</span><span class=w>   </span>kubernetes.io/aws-ebs<span class=w>   </span>Delete<span class=w>          </span>WaitForFirstConsumer<span class=w>   </span><span class=nb>true</span><span class=w>                   </span>12m
+gp2-csi<span class=w>         </span>ebs.csi.aws.com<span class=w>         </span>Delete<span class=w>          </span>WaitForFirstConsumer<span class=w>   </span><span class=nb>true</span><span class=w>                   </span>12m
+</code></pre></div> <p>Both storage classes will consume Elastic Block Storage (EBS) resources from Amazon account for the installation.</p> <p>If your CloudPak workloads require a ReadWriteMany (RWX) compatible storage class, the recommended solution is to use <a href=../golden-topology/#deploying-openshift-container-storage>OpenShift Container Storage</a>.</p> <hr> <h2 id=installation-scenarios>Installation Scenarios<a class=headerlink href=#installation-scenarios title="Permanent link">¶</a></h2> <p>The recommended method for installing OpenShift into AWS is using an <a href=#installer-provisioned-infrastructure-ipi-deployment>Installer Provisioned Infrastructure Deployment</a>. It is a solid foundation that encompass most of the best practices and recommendations outlined in the <a href=../golden-topology/ >Golden Topology</a>. The installation process is fully supported by IBM and Red Hat, and you won't need to manage and maintain additional code assets to deploy your cluster.</p> <p>Customers requirements may prevent you from using an unmodified OpenShift installation in AWS. Bellow are some of the most common customer requests, as well as ways of handling. All these methods begin with the same process</p> <div class=highlight><pre><span></span><code><span class=o>[</span>prod-ref-001<span class=o>]</span><span class=w> </span>$<span class=w> </span>openshift-install<span class=w> </span>create<span class=w> </span>install-config
+?<span class=w> </span>SSH<span class=w> </span>Public<span class=w> </span>Key<span class=w> </span>/Users/vbudi/.ssh/id_rsa.pub
+?<span class=w> </span>Platform<span class=w> </span>aws
+?<span class=w> </span>AWS<span class=w> </span>Access<span class=w> </span>Key<span class=w> </span>ID<span class=w> </span>AAAAAAAAAAAAAAAAAAAAAAAAA
+?<span class=w> </span>AWS<span class=w> </span>Secret<span class=w> </span>Access<span class=w> </span>Key<span class=w> </span><span class=o>[</span>?<span class=w> </span><span class=k>for</span><span class=w> </span>help<span class=o>]</span><span class=w> </span>****************************************
+INFO<span class=w> </span>Writing<span class=w> </span>AWS<span class=w> </span>credentials<span class=w> </span>to<span class=w> </span><span class=s2>"/Users/vbudi/.aws/credentials"</span><span class=w> </span>
+?<span class=w> </span>Region<span class=w> </span>us-east-1
+INFO<span class=w> </span>Credentials<span class=w> </span>loaded<span class=w> </span>from<span class=w> </span>the<span class=w> </span><span class=s2>"default"</span><span class=w> </span>profile<span class=w> </span><span class=k>in</span><span class=w> </span>file<span class=w> </span><span class=s2>"/Users/vbudi/.aws/credentials"</span>
+?<span class=w> </span>Base<span class=w> </span>Domain<span class=w> </span>gtmaa.ga
+?<span class=w> </span>Cluster<span class=w> </span>Name<span class=w> </span>prod-ref-001
+?<span class=w> </span>Pull<span class=w> </span>Secret<span class=w> </span><span class=o>[</span>?<span class=w> </span><span class=k>for</span><span class=w> </span>help<span class=o>]</span><span class=w> </span>**************************************
+INFO<span class=w> </span>Install-Config<span class=w> </span>created<span class=w> </span><span class=k>in</span>:<span class=w> </span>.
+</code></pre></div> <p>Once you've modified your <code>install-config.yaml</code> to fit your needs, create your manifests files.</p> <div class=highlight><pre><span></span><code><span class=o>[</span>prod-ref-001<span class=o>]</span><span class=w> </span>$<span class=w> </span>openshift-install<span class=w> </span>create<span class=w> </span>manifests
+INFO<span class=w> </span>Credentials<span class=w> </span>loaded<span class=w> </span>from<span class=w> </span>the<span class=w> </span><span class=s2>"default"</span><span class=w> </span>profile<span class=w> </span><span class=k>in</span><span class=w> </span>file<span class=w> </span><span class=s2>"/Users/vbudi/.aws/credentials"</span><span class=w> </span>
+INFO<span class=w> </span>Consuming<span class=w> </span>Install<span class=w> </span>Config<span class=w> </span>from<span class=w> </span>target<span class=w> </span>directory<span class=w> </span>
+INFO<span class=w> </span>Manifests<span class=w> </span>created<span class=w> </span><span class=k>in</span>:<span class=w> </span>manifests<span class=w> </span>and<span class=w> </span>openshift<span class=w> </span>*
+</code></pre></div> <p>Once you've modified your manifests files, you can proceed to create your OpenShift Cluster.</p> <div class=highlight><pre><span></span><code>$<span class=w> </span>openshift-install<span class=w> </span>create<span class=w> </span>cluster
+</code></pre></div> <p>Below is a sample install-config.yaml file for an AWS OpenShift Cluster.</p> <div class=highlight><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class=nt>baseDomain</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">gtmaa.ga</span>
+<span class=nt>compute</span><span class=p>:</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class=nt>architecture</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">amd64</span>
+<span class=w>  </span><span class=nt>hyperthreading</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Enabled</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">worker</span>
+<span class=w>  </span><span class=nt>platform</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">{}</span>
+<span class=w>  </span><span class=nt>replicas</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class=nt>controlPlane</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>architecture</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">amd64</span>
+<span class=w>  </span><span class=nt>hyperthreading</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Enabled</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class=w>  </span><span class=nt>platform</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">{}</span>
+<span class=w>  </span><span class=nt>replicas</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>creationTimestamp</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">prod-ref-001</span>
+<span class=nt>networking</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>clusterNetwork</span><span class=p>:</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>cidr</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">10.128.0.0/14</span>
+<span class=w>    </span><span class=nt>hostPrefix</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">23</span>
+<span class=w>  </span><span class=nt>machineNetwork</span><span class=p>:</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>cidr</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.0/16</span>
+<span class=w>  </span><span class=nt>networkType</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">OpenShiftSDN</span>
+<span class=w>  </span><span class=nt>serviceNetwork</span><span class=p>:</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">172.30.0.0/16</span>
+<span class=nt>platform</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>aws</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>region</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">us-east-1</span>
+<span class=nt>pullSecret</span><span class=p>:</span><span class=w> </span><span class=s>'{"auths":{...}}'</span>
+<span class=nt>sshKey</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|</span>
+<span class=w>  </span><span class=no>ssh-rsa AAAAB3N...</span>
+</code></pre></div> <h3 id=node-sizing>Node Sizing<a class=headerlink href=#node-sizing title="Permanent link">¶</a></h3> <h4 id=control-plane-nodes>Control Plane Nodes<a class=headerlink href=#control-plane-nodes title="Permanent link">¶</a></h4> <p>The default control plane node size and count in an unmodified IPI installation is 3 <code>m4.xlarge</code> nodes with a 120GB disk. You can configure the node size by modifying the <code>controlPlane</code> section of your <code>install-config.yaml</code>.</p> <div class=highlight><pre><span></span><code><span class=nn>...</span>
+<span class=nt>controlPlane</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>architecture</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">amd64</span>
+<span class=w>  </span><span class=nt>hyperthreading</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Enabled</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class=hll><span class=w>  </span><span class=nt>platform</span><span class=p>:</span>
+</span><span class=hll><span class=w>    </span><span class=nt>aws</span><span class=p>:</span>
+</span><span class=hll><span class=w>      </span><span class=nt>rootVolume</span><span class=p>:</span>
+</span><span class=hll><span class=w>        </span><span class=nt>size</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">200</span>
+</span><span class=hll><span class=w>        </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">io1</span>
+</span><span class=hll><span class=w>        </span><span class=nt>iops</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">4000</span>
+</span><span class=hll><span class=w>      </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">m5.xlarge</span>
+</span><span class=w>  </span><span class=nt>replicas</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class=nn>...</span>
+</code></pre></div> <div class="admonition warning"> <p class=admonition-title>Warning</p> <p>Only 3 replicas are supported for control plane high availability configuration</p> </div> <p>For a complete list of available <code>platform.aws.type</code> options, check out <a href=https://docs.openshift.com/container-platform/4.7/installing/installing_aws/installing-aws-customizations.html#installation-supported-aws-machine-types_installing-aws-customizations>supported AWS machine types</a>. The recommended series is the General Purpose Compute m5 series, with a minimum spec of <code>m5.xlarge</code> for production.</p> <h5 id=compute-nodes>Compute Nodes<a class=headerlink href=#compute-nodes title="Permanent link">¶</a></h5> <p>The default worker node size and count in an unmodified IPI installation is 3 <code>m4.large</code> nodes with a 120Gb disk. You can configure the node size by modifying the <code>compute</code> section of your <code>install-config.yaml</code></p> <div class=highlight><pre><span></span><code><span class=nn>...</span>
+<span class=nt>compute</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>architecture</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">amd64</span>
+<span class=w>  </span><span class=nt>hyperthreading</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Enabled</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">worker</span>
+<span class=hll><span class=w>  </span><span class=nt>platform</span><span class=p>:</span>
+</span><span class=hll><span class=w>    </span><span class=nt>aws</span><span class=p>:</span>
+</span><span class=hll><span class=w>      </span><span class=nt>rootVolume</span><span class=p>:</span>
+</span><span class=hll><span class=w>        </span><span class=nt>size</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">200</span>
+</span><span class=hll><span class=w>        </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">io1</span>
+</span><span class=hll><span class=w>        </span><span class=nt>iops</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">4000</span>
+</span><span class=hll><span class=w>      </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">m5.4xlarge</span>
+</span><span class=w>  </span><span class=nt>replicas</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class=nn>...</span>
+</code></pre></div> <p>For a complete list of available <code>platform.aws.type</code> options, check out <a href=https://docs.openshift.com/container-platform/4.7/installing/installing_aws/installing-aws-customizations.html#installation-supported-aws-machine-types_installing-aws-customizations>supported AWS machine types</a>. The recommended series is the General Purpose Compute m5 series, but your workload requirements may dictate another series. For memory intensive computing, choose the R5 series, while for CPU intensive computing, choose the C5 series.</p> <h3 id=private-endpoints>Private Endpoints<a class=headerlink href=#private-endpoints title="Permanent link">¶</a></h3> <p>An unmodified OpenShift installation will provision publicly facing LoadBalancers for <code>api</code> and <code>*.apps</code> (<code>api-int</code> is ALWAYS private). If your customer requires private endpoints, modify your install-config.yaml by appending <code>publish: Internal</code> to it. The <code>api</code> and <code>*.apps</code> LoadBalancers will be created within your VPC CIDR range on the master and worker subnets</p> <div class=highlight><pre><span></span><code><span class=nn>...</span>
+<span class=nt>sshKey</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">|</span>
+<span class=w>  </span><span class=no>ssh-rsa AAAAB3N...</span>
+<span class=hll><span class=nt>publish</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Internal</span>
+</span></code></pre></div> <div class="admonition warning"> <p class=admonition-title>Warning</p> <p>When the publish type is <code>Internal</code> the API endpoint will <strong>not</strong> be available outside of the VPC, you must provide the necessary connectivity for API access to the cluster.</p> </div> <h3 id=bring-your-own-network>Bring Your Own Network<a class=headerlink href=#bring-your-own-network title="Permanent link">¶</a></h3> <p>Customers may wish to use their pre-existing VPC infrastructure which OpenShift will use as its networking environment. This can be achieved by setting the <code>platform.aws.subnets</code> field as an array of subnets (typically 3 of them for high availability)</p> <div class=highlight><pre><span></span><code><span class=nn>...</span>
+<span class=nt>platform</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>aws</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>region</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">us-east-1</span>
+<span class=hll><span class=w>    </span><span class=nt>subnets</span><span class=p>:</span>
+</span><span class=hll><span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">subnet-07819677ffc6ce3ba</span>
+</span><span class=hll><span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">subnet-02eb7c3f205fbb9db</span>
+</span><span class=hll><span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">subnet-08ad401ad884ff160</span>
+</span><span class=nn>...</span>
+</code></pre></div> <div class="admonition warning"> <p class=admonition-title>Warning</p> <p>While deploying into existing VPC and Subnets is a supported scenario, it is the customer's responsibility that there are no policies that prevent OpenShift from deploying, any security groups that block traffic, etc; OpenShift installer will <strong>not</strong> change or check the existing network restrictions. OpenShift also assumes that all the subnets are in the same VPC and has the correct routing and security groups.</p> </div> <h3 id=bring-your-own-dns>Bring Your Own DNS<a class=headerlink href=#bring-your-own-dns title="Permanent link">¶</a></h3> <p>Customers may not wish to use AWS Route53 hosted zones (public or private), opting instead to use their existing Enterprise DNS servers. This can be achieved by modifying the <code>manifests/cluster-dns-02-config.yml</code> DNS configuration manifest. Remove the <code>spec.privateZone</code> and <code>spec.publicZone</code> sections in the file. When done editing, the file should look like this:</p> <div class=highlight><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">config.openshift.io/v1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">DNS</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>creationTimestamp</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">cluster</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>baseDomain</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mycluster.aws.gtmaa.ga</span>
+<span class=nt>status</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">{}</span>
+</code></pre></div> <div class="admonition warning"> <p class=admonition-title>Warning</p> <p>By disabling this feature of the DNS Operator, the cluster will no longer be able to update DNS for you as LoadBalancers are created during installation. As the installation progresses, you will need to pay <strong>VERY</strong> close attention to the loadbalancers created in your cluster resource group.</p> </div> <p><img alt="aws loadbalancers" src=../images/aws/aws-lbs.png> The first loadbalancer that gets created is <code>&lt;cluster_id&gt;-int</code>. You need to update your DNS records so that <code>api-int.&lt;cluster_name&gt;.&lt;base_domain&gt;</code> points to this LoadBalancer. This happens very early in the deployment process, and the OpenShift master nodes will not boot up until this record is created.</p> <p>The next loadbalancer created is <code>&lt;cluster_id&gt;-ext</code>. It hosts the endpoint for <code>api</code>. During the first phase of OpenShift deployment (pre-bootstrapping), the LoadBalancer will consist of a single IP address, public or private. </p> <p>During the second phase of OpenShift deployment (post-bootstrapping) another load balancer will be created by the OpenShift Ingress Operator, and it will have a long random character name.</p> <p><img alt="aws dns" src=../images/aws/aws-dnsrecords.png></p> <p>In the example above, you would point the DNS record <code>api.&lt;cluster_name&gt;.&lt;base_domain&gt;</code> to the <code>&lt;cluster-id&gt;-int</code> and <code>&lt;cluster-id&gt;-ext</code>; and point <code>*.apps.&lt;cluster_name&gt;.&lt;base_domain&gt;</code> to the random character load balancer address.</p> <p>In the extreme case that your customer does not allow wildcard DNS entries on their Enterprise DNS servers, the following DNS records <strong>MUST</strong> be created, pointing to the apps Loadbalancer, instead of <code>*.apps.&lt;cluster_name&gt;.&lt;base_domain&gt;</code>. The cluster will not finish deployment until these records are created.</p> <div class=highlight><pre><span></span><code>oauth-openshift.apps.&lt;cluster_name&gt;.&lt;base_domain&gt;
+console-openshift-console.apps.&lt;cluster_name&gt;.&lt;base_domain&gt;
+downloads-openshift-console.apps.&lt;cluster_name&gt;.&lt;base_domain&gt;
+canary-openshift-ingress-canary.apps.&lt;cluster_name&gt;.&lt;base_domain&gt;
+alertmanager-main-openshift-monitoring.apps.&lt;cluster_name&gt;.&lt;base_domain&gt;
+grafana-openshift-monitoring.apps.&lt;cluster_name&gt;.&lt;base_domain&gt;
+prometheus-k8s-openshift-monitoring.apps.&lt;cluster_name&gt;.&lt;base_domain&gt;
+thanos-querier-openshift-monitoring.apps.&lt;cluster_name&gt;.&lt;base_domain&gt;
+</code></pre></div> <h3 id=bring-your-own-credentials>Bring Your Own Credentials<a class=headerlink href=#bring-your-own-credentials title="Permanent link">¶</a></h3> <p>Customers may not wish to use RedHat prescribed IAM users when deploying OpenShift cluster. Instead of using the automatically created credentials for the cluster to access AWS infrastructure, credentials can be pre-created. The mechanism for OpenShift clusters installer to inject credentials is using the Credential Requests objects. </p> <div class="admonition note"> <p class=admonition-title>Note</p> </div> <p>The credential requests files contains the credentials that used by OpenShift and stored as secrets in their respective namespaces. For more information, refer to <a href=https://docs.openshift.com/container-platform/4.10/installing/installing_aws/manually-creating-iam.html>https://docs.openshift.com/container-platform/4.10/installing/installing_aws/manually-creating-iam.html</a>. Each of the files in the credential request YAML file above contains the specification for the IAM roles and the secret name to be created. </p> <p>The following are some secrets that should be created and their namespaces: | Secret name | Namespace | | :------------- | :---------- | | aws-cloud-credentials | openshift-machine-api | | cloud-credential-operator-iam-ro-creds | openshift-cloud-credential-operator | | installer-cloud-credentials | openshift-image-registry | | cloud-credentials | openshift-ingress-operator | | cloud-credentials | openshift-cloud-network-config-controller | | ebs-cloud-credentials | openshift-cluster-csi-drivers |</p> <p>To build OpenShift cluster using manual credentials, you must do the following:</p> <ol> <li> <p>Create the install-config.yaml using the command <code>openshift-install create install-config</code>.</p> </li> <li> <p>In the <code>install-config.yaml</code> you must must set <code>credentialMode: Manual</code> this will bypass the installer from checking the current credentials overall access and not attempting to create any credentials for the OpenShift cluster.</p> <div class=highlight><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class=nt>baseDomain</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">cluster1.example.com</span>
+<span class=nt>credentialsMode</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Manual</span><span class=w> </span>
+<span class=nt>platform</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>aws</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>region</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">us-east-1</span>
+<span class="l l-Scalar l-Scalar-Plain">. . .</span>
+</code></pre></div> </li> <li> <p>Create the manifests using the command <code>openshift-install create manifests</code>.</p> </li> <li> <p>Extract the infrastructure ID of the cluster from manifests/cluster-infrastructure-02-config.yml</p> <div class=highlight><pre><span></span><code><span class=nv>INFRA_ID</span><span class=o>=</span><span class=k>$(</span>cat<span class=w> </span>manifests/cluster-infrastructure-02-config.yml<span class=w> </span><span class=p>|</span><span class=w> </span>grep<span class=w> </span>infrastructureName<span class=w> </span><span class=p>|</span><span class=w> </span>cut<span class=w> </span>-d<span class=s2>":"</span><span class=w> </span>-f2<span class=k>)</span>
+</code></pre></div> </li> <li> <p>Collect the credential requests for the correct OpenShift version (based on your <code>openshift-install</code> executable):</p> <div class=highlight><pre><span></span><code>$<span class=w> </span><span class=nv>REL_IMAGE</span><span class=o>=</span><span class=k>$(</span>openshift-install<span class=w> </span>version<span class=w> </span><span class=p>|</span><span class=w> </span>grep<span class=w> </span>image<span class=w> </span><span class=p>|</span><span class=w> </span>cut<span class=w> </span>-d<span class=s2>" "</span><span class=w> </span>-f<span class=w> </span><span class=m>3</span><span class=k>)</span>
+$<span class=w> </span>oc<span class=w> </span>adm<span class=w> </span>release<span class=w> </span>extract<span class=w> </span><span class=si>${</span><span class=nv>REL_IMAGE</span><span class=si>}</span><span class=w> </span>--credentials-requests<span class=w> </span>--cloud<span class=o>=</span>aws
+$<span class=w> </span>ls<span class=w> </span>*.yaml
+0000_30_machine-api-operator_00_credentials-request.yaml
+0000_50_cloud-credential-operator_05-iam-ro-credentialsrequest.yaml
+0000_50_cluster-image-registry-operator_01-registry-credentials-request.yaml
+0000_50_cluster-ingress-operator_00-ingress-credentials-request.yaml
+0000_50_cluster-storage-operator_03_credentials_request_aws.yaml
+</code></pre></div> </li> <li> <p>Create the credential JSON files from the credential request files, as an example from the 0000_50_cluster-ingress-operator_00-ingress-credentials-request.yaml, the content is as follows (4.9):</p> <div class=highlight><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">cloudcredential.openshift.io/v1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">CredentialsRequest</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>include.release.openshift.io/ibm-cloud-managed</span><span class=p>:</span><span class=w> </span><span class=s>"true"</span>
+<span class=w>    </span><span class=nt>include.release.openshift.io/self-managed-high-availability</span><span class=p>:</span><span class=w> </span><span class=s>"true"</span>
+<span class=w>    </span><span class=nt>include.release.openshift.io/single-node-developer</span><span class=p>:</span><span class=w> </span><span class=s>"true"</span>
+<span class=w>  </span><span class=nt>labels</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>controller-tools.k8s.io</span><span class=p>:</span><span class=w> </span><span class=s>"1.0"</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">openshift-ingress</span>
+<span class=w>  </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">openshift-cloud-credential-operator</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>providerSpec</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">cloudcredential.openshift.io/v1</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">AWSProviderSpec</span>
+<span class=w>    </span><span class=nt>statementEntries</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>action</span><span class=p>:</span>
+<span class=w>      </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">elasticloadbalancing:DescribeLoadBalancers</span>
+<span class=w>      </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">route53:ListHostedZones</span>
+<span class=w>      </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">route53:ChangeResourceRecordSets</span>
+<span class=w>      </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tag:GetResources</span>
+<span class=w>      </span><span class=nt>effect</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Allow</span>
+<span class=w>      </span><span class=nt>resource</span><span class=p>:</span><span class=w> </span><span class=s>'*'</span>
+<span class=w>  </span><span class=nt>secretRef</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">cloud-credentials</span>
+<span class=w>    </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">openshift-ingress-operator</span>
+<span class=w>  </span><span class=nt>serviceAccountNames</span><span class=p>:</span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ingress-operator</span>
+</code></pre></div> <p>Create a JSON file such as <code>ingress-operator.json</code> - note that the <code>spec.providerSpec.statementEntries.[].action</code> above is transferred to the <code>Statement.[].Action</code> below.</p> <div class=highlight><pre><span></span><code><span class=p>{</span>
+<span class=w>  </span><span class=nt>"Version"</span><span class=p>:</span><span class=w> </span><span class=s2>"2012-10-17"</span><span class=p>,</span>
+<span class=w>  </span><span class=nt>"Statement"</span><span class=p>:</span><span class=w> </span><span class=p>[</span>
+<span class=w>    </span><span class=p>{</span>
+<span class=w>      </span><span class=nt>"Action"</span><span class=p>:</span><span class=w> </span><span class=p>[</span>
+<span class=w>        </span><span class=s2>"elasticloadbalancing:DescribeLoadBalancers"</span><span class=p>,</span>
+<span class=w>        </span><span class=s2>"route53:ListHostedZones"</span><span class=p>,</span>
+<span class=w>        </span><span class=s2>"route53:ChangeResourceRecordSets"</span><span class=p>,</span>
+<span class=w>        </span><span class=s2>"tag:GetResources"</span>
+<span class=w>      </span><span class=p>],</span>
+<span class=w>      </span><span class=nt>"Effect"</span><span class=p>:</span><span class=w> </span><span class=s2>"Allow"</span><span class=p>,</span>
+<span class=w>      </span><span class=nt>"Resource"</span><span class=p>:</span><span class=w> </span><span class=s2>"*"</span>
+<span class=w>    </span><span class=p>}</span>
+<span class=w>  </span><span class=p>]</span>
+<span class=p>}</span>
+</code></pre></div> <p>And create the policy and the user, for example using the <code>aws</code> cli. </p> <div class=highlight><pre><span></span><code>aws<span class=w> </span>iam<span class=w> </span>create-policy<span class=w> </span>--policy-name<span class=w> </span><span class=si>${</span><span class=nv>INFRA_ID</span><span class=si>}</span>-ingress-controller<span class=w> </span>--policy-document<span class=w> </span>file://ingress-controller.json
+aws<span class=w> </span>iam<span class=w> </span>create-user<span class=w> </span>--user-name<span class=w> </span><span class=si>${</span><span class=nv>INFRA_ID</span><span class=si>}</span>-ingress-controller
+aws<span class=w> </span>iam<span class=w> </span>attach-user-policy<span class=w> </span>--user-name<span class=w> </span><span class=si>${</span><span class=nv>INFRA_ID</span><span class=si>}</span>-ingress-controller<span class=w> </span>--policy-arn<span class=w> </span>&lt;policy-arn-id&gt;
+aws<span class=w> </span>iam<span class=w> </span>create-access-key<span class=w> </span>--user-name<span class=w> </span><span class=si>${</span><span class=nv>INFRA_ID</span><span class=si>}</span>-ingress-controller
+</code></pre></div> <p>Store the appropriate AWS access key id and AWS secret access key for use in the next step.</p> </li> <li> <p>Set the secret definition YAMLs for each credentials in the manifests directory, (the list will depend on the OpenShift version that you install). The secret YAML definition files should be in the form of (note that you should not encode the content in <code>stringData</code> fields):</p> <div class=highlight><pre><span></span><code>```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: aws-cloud-credentials
+  namespace: openshift-machine-api
+stringData:
+  aws_access_key_id: &lt;AccessKeyID&gt;
+  aws_secret_access_key: &lt;SecretAccessKey&gt;
+```
+</code></pre></div> </li> <li> <p>Create the cluster, using the command <code>openshift-install create cluster</code>. </p> </li> </ol> <h2 id=user-provided-infrastructure>User Provided Infrastructure<a class=headerlink href=#user-provided-infrastructure title="Permanent link">¶</a></h2> <p>If your customer has any requirements that can't be met by the above solutions, we've provided an <a href=https://github.com/ibm-cloud-architecture/terraform-openshift4-aws>implementation in terraform</a>. This implementation is meant to be modified to meet your customer needs, and requires working knowledge of terraform. Deploying this implementation with no modifications is the equivalent of running <code>openshift-install create cluster</code>, and should be avoided.</p></div> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> Back to top </button> </main> <!-- Footer --> <footer class=md-footer> <!-- Link to previous and/or next page --> <nav class="md-footer__inner md-grid" aria-label=footer.title> <!-- Link to previous page --> <a href=../aro/ class="md-footer__link md-footer__link--prev" rel=prev> <div class="md-footer__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </div> <div class=md-footer__title> <div class=md-ellipsis> <span class=md-footer__direction> Previous </span> Microsoft ARO </div> </div> </a> <!-- Link to next page --> <a href=../azure/ class="md-footer__link md-footer__link--next" rel=next> <div class=md-footer__title> <div class=md-ellipsis> <span class=md-footer__direction> Next </span> Microsoft Azure </div> </div> <div class="md-footer__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg> </div> </a> </nav> <!-- Further information --> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-footer-column> <div class=md-footer-text>Site licensed under <a href=https://creativecommons.org/licenses/by-nc-sa/4.0/ >CC BY-NC-SA 4.0</a></div> </div> <div class=md-footer-column> <!-- Copyright and theme information --> <div class=md-footer-text> Copyright © 2021 Cloud Pak Production Deployment Guides </div> </div> <div class=md-footer-social> <a href=https://github.com/ncolon/deployment-guides target=_blank rel=noopener title="Production Deployment Guides on Github Enterprise" class=md-footer-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 496 512"> <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"> </path> </svg> </a> <a href=https://ibm-cloud.slack.com/archives/C02CQ6M2D2R target=_blank rel=noopener title=Slack class=md-footer-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"> <path d="M94.12 315.1c0 25.9-21.16 47.06-47.06 47.06S0 341 0 315.1c0-25.9 21.16-47.06 47.06-47.06h47.06v47.06zm23.72 0c0-25.9 21.16-47.06 47.06-47.06s47.06 21.16 47.06 47.06v117.84c0 25.9-21.16 47.06-47.06 47.06s-47.06-21.16-47.06-47.06V315.1zm47.06-188.98c-25.9 0-47.06-21.16-47.06-47.06S139 32 164.9 32s47.06 21.16 47.06 47.06v47.06H164.9zm0 23.72c25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06H47.06C21.16 243.96 0 222.8 0 196.9s21.16-47.06 47.06-47.06H164.9zm188.98 47.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06h-47.06V196.9zm-23.72 0c0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06V79.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06V196.9zM283.1 385.88c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06v-47.06h47.06zm0-23.72c-25.9 0-47.06-21.16-47.06-47.06 0-25.9 21.16-47.06 47.06-47.06h117.84c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06H283.1z"> </path> </svg> </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.instant", "navigation.tracking", "navigation.tabs.sticky", "navigation.top", "navigation.sections"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script> <script src=../../assets/javascripts/bundle.d7400e89.min.js></script> </body> </html>

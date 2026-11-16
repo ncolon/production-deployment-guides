@@ -1,0 +1,702 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="The Cloud Pak Production Deployment Guides document and demonstrate how to run cloud-native solutions leveraging IBM Cloud Pak capabilities in a Red Hat OpenShift environment"><meta name=author content="Cloud Pak Production Deployment Guides development team"><link rel=icon href=../../../../../images/cloudnativetoolkit.png><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.7.7"><title>Automate Promotion Pipeline Workflow - Cloud Pak Production Deployment Guides</title><link rel=stylesheet href=../../../../../assets/stylesheets/main.ec1eaa64.min.css><link rel=stylesheet href=../../../../../assets/stylesheets/palette.ab4e12ef.min.css><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback"><style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"IBM Plex Mono"}</style><link rel=stylesheet href=../../../../../css/extra.css><link rel=stylesheet href=../../../../../css/toolkit-code.css><script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script><script id=__analytics>function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-Q0FLL49YN3"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-Q0FLL49YN3",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-Q0FLL49YN3",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script><script>"undefined"!=typeof __md_analytics&&__md_analytics()</script><!-- Determine title --><!-- The image needs to have an absolute URL --><!-- Open graph meta tags --><meta property=og:type content=website><meta property=og:title content="Cloud Pak Production Deployment Guides - Automate Promotion Pipeline Workflow"><meta property=og:description content="The Cloud Pak Production Deployment Guides document and demonstrate how to run cloud-native solutions leveraging IBM Cloud Pak capabilities in a Red Hat OpenShift environment"><meta property=og:url content=None><meta property=og:image content=assets/images/banner.png><meta property=og:image:type content=image/png><meta property=og:image:width content=1080><meta property=og:image:height content=568></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=black data-md-color-accent=indigo> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#automate-promotion-pipeline-workflow class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <header class="md-header md-header--shadow md-header--lifted" data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../../../../.. title="Cloud Pak Production Deployment Guides" class="md-header__button md-logo" aria-label="Cloud Pak Production Deployment Guides" data-md-component=logo> <img src=../../../../../images/cloudnativetoolkit.png alt=logo> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> Cloud Pak Production Deployment Guides </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> Automate Promotion Pipeline Workflow </span> </div> </div> </div> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> <div class=md-header__source> <a href=https://github.com/ncolon/production-deployment-guides title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg> </div> <div class=md-source__repository> </div> </a> </div> </nav> <nav class=md-tabs aria-label=Tabs data-md-component=tabs> <div class=md-grid> <ul class=md-tabs__list> <li class=md-tabs__item> <a href=../../../../.. class=md-tabs__link> Home </a> </li> <li class=md-tabs__item> <a href=../../../../../overview/overview/ class=md-tabs__link> Production Considerations </a> </li> <li class=md-tabs__item> <a href=../../../../../quickstart/overview/ class=md-tabs__link> Quick Start Demos </a> </li> <li class=md-tabs__item> <a href=../../../../guides-overview/ class=md-tabs__link> Tutorials </a> </li> <li class=md-tabs__item> <a href=../../../../../infrastructure/ad/ class=md-tabs__link> References </a> </li> <li class=md-tabs__item> <a href=../../../../../overview/whats-new/ class=md-tabs__link> About </a> </li> </ul> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <!-- Determine class according to configuration --> <!-- Main navigation --> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=nav.title data-md-level=0> <!-- Site title --> <!--
+  <label class="md-nav__title" for="__drawer">
+    <a
+      href="../../../../.."
+      title="Cloud Pak Production Deployment Guides"
+      class="md-nav__button md-logo"
+      aria-label="Cloud Pak Production Deployment Guides"
+      data-md-component="logo"
+    >
+      
+  <img src="../../../../../images/cloudnativetoolkit.png" alt="logo">
+
+    </a>
+    Cloud Pak Production Deployment Guides
+  </label>
+--> <!-- Repository information --> <div class=md-nav__source> <a href=https://github.com/ncolon/production-deployment-guides title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg> </div> <div class=md-source__repository> </div> </a> </div> <!-- Render item list --> <ul class=md-nav__list data-md-scrollfix> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#overview class=md-nav__link> <span class=md-ellipsis> Overview </span> </a> </li> <li class=md-nav__item> <a href=#pre-requisites class=md-nav__link> <span class=md-ellipsis> Pre-requisites </span> </a> </li> <li class=md-nav__item> <a href=#set-up-the-argocd-post-sync-hook class=md-nav__link> <span class=md-ellipsis> Set up the ArgoCD Post-sync hook </span> </a> <nav class=md-nav aria-label="Set up the ArgoCD Post-sync hook"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#set-up-trigger-templates class=md-nav__link> <span class=md-ellipsis> Set up trigger templates </span> </a> </li> <li class=md-nav__item> <a href=#review-the-eventlisteners class=md-nav__link> <span class=md-ellipsis> Review the eventlisteners </span> </a> </li> <li class=md-nav__item> <a href=#review-the-routes-for-the-eventlisteners class=md-nav__link> <span class=md-ellipsis> Review the routes for the eventlisteners </span> </a> </li> <li class=md-nav__item> <a href=#activate-the-triggers class=md-nav__link> <span class=md-ellipsis> Activate the Triggers </span> </a> </li> <li class=md-nav__item> <a href=#enable-postsync-hooks-in-dev class=md-nav__link> <span class=md-ellipsis> Enable PostSync hooks in dev </span> </a> </li> <li class=md-nav__item> <a href=#enable-postsync-hooks-in-stage class=md-nav__link> <span class=md-ellipsis> Enable PostSync hooks in stage </span> </a> </li> </ul> </nav> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <div><h1 id=automate-promotion-pipeline-workflow>Automate Promotion Pipeline Workflow<a class=headerlink href=#automate-promotion-pipeline-workflow title="Permanent link">¶</a></h1> <!--- cSpell:ignore  pipelinerun mqsc msqc runmqsc dockerconfigjson queuemanager QMID podman ibmgaragecloud cntk cnkt eventid gitrevision gitrepositoryurl odowdaibm MQSC replicaset eventlistener triggerbinding triggertemplate triggertemplates mqcicd qmgr Artifactory configmaps OIDC CHLAUTH templating sealedsecret PostSync post-sync favourite eventlisteners --> <h2 id=overview>Overview<a class=headerlink href=#overview title="Permanent link">¶</a></h2> <p>In the previous topics, we promoted the queue manager and sample application from <a href=../promoting-environments-dev-stage/ >dev to staging</a> environment and then from <a href=../promoting-environments-stage-prod/ >staging to prod </a> environment. We then deployed them using ArgoCD.</p> <p>In this topic, we're going to make this promotion processes fully automatic. As we perviously saw, a change to the queue manager source repository or sample application source repository will automatically result in a pipeline run for it. If the pipeline is successful, new kubernetes resources will be built and automatically deployed by ArgoCD into the <code>dev</code> namespace. Once the Queuemanager or the sample application is successfully deployed in dev namespace, the argocd post sync trigger in dev namespace will automatically generate a pipelinerun. If the pipeline is successful, new resources will be built and automatically deployed by ArgoCD into the <code>stage</code> namespace. Following the same approach again, once the Queuemanager or the sample application is successfully deployed in stage namespace, the argocd post sync trigger in stage namespace will automatically generate a pipelinerun. If the pipeline is successful, new resources will be built and automatically deployed by ArgoCD into the <code>prod</code> namespace. To recap, the whole process will be automatic from end-to-end.</p> <p>Look at the following diagram:</p> <p><img alt=mqcicd7 src=../images/mq-cicd7.drawio.png style=max-height:500px></p> <p>We've already seen most of the highlighted components. Notice that we've added a <code>post sync trigger</code>. This trigger will be responsible to fire promotion pipelines every time the <code>QM1</code> or <code>Sample application</code> is successfully deployed in the respective namespaces.</p> <p>In this topic, we're going to:</p> <ul> <li>Set up post sync triggers.</li> <li>Test the end to end promotion process.</li> </ul> <p>By the end of this topic we'll have a fully automated promotion process set up in place to deploy the latest changes made to QueueManager or Sample application to the cluster across all environments in an automated fashion.</p> <hr> <h2 id=pre-requisites>Pre-requisites<a class=headerlink href=#pre-requisites title="Permanent link">¶</a></h2> <p>Before attempting this topic, you should have successfully completed the <a href=../promoting-environments-stage-prod/ >previous topic</a>.</p> <hr> <h2 id=set-up-the-argocd-post-sync-hook>Set up the ArgoCD Post-sync hook<a class=headerlink href=#set-up-the-argocd-post-sync-hook title="Permanent link">¶</a></h2> <p>An ArgoCD PostSync hook is useful to run certain checks after the deployment. For instance, if we want to validate the health or perform some integration tests, we can use PostSync hook to do these things for us. Basically, this hook executes after all the the Sync hooks of the application are successful and completed.</p> <p>If you want to know more about this, check <a href=https://argo-cd.readthedocs.io/en/stable/user-guide/resource_hooks/ >Resource Hooks</a> out.</p> <p>In this topic section we're going to set up the components we need for our PostSync hook:</p> <p><img alt=mqcicd8 src=../images/mq-cicd8.drawio.png></p> <p>A PostSync hook will be triggered by ArgoCD once the deployment is successful and is sent to an <strong>event listener</strong>. In Kubernetes, this event listener comprises a normal <code>route</code> and <code>service</code> front-ending a Tekton <code>eventlistener</code> custom resource. The event listener is driven by the ArgoCD PostSync hook, and runs the pipeline using a Tekton <strong>trigger</strong>.</p> <h3 id=set-up-trigger-templates>Set up trigger templates<a class=headerlink href=#set-up-trigger-templates title="Permanent link">¶</a></h3> <ol> <li> <p><em>Select the GitOps terminal window</em></p> <p><strong>Return to the terminal window</strong> you're using for the <code>multi-tenancy-gitops-apps</code> GitOps repository.</p> <p>We're going to make use of a script in the sample GitOps apps repository that makes use of the <code>$GIT_ORG</code> and <code>$GIT_BRANCH_QM1</code> environment variables you've seen earlier. Previously we used them in the <code>mq-infra</code> terminal window; now we're going to use this in the <code>multi-tenancy-gitops-apps</code> terminal window.</p> <p>Again, <strong>make sure</strong> in you're in the <code>multi-tenancy-gitops-apps</code> terminal window.</p> <p>Issue the following command to ensure you're in the correct starting folder:</p> <div class=highlight><pre><span></span><code><span class=nb>cd</span><span class=w> </span><span class=nv>$GIT_ROOT</span>/multi-tenancy-gitops-apps
+</code></pre></div> </li> <li> <p><em>Set up the</em> <code>$GIT_ORG</code> and <code>$GIT_BRANCH</code> <em>environment variables</em></p> <p>Let's set up the environment variables.</p> <p>Replace <code>&lt;git-org&gt;</code> in the following command with your GitHub user name:</p> <div class=highlight><pre><span></span><code><span class=nb>export</span><span class=w> </span><span class=nv>GIT_ORG</span><span class=o>=</span>&lt;git-org&gt;
+</code></pre></div> <p>Then create the <code>$GIT_BRANCH</code> environment variable:</p> <div class=highlight><pre><span></span><code><span class=nb>export</span><span class=w> </span><span class=nv>GIT_BRANCH</span><span class=o>=</span>master
+</code></pre></div> <p>Verify that your <code>$GIT_USER</code> and <code>$GIT_BRANCH</code> environment variables are set:</p> <div class=highlight><pre><span></span><code><span class=nb>echo</span><span class=w> </span><span class=nv>$GIT_ORG</span>
+<span class=nb>echo</span><span class=w> </span><span class=nv>$GIT_BRANCH</span>
+</code></pre></div> <p>For example:</p> <div class="no-copy highlight"><pre><span></span><code>(base) user/git/multi-tenancy-gitops echo GIT_ORG
+prod-ref-guide
+(base) user/git/multi-tenancy-gitops echo GIT_BRANCH
+master
+</code></pre></div> </li> </ol> <!-- 3. *The trigger templates for Queuemanager PostSync hook in `dev` environment*
+
+      Issue the following commands to generate a trigger template for Queuemanager PostSync hook in `dev` environment:
+
+      <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>mq/environments/ci/triggertemplates
+./mq-infra-dev-triggertemplate.sh
+<span class="nb">cd</span><span class="w"> </span>../../../../
+</code></pre></div>
+
+      Issue the following command to verify:
+
+      <div class="highlight"><pre><span></span><code>cat<span class="w"> </span>mq/environments/ci/triggertemplates/mq-infra-dev-triggertemplate.yaml
+</code></pre></div>
+
+      to show the trigger template we created earlier:
+
+      <div class="no-copy highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">triggers.tekton.dev/v1alpha1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TriggerTemplate</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mq-infra-post-dev</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mq-infra-post-dev</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">resourcetemplates</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tekton.dev/v1beta1</span>
+<span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PipelineRun</span>
+<span class="w">      </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">argocd.argoproj.io/compare-options</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IgnoreExtraneous</span>
+<span class="w">          </span><span class="nt">argocd.argoproj.io/sync-options</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Prune=false</span>
+<span class="w">        </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">tekton.dev/pipeline</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ibm-mq-promote-dev-stage</span>
+<span class="w">        </span><span class="nt">generateName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ibm-mq-promote-dev-stage-</span>
+<span class="w">      </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">params</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/prod-ref-guide/mq-infra.git</span>
+<span class="w">        </span><span class="nt">pipelineRef</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ibm-mq-promote-dev-stage</span>
+</code></pre></div>
+
+4. *The trigger templates for MQ sample application PostSync hook in `dev` environment*
+
+      Issue the following commands to generate a trigger template for MQ Sample application PostSync hook in `dev` environment:
+
+      <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>mq/environments/ci/triggertemplates
+./mq-spring-app-dev-triggertemplate.sh
+<span class="nb">cd</span><span class="w"> </span>../../../../
+</code></pre></div>
+
+      Issue the following command to verify:
+
+      <div class="highlight"><pre><span></span><code>cat<span class="w"> </span>mq/environments/ci/triggertemplates/mq-spring-app-dev-triggertemplate.yaml
+</code></pre></div>
+
+      to show the trigger template we created earlier:
+
+      ``` { .yaml .no-copy }
+      apiVersion: triggers.tekton.dev/v1alpha1
+      kind: TriggerTemplate
+      metadata:
+        labels:
+          app: mq-spring-app-post-dev
+        name: mq-spring-app-post-dev
+      spec:
+        resourcetemplates:
+          - apiVersion: tekton.dev/v1beta1
+            kind: PipelineRun
+            metadata:
+              annotations:
+                argocd.argoproj.io/compare-options: IgnoreExtraneous
+                argocd.argoproj.io/sync-options: Prune=false
+              labels:
+                tekton.dev/pipeline: ibm-mq-promote-dev-stage
+              generateName: ibm-mq-promote-dev-stage-
+            spec:
+              params:
+              - name: git-url
+                value: https://github.com/prod-ref-guide/mq-spring-app.git
+              pipelineRef:
+                name: ibm-mq-promote-dev-stage
+      ``` --> <ol> <li> <p><em>The trigger templates for Queuemanager PostSync hook in <code>stage</code> environment</em></p> <p>Issue the following commands to generate a trigger template for Queuemanager PostSync hook in <code>stage</code> environment:</p> <div class=highlight><pre><span></span><code><span class=nb>cd</span><span class=w> </span>mq/environments/ci/triggertemplates
+./mq-infra-stage-triggertemplate.sh
+<span class=nb>cd</span><span class=w> </span>../../../../
+</code></pre></div> <p>Issue the following command to verify:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/environments/ci/triggertemplates/mq-infra-stage-triggertemplate.yaml
+</code></pre></div> <p>to show the trigger template we created earlier:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">triggers.tekton.dev/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">TriggerTemplate</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>labels</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>app</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq-infra-post-stage</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq-infra-post-stage</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>resourcetemplates</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tekton.dev/v1beta1</span>
+<span class=w>      </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">PipelineRun</span>
+<span class=w>      </span><span class=nt>metadata</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>          </span><span class=nt>argocd.argoproj.io/compare-options</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">IgnoreExtraneous</span>
+<span class=w>          </span><span class=nt>argocd.argoproj.io/sync-options</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Prune=false</span>
+<span class=w>        </span><span class=nt>labels</span><span class=p>:</span>
+<span class=w>          </span><span class=nt>tekton.dev/pipeline</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-mq-promote-stage-prod</span>
+<span class=w>        </span><span class=nt>generateName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-mq-promote-stage-prod-</span>
+<span class=w>      </span><span class=nt>spec</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>params</span><span class=p>:</span>
+<span class=w>        </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-url</span>
+<span class=w>          </span><span class=nt>value</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/prod-ref-guide/mq-infra.git</span>
+<span class=w>        </span><span class=nt>pipelineRef</span><span class=p>:</span>
+<span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-mq-promote-stage-prod</span>
+</code></pre></div> </li> </ol> <p>&lt;!-- 6. <em>The trigger templates for MQ sample application PostSync hook in <code>stage</code> environment</em></p> <div class=highlight><pre><span></span><code>  Issue the following commands to generate a trigger template for MQ Sample application PostSync hook in `stage` environment:
+
+  ```bash
+  cd mq/environments/ci/triggertemplates
+  ./mq-spring-app-stage-triggertemplate.sh
+  cd ../../../../
+  ```
+
+  Issue the following command to verify:
+
+  ```bash
+  cat mq/environments/ci/triggertemplates/mq-spring-app-stage-triggertemplate.yaml
+  ```
+
+  to show the trigger template we created earlier:
+
+  ``` { .yaml .no-copy }
+  apiVersion: triggers.tekton.dev/v1alpha1
+  kind: TriggerTemplate
+  metadata:
+    labels:
+      app: mq-spring-app-post-stage
+    name: mq-spring-app-post-stage
+  spec:
+    resourcetemplates:
+      - apiVersion: tekton.dev/v1beta1
+        kind: PipelineRun
+        metadata:
+          annotations:
+            argocd.argoproj.io/compare-options: IgnoreExtraneous
+            argocd.argoproj.io/sync-options: Prune=false
+          labels:
+            tekton.dev/pipeline: ibm-mq-promote-stage-prod
+          generateName: ibm-mq-promote-stage-prod-
+        spec:
+          params:
+          - name: git-url
+            value: https://github.com/prod-ref-guide/mq-spring-app.git
+          pipelineRef:
+            name: ibm-mq-promote-stage-prod --&gt;
+  ```
+</code></pre></div> <ol> <li> <p><em>Push GitOps changes to GitHub</em></p> <p>Let’s make these GitOps changes and push them.</p> <p>Add all changes in the current folder to a git index, commit them, and push them to GitHub:</p> <div class=highlight><pre><span></span><code>git<span class=w> </span>add<span class=w> </span>mq/environments/ci/triggertemplates
+git<span class=w> </span>commit<span class=w> </span>-s<span class=w> </span>-m<span class=w> </span><span class=s2>"Defining trigger templates for promotion automation"</span>
+git<span class=w> </span>push<span class=w> </span>origin<span class=w> </span><span class=nv>$GIT_BRANCH</span>
+</code></pre></div> </li> </ol> <h3 id=review-the-eventlisteners>Review the eventlisteners<a class=headerlink href=#review-the-eventlisteners title="Permanent link">¶</a></h3> <ol> <li> <p><em>The eventlistener for QueueManager in <code>dev</code> environment</em></p> <p>Issue the following commands to verify the eventlistener definition in <code>dev</code> environment for the QueueManager:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/environments/ci/eventlisteners/mq-infra-dev-eventlistener.yaml
+</code></pre></div> <p>to show the eventlistener:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">triggers.tekton.dev/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">EventListener</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq-infra-post-dev</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>serviceAccountName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">pipeline</span>
+<span class=w>  </span><span class=nt>triggers</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq-infra-post-dev</span>
+<span class=w>      </span><span class=nt>template</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>ref</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq-infra-post-dev</span>
+</code></pre></div> </li> <li> <p><em>The eventlistener for MQ sample application in <code>dev</code> environment</em></p> <p>Issue the following commands to verify the eventlistener definition in <code>dev</code> environment for the MQ sample application:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/environments/ci/eventlisteners/mq-spring-app-dev-eventlistener.yaml
+</code></pre></div> <p>to show the eventlistener:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">triggers.tekton.dev/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">EventListener</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq-spring-app-post-dev</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>serviceAccountName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">pipeline</span>
+<span class=w>  </span><span class=nt>triggers</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq-spring-app-post-dev</span>
+<span class=w>      </span><span class=nt>template</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>ref</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq-spring-app-post-dev</span>
+</code></pre></div> </li> <li> <p><em>The eventlistener for QueueManager in <code>stage</code> environment</em></p> <p>Issue the following commands to verify the eventlistener definition in <code>stage</code> environment for the QueueManager:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/environments/ci/eventlisteners/mq-infra-stage-eventlistener.yaml
+</code></pre></div> <p>to show the eventlistener:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">triggers.tekton.dev/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">EventListener</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq-infra-post-stage</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>serviceAccountName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">pipeline</span>
+<span class=w>  </span><span class=nt>triggers</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq-infra-post-stage</span>
+<span class=w>      </span><span class=nt>template</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>ref</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq-infra-post-stage</span>
+</code></pre></div> </li> <li> <p><em>The eventlistener for MQ sample application in <code>stage</code> environment</em></p> <p>Issue the following commands to verify the eventlistener definition in <code>stage</code> environment for the MQ sample application:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/environments/ci/eventlisteners/mq-spring-app-stage-eventlistener.yaml
+</code></pre></div> <p>to show the eventlistener:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">triggers.tekton.dev/v1alpha1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">EventListener</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq-spring-app-post-stage</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>serviceAccountName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">pipeline</span>
+<span class=w>  </span><span class=nt>triggers</span><span class=p>:</span>
+<span class=w>    </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq-spring-app-post-stage</span>
+<span class=w>      </span><span class=nt>template</span><span class=p>:</span>
+<span class=w>        </span><span class=nt>ref</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq-spring-app-post-stage</span>
+</code></pre></div> </li> </ol> <h3 id=review-the-routes-for-the-eventlisteners>Review the routes for the eventlisteners<a class=headerlink href=#review-the-routes-for-the-eventlisteners title="Permanent link">¶</a></h3> <ol> <li> <p><em>The route for QueueManager eventlistener in <code>dev</code> environment</em></p> <p>Issue the following commands to verify the eventlistener route definition in <code>dev</code> environment for the QueueManager:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/environments/ci/routes/mq-infra-dev-route.yaml
+</code></pre></div> <p>to show the route we created earlier:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">route.openshift.io/v1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Route</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq-infra-post-dev</span>
+<span class=w>  </span><span class=nt>labels</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>app.kubernetes.io/managed-by</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">EventListener</span>
+<span class=w>    </span><span class=nt>app.kubernetes.io/part-of</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Triggers</span>
+<span class=w>    </span><span class=nt>eventlistener</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq-infra-post-dev</span>
+<span class=w>  </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>openshift.io/host.generated</span><span class=p>:</span><span class=w> </span><span class=s>'true'</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>to</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=s>"Service"</span>
+<span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">el-mq-infra-post-dev</span>
+<span class=w>    </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class=w>  </span><span class=nt>port</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>targetPort</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">http-listener</span>
+<span class=w>  </span><span class=nt>wildcardPolicy</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">None</span>
+</code></pre></div> </li> <li> <p><em>The route for MQ sample application eventlistener in <code>dev</code> environment</em></p> <p>Issue the following commands to verify the eventlistener route definition in <code>dev</code> environment for the MQ sample application:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/environments/ci/routes/mq-spring-app-dev-route.yaml
+</code></pre></div> <p>to show the eventlistener we created earlier:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">route.openshift.io/v1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Route</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq-spring-app-post-dev</span>
+<span class=w>  </span><span class=nt>labels</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>app.kubernetes.io/managed-by</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">EventListener</span>
+<span class=w>    </span><span class=nt>app.kubernetes.io/part-of</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Triggers</span>
+<span class=w>    </span><span class=nt>eventlistener</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq-spring-app-post-dev</span>
+<span class=w>  </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>openshift.io/host.generated</span><span class=p>:</span><span class=w> </span><span class=s>'true'</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>to</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=s>"Service"</span>
+<span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">el-mq-spring-app-post-dev</span>
+<span class=w>    </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class=w>  </span><span class=nt>port</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>targetPort</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">http-listener</span>
+<span class=w>  </span><span class=nt>wildcardPolicy</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">None</span>
+</code></pre></div> </li> <li> <p><em>The route for QueueManager eventlistener in <code>stage</code> environment</em></p> <p>Issue the following commands to verify the eventlistener route definition in <code>stage</code> environment for the QueueManager:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/environments/ci/routes/mq-infra-stage-route.yaml
+</code></pre></div> <p>to show the route we created earlier:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">route.openshift.io/v1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Route</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq-infra-post-stage</span>
+<span class=w>  </span><span class=nt>labels</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>app.kubernetes.io/managed-by</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">EventListener</span>
+<span class=w>    </span><span class=nt>app.kubernetes.io/part-of</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Triggers</span>
+<span class=w>    </span><span class=nt>eventlistener</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq-infra-post-stage</span>
+<span class=w>  </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>openshift.io/host.generated</span><span class=p>:</span><span class=w> </span><span class=s>'true'</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>to</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=s>"Service"</span>
+<span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">el-mq-infra-post-stage</span>
+<span class=w>    </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class=w>  </span><span class=nt>port</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>targetPort</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">http-listener</span>
+<span class=w>  </span><span class=nt>wildcardPolicy</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">None</span>
+</code></pre></div> </li> <li> <p><em>The route for MQ sample application eventlistener in <code>stage</code> environment</em></p> <p>Issue the following commands to verify the eventlistener route definition in <code>stage</code> environment for the MQ sample application:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/environments/ci/routes/mq-spring-app-stage-route.yaml
+</code></pre></div> <p>to show the eventlistener we created earlier:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">route.openshift.io/v1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Route</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq-spring-app-post-stage</span>
+<span class=w>  </span><span class=nt>labels</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>app.kubernetes.io/managed-by</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">EventListener</span>
+<span class=w>    </span><span class=nt>app.kubernetes.io/part-of</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Triggers</span>
+<span class=w>    </span><span class=nt>eventlistener</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">mq-spring-app-post-stage</span>
+<span class=w>  </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>openshift.io/host.generated</span><span class=p>:</span><span class=w> </span><span class=s>'true'</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>to</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=s>"Service"</span>
+<span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">el-mq-spring-app-post-stage</span>
+<span class=w>    </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class=w>  </span><span class=nt>port</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>targetPort</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">http-listener</span>
+<span class=w>  </span><span class=nt>wildcardPolicy</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">None</span>
+</code></pre></div> </li> </ol> <h3 id=activate-the-triggers>Activate the Triggers<a class=headerlink href=#activate-the-triggers title="Permanent link">¶</a></h3> <ol> <li> <p><em>Activate the PostSync hook components</em></p> <p>Now that we've created the event listener and triggers, let's activate all the components necessary to process our PostSync hook: the route, event listener and trigger template.</p> <p>Open the <code>kustomization.yaml</code> that is under <code>mq/environments/ci/</code>. This contains all the resources that belong to the <code>ci</code> namespace.</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/environments/ci/kustomization.yaml
+</code></pre></div> <div class="no-copy highlight"><pre><span></span><code><span class=nt>resources</span><span class=p>:</span>
+<span class=c1>#- certificates/ci-mq-client-certificate.yaml</span>
+<span class=c1>#- certificates/ci-mq-server-certificate.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">configmaps/gitops-repo-configmap.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">eventlisteners/cntk-event-listener.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">triggerbindings/cntk-binding.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">triggertemplates/mq-infra-dev.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">triggertemplates/mq-spring-app-dev.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">pipelines/ibm-test-pipeline-for-dev.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">pipelines/ibm-test-pipeline-for-stage.yaml</span>
+<span class=c1>#- pipelines/java-maven-dev-pipeline.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">pipelines/mq-pipeline-dev.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">pipelines/mq-spring-app-dev-pipeline.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">roles/custom-pipeline-sa-clusterrole.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">roles/custom-pipeline-sa-role.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">roles/custom-ci-pipeline-sa-rolebinding.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">roles/custom-dev-pipeline-sa-rolebinding.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">roles/custom-staging-pipeline-sa-rolebinding.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">roles/custom-prod-pipeline-sa-rolebinding.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">routes/cntk-route.yaml</span>
+<span class=c1># - secrets/artifactory-access-secret.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">secrets/git-credentials-secret.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">secrets/ibm-entitled-registry-credentials-secret.yaml</span>
+<span class=c1>#- secrets/mq-client-jks-password-secret.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/10-gitops.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/10-gitops-for-mq.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/10-gitops-promotion.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/11-app-name.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/12-functional-tests.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/13-jmeter-performance-test.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/13-cphtestp-performance-test.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/4-smoke-tests-mq.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/4-smoke-tests.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/ibm-build-tag-push-v2-6-13.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/ibm-helm-release-v2-6-13.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/ibm-img-release-v2-6-13.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/ibm-img-scan-v2-6-13.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/ibm-java-maven-test-v2-6-13.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/ibm-setup-v2-6-13.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/ibm-tag-release-v2-6-13.yaml</span>
+
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">triggertemplates/mq-infra-dev-triggertemplate.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">eventlisteners/mq-infra-dev-eventlistener.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">routes/mq-infra-dev-route.yaml</span>
+
+<span class=c1># Automated promotion process triggers</span>
+<span class=c1># - triggertemplates/mq-spring-app-dev-triggertemplate.yaml</span>
+<span class=c1># - eventlisteners/mq-spring-app-dev-eventlistener.yaml</span>
+<span class=c1># - routes/mq-spring-app-dev-route.yaml</span>
+<span class=c1>#</span>
+<span class=c1># - triggertemplates/mq-infra-stage-triggertemplate.yaml</span>
+<span class=c1># - eventlisteners/mq-infra-stage-eventlistener.yaml</span>
+<span class=c1># - routes/mq-infra-stage-route.yaml</span>
+<span class=c1>#</span>
+<span class=c1># - triggertemplates/mq-spring-app-stage-triggertemplate.yaml</span>
+<span class=c1># - eventlisteners/mq-spring-app-stage-eventlistener.yaml</span>
+<span class=c1># - routes/mq-spring-app-stage-route.yaml</span>
+</code></pre></div> <p>Open this file in your editor and uncomment the below resources.</p> <div class=highlight><pre><span></span><code>- triggertemplates/mq-infra-dev-triggertemplate.yaml
+- eventlisteners/mq-infra-dev-eventlistener.yaml
+- routes/mq-infra-dev-route.yaml
+
+- triggertemplates/mq-spring-app-dev-triggertemplate.yaml
+- eventlisteners/mq-spring-app-dev-eventlistener.yaml
+- routes/mq-spring-app-dev-route.yaml
+
+- triggertemplates/mq-infra-stage-triggertemplate.yaml
+- eventlisteners/mq-infra-stage-eventlistener.yaml
+- routes/mq-infra-stage-route.yaml
+
+- triggertemplates/mq-spring-app-stage-triggertemplate.yaml
+- eventlisteners/mq-spring-app-stage-eventlistener.yaml
+- routes/mq-spring-app-stage-route.yaml
+</code></pre></div> <p>You will have the following resources now:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>resources</span><span class=p>:</span>
+<span class=c1>#- certificates/ci-mq-client-certificate.yaml</span>
+<span class=c1>#- certificates/ci-mq-server-certificate.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">configmaps/gitops-repo-configmap.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">eventlisteners/cntk-event-listener.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">triggerbindings/cntk-binding.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">triggertemplates/mq-infra-dev.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">triggertemplates/mq-spring-app-dev.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">pipelines/ibm-test-pipeline-for-dev.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">pipelines/ibm-test-pipeline-for-stage.yaml</span>
+<span class=c1>#- pipelines/java-maven-dev-pipeline.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">pipelines/mq-pipeline-dev.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">pipelines/mq-spring-app-dev-pipeline.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">roles/custom-pipeline-sa-clusterrole.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">roles/custom-pipeline-sa-role.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">roles/custom-ci-pipeline-sa-rolebinding.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">roles/custom-dev-pipeline-sa-rolebinding.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">roles/custom-staging-pipeline-sa-rolebinding.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">roles/custom-prod-pipeline-sa-rolebinding.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">routes/cntk-route.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">secrets/artifactory-access-secret.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">secrets/git-credentials-secret.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">secrets/ibm-entitled-registry-credentials-secret.yaml</span>
+<span class=c1>#- secrets/mq-client-jks-password-secret.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/10-gitops.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/12-functional-tests.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/13-jmeter-performance-test.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/4-smoke-tests-mq.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/4-smoke-tests.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/ibm-build-tag-push-v2-6-13.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/ibm-helm-release-v2-6-13.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/ibm-img-release-v2-6-13.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/ibm-img-scan-v2-6-13.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/ibm-java-maven-test-v2-6-13.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/ibm-setup-v2-6-13.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tasks/ibm-tag-release-v2-6-13.yaml</span>
+
+<span class=c1># Automated promotion process triggers</span>
+
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">triggertemplates/mq-infra-dev-triggertemplate.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">eventlisteners/mq-infra-dev-eventlistener.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">routes/mq-infra-dev-route.yaml</span>
+
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">triggertemplates/mq-spring-app-dev-triggertemplate.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">eventlisteners/mq-spring-app-dev-eventlistener.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">routes/mq-spring-app-dev-route.yaml</span>
+
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">triggertemplates/mq-infra-stage-triggertemplate.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">eventlisteners/mq-infra-stage-eventlistener.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">routes/mq-infra-stage-route.yaml</span>
+
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">triggertemplates/mq-spring-app-stage-triggertemplate.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">eventlisteners/mq-spring-app-stage-eventlistener.yaml</span>
+<span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">routes/mq-spring-app-stage-route.yaml</span>
+</code></pre></div> </li> <li> <p><em>Update the GitOps repository</em></p> <p>Let’s commit these changes to make the event listener and trigger resources active in the cluster.</p> <p>Issue the following command:</p> <div class=highlight><pre><span></span><code>git<span class=w> </span>add<span class=w> </span>mq/environments/ci/kustomization.yaml
+git<span class=w> </span>commit<span class=w> </span>-s<span class=w> </span>-m<span class=w> </span><span class=s2>"Add PostSync hook components"</span>
+git<span class=w> </span>push<span class=w> </span>origin<span class=w> </span><span class=nv>$GIT_BRANCH</span>
+</code></pre></div> <p>which shows that the changes are pushed to GitHub:</p> <div class="no-copy highlight"><pre><span></span><code>Enumerating objects: 20, done.
+Counting objects: 100% (18/18), done.
+Delta compression using up to 16 threads
+Compressing objects: 100% (10/10), done.
+Writing objects: 100% (10/10), 928 bytes | 928.00 KiB/s, done.
+Total 10 (delta 8), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (8/8), completed with 5 local objects.
+To https://github.com/prod-ref-guide/multi-tenancy-gitops-apps.git
+  239e49d..3a32a17  master -&gt; master      
+</code></pre></div> <p>This change to the GitOps repository can now be used by ArgoCD.</p> </li> </ol> <h3 id=enable-postsync-hooks-in-dev>Enable PostSync hooks in dev<a class=headerlink href=#enable-postsync-hooks-in-dev title="Permanent link">¶</a></h3> <ol> <li> <p><em>Add PostSync hook to <code>mq-infra</code></em></p> <p>Issue the following commands to enable the postsync hook for <code>mq-infra</code>:</p> <div class=highlight><pre><span></span><code><span class=nb>cd</span><span class=w> </span>mq/environments/mq-infra/overlays/dev/mq-infra/hooks/
+./post-sync-job.sh
+<span class=nb>cd</span><span class=w> </span>../../../../../../../
+</code></pre></div> <p>Issue the following command to verify:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/environments/mq-infra/overlays/dev/mq-infra/hooks/post-sync-job.yaml
+</code></pre></div> <p>to show the <code>post-sync-job.yaml</code> we created earlier:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">batch/v1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Job</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">trigger-dev-stage-promotion-pipeline-for-qmgr</span>
+<span class=w>  </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ci</span>
+<span class=w>  </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>argocd.argoproj.io/hook</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">PostSync</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>template</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>spec</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>serviceAccountName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">pipeline</span>
+<span class=w>      </span><span class=nt>containers</span><span class=p>:</span>
+<span class=w>      </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tests-in-dev-env</span>
+<span class=w>        </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">quay.io/rhcanada/tkn-cli</span>
+<span class=w>        </span><span class=nt>command</span><span class=p>:</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tkn</span>
+<span class=w>        </span><span class=nt>args</span><span class=p>:</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">-n</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ci</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">pipeline</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">start</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-mq-promote-dev-stage</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-url=https://github.com/prod-ref-guide/mq-infra.git</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-revision=master</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">src-environment=dev</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">dest-environment=staging</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">app-path="mq/environments"</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-pr=true</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">test-file="postman/mq-spring-app.postman_collection.json"</span>
+<span class=w>      </span><span class=nt>restartPolicy</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Never</span>
+<span class=w>  </span><span class=nt>backoffLimit</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+</code></pre></div> </li> <li> <p><em>Activate the PostSync hook for <code>mq-infra</code></em></p> <p>Now that we've created the PostSync job, let's activate it.</p> <p>Open the <code>kustomization.yaml</code> that is under <code>mq/environments/mq-infra/overlays/dev/</code>. This contains all the resources that belong to the <code>dev</code> namespace.</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/environments/mq-infra/overlays/dev/kustomization.yaml
+</code></pre></div> <div class="no-copy highlight"><pre><span></span><code>resources:
+ - ../../base
+ - configmap/configmap.yaml
+ # - configmap-security/configmap.yaml
+ # - mq-infra/hooks/post-sync-job.yaml
+ # - certificates/dev-mq-client-certificate.yaml
+ # - certificates/dev-mq-server-certificate.yaml
+ # - secrets/mq-client-jks-password-secret.yaml
+patchesStrategicMerge:
+ - mq-infra/qm-template.yaml
+</code></pre></div> <p>Open this file in your editor and uncomment the below resources.</p> <div class=highlight><pre><span></span><code>- mq-infra/hooks/post-sync-job.yaml
+</code></pre></div> <p>You will have the following resources now:</p> <div class="no-copy highlight"><pre><span></span><code>resources:
+ - ../../base
+ - configmap/configmap.yaml
+ # - configmap-security/configmap.yaml
+ - mq-infra/hooks/post-sync-job.yaml
+ # - certificates/dev-mq-client-certificate.yaml
+ # - certificates/dev-mq-server-certificate.yaml
+ # - secrets/mq-client-jks-password-secret.yaml
+patchesStrategicMerge:
+ - mq-infra/qm-template.yaml
+</code></pre></div> </li> <li> <p><em>Add PostSync hook to <code>mq-spring-app</code></em></p> <p>Issue the following commands to enable the postsync hook for <code>mq-spring-app</code>:</p> <div class=highlight><pre><span></span><code><span class=nb>cd</span><span class=w> </span>mq/environments/mq-spring-app/overlays/dev/mq-spring-app/hooks/
+./post-sync-job.sh
+<span class=nb>cd</span><span class=w> </span>../../../../../../../
+</code></pre></div> <p>Issue the following command to verify:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/environments/mq-spring-app/overlays/dev/mq-spring-app/hooks/post-sync-job.yaml
+</code></pre></div> <p>to show the <code>post-sync-job.yaml</code> we created earlier:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">batch/v1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Job</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">trigger-dev-stage-promotion-pipeline-for-app</span>
+<span class=w>  </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ci</span>
+<span class=w>  </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>argocd.argoproj.io/hook</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">PostSync</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>template</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>spec</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>serviceAccountName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">pipeline</span>
+<span class=w>      </span><span class=nt>containers</span><span class=p>:</span>
+<span class=w>      </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tests-in-dev-env</span>
+<span class=w>        </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">quay.io/rhcanada/tkn-cli</span>
+<span class=w>        </span><span class=nt>command</span><span class=p>:</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tkn</span>
+<span class=w>        </span><span class=nt>args</span><span class=p>:</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">-n</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ci</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">pipeline</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">start</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-mq-promote-dev-stage</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-url=https://github.com/prod-ref-guide/mq-spring-app.git</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-revision=master</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">src-environment=dev</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">dest-environment=staging</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">app-path="mq/environments"</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-pr=true</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">test-file="postman/mq-spring-app.postman_collection.json"</span>
+<span class=w>      </span><span class=nt>restartPolicy</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Never</span>
+<span class=w>  </span><span class=nt>backoffLimit</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+</code></pre></div> </li> <li> <p><em>Activate the PostSync hook for <code>mq-spring-app</code></em></p> <p>Now that we've created the PostSync job, let's activate it.</p> <p>Open the <code>kustomization.yaml</code> that is under <code>mq/environments/mq-spring-app/overlays/dev/</code>. This contains all the resources that belong to the <code>dev</code> namespace.</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/environments/mq-spring-app/overlays/dev/kustomization.yaml
+</code></pre></div> <div class="no-copy highlight"><pre><span></span><code>resources:
+ - ../../base
+ - configmap/configmap.yaml
+ - configmap/configmap-ccdt.yaml
+ # - mq-spring-app/hooks/post-sync-job.yaml
+ # - certificates/dev-mq-client-certificate.yaml
+ # - certificates/dev-mq-server-certificate.yaml
+ # - secrets/mq-client-jks-password-secret.yaml
+patchesStrategicMerge:
+ - mq-spring-app/deployment.yaml
+</code></pre></div> <p>Open this file in your editor and uncomment the below resources.</p> <div class=highlight><pre><span></span><code>- mq-spring-app/hooks/post-sync-job.yaml
+</code></pre></div> <p>You will have the following resources now:</p> <div class="no-copy highlight"><pre><span></span><code>resources:
+ - ../../base
+ - configmap/configmap.yaml
+ - configmap/configmap-ccdt.yaml
+ - mq-spring-app/hooks/post-sync-job.yaml
+ # - certificates/dev-mq-client-certificate.yaml
+ # - certificates/dev-mq-server-certificate.yaml
+ # - secrets/mq-client-jks-password-secret.yaml
+patchesStrategicMerge:
+ - mq-spring-app/deployment.yaml
+</code></pre></div> </li> <li> <p><em>Push GitOps changes to GitHub</em></p> <p>Add all changes in the current folder to a git index, commit them, and push them to GitHub:</p> <div class=highlight><pre><span></span><code>git<span class=w> </span>add<span class=w> </span>.
+git<span class=w> </span>commit<span class=w> </span>-s<span class=w> </span>-m<span class=w> </span><span class=s2>"Defining PostSync hooks to mq-infra and mq-spring-app for promotion automation from dev to stage"</span>
+git<span class=w> </span>push<span class=w> </span>origin<span class=w> </span><span class=nv>$GIT_BRANCH</span>
+</code></pre></div> </li> </ol> <h3 id=enable-postsync-hooks-in-stage>Enable PostSync hooks in stage<a class=headerlink href=#enable-postsync-hooks-in-stage title="Permanent link">¶</a></h3> <ol> <li> <p><em>Add PostSync hook to <code>mq-infra</code></em></p> <p>Issue the following commands to enable the postsync hook for <code>mq-infra</code>:</p> <div class=highlight><pre><span></span><code><span class=nb>cd</span><span class=w> </span>mq/environments/mq-infra/overlays/staging/mq-infra/hooks/
+./post-sync-job.sh
+<span class=nb>cd</span><span class=w> </span>../../../../../../../
+</code></pre></div> <p>Issue the following command to verify:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/environments/mq-infra/overlays/staging/mq-infra/hooks/post-sync-job.yaml
+</code></pre></div> <p>to show the <code>post-sync-job.yaml</code> we created earlier:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">batch/v1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Job</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">trigger-dev-stage-promotion-pipeline-for-qmgr</span>
+<span class=w>  </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ci</span>
+<span class=w>  </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>argocd.argoproj.io/hook</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">PostSync</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>template</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>spec</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>serviceAccountName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">pipeline</span>
+<span class=w>      </span><span class=nt>containers</span><span class=p>:</span>
+<span class=w>      </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tests-in-dev-env</span>
+<span class=w>        </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">quay.io/rhcanada/tkn-cli</span>
+<span class=w>        </span><span class=nt>command</span><span class=p>:</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tkn</span>
+<span class=w>        </span><span class=nt>args</span><span class=p>:</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">-n</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ci</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">pipeline</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">start</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-mq-promote-stage-prod</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-url=https://github.com/prod-ref-guide/mq-infra.git</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-revision=master</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">src-environment=staging</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">dest-environment=prod</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">app-path="mq/environments"</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">qm-security=false</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-pr=true</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">test-plan="jmeter/mq-spring-app.jmx"</span>
+<span class=w>      </span><span class=nt>restartPolicy</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Never</span>
+<span class=w>  </span><span class=nt>backoffLimit</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+</code></pre></div> </li> <li> <p><em>Activate the PostSync hook for <code>mq-infra</code></em></p> <p>Now that we've created the PostSync job, let's activate it.</p> <p>Open the <code>kustomization.yaml</code> that is under <code>mq/environments/mq-infra/overlays/staging/</code>. This contains all the resources that belong to the <code>stage</code> namespace.</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/environments/mq-infra/overlays/staging/kustomization.yaml
+</code></pre></div> <div class="no-copy highlight"><pre><span></span><code>resources:
+ - ../../base
+ - configmap/configmap.yaml
+ # - configmap-security/configmap.yaml
+ # - mq-infra/hooks/post-sync-job.yaml
+ #- certificates/staging-mq-client-certificate.yaml
+ #- certificates/staging-mq-server-certificate.yaml
+ #- secrets/mq-client-jks-password-secret.yaml
+patchesStrategicMerge:
+ - mq-infra/qm-template.yaml
+</code></pre></div> <p>Open this file in your editor and uncomment the below resources.</p> <div class=highlight><pre><span></span><code>- mq-infra/hooks/post-sync-job.yaml
+</code></pre></div> <p>You will have the following resources now:</p> <div class="no-copy highlight"><pre><span></span><code>resources:
+ - ../../base
+ - configmap/configmap.yaml
+ # - configmap-security/configmap.yaml
+ - mq-infra/hooks/post-sync-job.yaml
+ #- certificates/staging-mq-client-certificate.yaml
+ #- certificates/staging-mq-server-certificate.yaml
+ #- secrets/mq-client-jks-password-secret.yaml
+patchesStrategicMerge:
+ - mq-infra/qm-template.yaml
+</code></pre></div> </li> <li> <p><em>Add PostSync hook to <code>mq-spring-app</code></em></p> <p>Issue the following commands to enable the postsync hook for <code>mq-spring-app</code>:</p> <div class=highlight><pre><span></span><code><span class=nb>cd</span><span class=w> </span>mq/environments/mq-spring-app/overlays/staging/mq-spring-app/hooks/
+./post-sync-job.sh
+<span class=nb>cd</span><span class=w> </span>../../../../../../../
+</code></pre></div> <p>Issue the following command to verify:</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/environments/mq-spring-app/overlays/staging/mq-spring-app/hooks/post-sync-job.yaml
+</code></pre></div> <p>to show the <code>post-sync-job.yaml</code> we created earlier:</p> <div class="no-copy highlight"><pre><span></span><code><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">batch/v1</span>
+<span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Job</span>
+<span class=nt>metadata</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">trigger-dev-stage-promotion-pipeline-for-app</span>
+<span class=w>  </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ci</span>
+<span class=w>  </span><span class=nt>annotations</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>argocd.argoproj.io/hook</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">PostSync</span>
+<span class=nt>spec</span><span class=p>:</span>
+<span class=w>  </span><span class=nt>template</span><span class=p>:</span>
+<span class=w>    </span><span class=nt>spec</span><span class=p>:</span>
+<span class=w>      </span><span class=nt>serviceAccountName</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">pipeline</span>
+<span class=w>      </span><span class=nt>containers</span><span class=p>:</span>
+<span class=w>      </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tests-in-dev-env</span>
+<span class=w>        </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">quay.io/rhcanada/tkn-cli</span>
+<span class=w>        </span><span class=nt>command</span><span class=p>:</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">tkn</span>
+<span class=w>        </span><span class=nt>args</span><span class=p>:</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">-n</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ci</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">pipeline</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">start</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ibm-mq-promote-stage-prod</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-url=https://github.com/mq-in-depth-kustomize/mq-spring-app.git</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-revision=master</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">src-environment=staging</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">dest-environment=prod</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">app-path="mq/environments"</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">qm-security=false</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">git-pr=true</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">--param</span>
+<span class=w>          </span><span class="p p-Indicator">-</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">test-plan="jmeter/mq-spring-app.jmx"</span>
+<span class=w>      </span><span class=nt>restartPolicy</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">Never</span>
+<span class=w>  </span><span class=nt>backoffLimit</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+</code></pre></div> </li> <li> <p><em>Activate the PostSync hook for <code>mq-spring-app</code></em></p> <p>Now that we've created the PostSync job, let's activate it.</p> <p>Open the <code>kustomization.yaml</code> that is under <code>mq/environments/mq-spring-app/overlays/staging/</code>. This contains all the resources that belong to the <code>stage</code> namespace.</p> <div class=highlight><pre><span></span><code>cat<span class=w> </span>mq/environments/mq-spring-app/overlays/staging/kustomization.yaml
+</code></pre></div> <div class="no-copy highlight"><pre><span></span><code>resources:
+ - ../../base
+ - configmap/configmap.yaml
+ - configmap/configmap-ccdt.yaml
+ # - mq-spring-app/hooks/post-sync-job.yaml
+ #- certificates/staging-mq-client-certificate.yaml
+ #- certificates/staging-mq-server-certificate.yaml
+ #- secrets/mq-client-jks-password-secret.yaml
+patchesStrategicMerge:
+ - mq-spring-app/deployment.yaml
+</code></pre></div> <p>Open this file in your editor and uncomment the below resources.</p> <div class=highlight><pre><span></span><code>- mq-spring-app/hooks/post-sync-job.yaml
+</code></pre></div> <p>You will have the following resources now:</p> <div class="no-copy highlight"><pre><span></span><code>resources:
+ - ../../base
+ - configmap/configmap.yaml
+ - configmap/configmap-ccdt.yaml
+ - mq-spring-app/hooks/post-sync-job.yaml
+ #- certificates/staging-mq-client-certificate.yaml
+ #- certificates/staging-mq-server-certificate.yaml
+ #- secrets/mq-client-jks-password-secret.yaml
+patchesStrategicMerge:
+ - mq-spring-app/deployment.yaml
+</code></pre></div> </li> <li> <p><em>Push GitOps changes to GitHub</em></p> <p>Add all changes in the current folder to a git index, commit them, and push them to GitHub:</p> <div class=highlight><pre><span></span><code>git<span class=w> </span>add<span class=w> </span>.
+git<span class=w> </span>commit<span class=w> </span>-s<span class=w> </span>-m<span class=w> </span><span class=s2>"Defining PostSync hooks to mq-infra and mq-spring-app for promotion automation from stage to prod"</span>
+git<span class=w> </span>push<span class=w> </span>origin<span class=w> </span><span class=nv>$GIT_BRANCH</span>
+</code></pre></div> </li> </ol> <hr> <div class="admonition success"> <p class=admonition-title>Congratulations!</p> <p>You've now got a fully automated promotion process for your queue manager and MQ sample application.</p> <p>You started the chapter by configuring all the necessary components for a ArgoCD PostSync resource hook. As part of it, you created event listeners and triggers in your cluster to process these events and start the promotion pipeline run using the data in the event. After updating the <code>QM1</code> source repository or MQ Sample Application source repository, respective pipeline runs was triggered automatically.</p> <p>Initially when the changes are made, <code>mq-infra-dev</code> or <code>mq-spring-app-dev</code> pipeline will run. Once those are deployed in the <code>dev</code> namespace, ArgoCD PostSync hook in <code>dev</code> will trigger the <code>ibm-mq-promote-dev-stage</code> pipeline automatically which leaves a PR in the GitOps apps repository for <code>stage</code> resources. Once this PR is merged and the deployments are done in <code>stage</code> namespace, ArgoCD PostSync hook in <code>stage</code> will trigger the <code>ibm-mq-promote-stage-prod</code> pipeline automatically which leaves a PR in the GitOps apps repository for <code>prod</code> resources. Once this PR is merged, deployments will be done in <code>prod</code> namespace.</p> </div></div> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> Back to top </button> </main> <!-- Footer --> <footer class=md-footer> <!-- Link to previous and/or next page --> <!-- Further information --> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-footer-column> <div class=md-footer-text>Site licensed under <a href=https://creativecommons.org/licenses/by-nc-sa/4.0/ >CC BY-NC-SA 4.0</a></div> </div> <div class=md-footer-column> <!-- Copyright and theme information --> <div class=md-footer-text> Copyright © 2021 Cloud Pak Production Deployment Guides </div> </div> <div class=md-footer-social> <a href=https://github.com/ncolon/deployment-guides target=_blank rel=noopener title="Production Deployment Guides on Github Enterprise" class=md-footer-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 496 512"> <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"> </path> </svg> </a> <a href=https://ibm-cloud.slack.com/archives/C02CQ6M2D2R target=_blank rel=noopener title=Slack class=md-footer-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"> <path d="M94.12 315.1c0 25.9-21.16 47.06-47.06 47.06S0 341 0 315.1c0-25.9 21.16-47.06 47.06-47.06h47.06v47.06zm23.72 0c0-25.9 21.16-47.06 47.06-47.06s47.06 21.16 47.06 47.06v117.84c0 25.9-21.16 47.06-47.06 47.06s-47.06-21.16-47.06-47.06V315.1zm47.06-188.98c-25.9 0-47.06-21.16-47.06-47.06S139 32 164.9 32s47.06 21.16 47.06 47.06v47.06H164.9zm0 23.72c25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06H47.06C21.16 243.96 0 222.8 0 196.9s21.16-47.06 47.06-47.06H164.9zm188.98 47.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06h-47.06V196.9zm-23.72 0c0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06V79.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06V196.9zM283.1 385.88c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06v-47.06h47.06zm0-23.72c-25.9 0-47.06-21.16-47.06-47.06 0-25.9 21.16-47.06 47.06-47.06h117.84c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06H283.1z"> </path> </svg> </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.instant", "navigation.tracking", "navigation.tabs.sticky", "navigation.top", "navigation.sections"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script> <script src=../../../../../assets/javascripts/bundle.d7400e89.min.js></script> </body> </html>
