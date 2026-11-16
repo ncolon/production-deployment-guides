@@ -1,0 +1,120 @@
+site_name: Cloud Pak Production Deployment Guides
+site_description: >-
+  The Cloud Pak Production Deployment Guides document and demonstrate how to run cloud-native solutions leveraging IBM Cloud Pak capabilities in a Red Hat OpenShift environment
+#site_url: https://pages.github.ibm.com/cloudpakbringup/production-deployment-guides/
+#site_url: https://pages.github.ibm.com/
+site_url: ""
+site_author: Cloud Pak Production Deployment Guides development team
+repo_name: ""
+repo_url: https://github.com/ncolon/production-deployment-guides
+docs_dir: docs
+site_dir: public
+edit_uri: edit/master/docs
+theme:
+    name: material
+    logo: images/cloudnativetoolkit.png
+    favicon: images/cloudnativetoolkit.png
+    palette:
+      scheme: default
+      primary: black
+    font:
+      text: IBM Plex Sans
+      code: IBM Plex Mono
+    language: en
+    custom_dir: overrides
+    features:
+      - navigation.tabs
+      - navigation.instant
+      - navigation.tracking
+      - navigation.tabs.sticky
+      - navigation.top
+      #- navigation.indexes
+      - navigation.sections
+use_directory_urls: true
+plugins:
+  - mkdocs-video
+  - search:
+      lang: en
+  - minify:
+      minify_html: true
+  - exclude:
+      glob:
+        - snippets/*
+        - automation/*
+        - contribute/*
+        - infrastructure/*
+        - playbacks/*
+        - quickstart/*
+        - references/*
+        - overview/*
+        - resources/*
+        - guides/cp4ba/*
+        - guides/cp4d/*
+        - guides/cp4d-hadr/*
+        - guides/cp4s/*
+        - guides/cp4s-overview.md
+        - guides/cp4d-overview.md
+        - guides/cp4i/mq/*
+        - guides/cp4i/apic/*
+        - guides/process-mining-overview.md
+        - guides/mq-overview.md
+        - guides/apic-overview.md
+        - guides/cp4i/ace/build-backend-service/*
+        - guides/cp4i/ace/cloud-native-example/*
+        - guides/cp4i/ace/cluster-config/*
+        - guides/cp4i/ace/cluster-create/*
+        - guides/cp4i/ace/deploy-backend-service/*
+        - guides/cp4i/ace/monitoring/*
+        - guides/cp4i/ace/performance/*
+        - guides/cp4i/ace/overview/*
+        - gitops/personas.md
+        - gitops/structure.md
+        - guides/ace-overview.md
+        - guides/guides-overview.md
+        - guides/why-automate.md
+        - guides/cp4i/ace/disaster-recovery/overview.md
+        - guides/cp4i/ace/environment-promotion/promoting-environments.md
+        - guides/cp4i/ace/gitops/overview.md
+        - guides/cp4i/ace/high-availability/overview.md
+        - guides/cp4i/ace/scalability/overview.md
+        - guides/cp4i/ace/security/overview.md
+        - guides/cp4i/eda/link.md
+
+markdown_extensions:
+  - def_list
+  - attr_list
+  - md_in_html
+  - admonition
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.details
+  - pymdownx.keys
+  - pymdownx.magiclink
+  - pymdownx.snippets:
+      base_path: docs/snippets
+extra_css:
+    - css/extra.css
+    - css/toolkit-code.css
+extra:
+  generator: false
+  analytics:
+    provider: google
+    property: G-Q0FLL49YN3
+
+copyright: Copyright © 2021 Cloud Pak Production Deployment Guides
+nav:
+  - Home: index.md
+  
+  - Tutorials:
+    - Cloud Pak for Integration:
+      - IBM App Connect Enterprise:
+        - Build Integration Server:
+          - Overview: guides/cp4i/ace/build-integration-server/overview.md
+          - Build Configuration: guides/cp4i/ace/build-integration-server/build-configurations.md
+          - Build Integration Server: guides/cp4i/ace/build-integration-server/build-integration-server.md
+          - Continuous Update: guides/cp4i/ace/build-integration-server/continuous-update.md

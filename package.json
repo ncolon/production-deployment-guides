@@ -1,0 +1,36 @@
+{
+  "name": "developer-guide",
+  "version": "1.0.0",
+  "description": "[![Publish](https://github.com/cloud-native-toolkit/developer-guide/actions/workflows/publish.yaml/badge.svg)](https://github.com/cloud-native-toolkit/developer-guide/actions/workflows/publish.yaml)",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev:build": "./dev/build.sh prodguide-dev",
+    "predev": "./dev/clean.sh prodguide-dev",
+    "dev": "./dev/run.sh prodguide-dev 8000",
+    "postdev": "./dev/logs.sh prodguide-dev",
+    "dev:stop": "./dev/clean.sh prodguide-dev",
+    "test": "./dev/test.sh prodguide-dev && exit 1",
+    "build": "./build.sh",
+    "dev:spell": "cspell docs/**/*.md",
+    "dev:links": "linkchecker -f linkcheckerrc --check-extern public",
+    "serve": "./dev/mkdocs.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ncolon/production-deployment-guides.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ncolon/production-deployment-guides/issues"
+  },
+  "homepage": "https://github.com/ncolon/production-deployment-guides#readme",
+  "dependencies": {
+    "cspell": "^5.21.0",
+    "linkchecker": "^1.1.0"
+  }
+}

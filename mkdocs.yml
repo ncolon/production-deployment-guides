@@ -1,0 +1,389 @@
+site_name: Cloud Pak Production Deployment Guides
+site_description: >-
+  The Cloud Pak Production Deployment Guides document and demonstrate how to run cloud-native solutions leveraging IBM Cloud Pak capabilities in a Red Hat OpenShift environment
+#site_url: https://pages.github.ibm.com/cloudpakbringup/production-deployment-guides/
+#site_url: https://pages.github.ibm.com/
+site_url: ""
+site_author: Cloud Pak Production Deployment Guides development team
+repo_name: ""
+repo_url: https://github.com/ncolon/production-deployment-guides
+docs_dir: docs
+site_dir: public
+edit_uri: edit/master/docs
+theme:
+    name: material
+    logo: images/cloudnativetoolkit.png
+    favicon: images/cloudnativetoolkit.png
+    palette:
+      scheme: default
+      primary: black
+    font:
+      text: IBM Plex Sans
+      code: IBM Plex Mono
+    language: en
+    custom_dir: overrides
+    features:
+      - navigation.tabs
+      - navigation.instant
+      - navigation.tracking
+      - navigation.tabs.sticky
+      - navigation.top
+      #- navigation.indexes
+      - navigation.sections
+use_directory_urls: true
+plugins:
+  - mkdocs-video
+  - search:
+      lang: en
+  - minify:
+      minify_html: true
+
+markdown_extensions:
+  - def_list
+  - attr_list
+  - md_in_html
+  - admonition
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.details
+  - pymdownx.keys
+  - pymdownx.magiclink
+  - pymdownx.snippets:
+      base_path: docs/snippets
+extra_css:
+    - css/extra.css
+    - css/toolkit-code.css
+extra:
+  generator: false
+  analytics:
+    provider: google
+    property: G-Q0FLL49YN3
+
+copyright: Copyright © 2021 Cloud Pak Production Deployment Guides
+nav:
+  - Home: index.md
+  - Production Considerations:
+    - Objective: overview/overview.md
+    - Personas: gitops/personas.md
+    - DevOps Automation:
+      - Why Automate?: automation/why-automate.md
+      - GitOps Structure: gitops/structure.md
+    - Golden Topologies:
+      - Overview: infrastructure/golden-topology.md
+      - Azure Unmanaged: infrastructure/golden-topology-azure.md
+      - Azure Managed (ARO): infrastructure/golden-topology-aro.md
+      - AWS Unmanaged: infrastructure/golden-topology-aws.md
+      - AWS Managed (ROSA): infrastructure/golden-topology-rosa.md
+      - IBM Cloud Managed (ROKS): infrastructure/golden-topology-roks.md
+    - Cloud Pak for Integration:
+      - IBM App Connect Enterprise:
+        - Architecture: guides/cp4i/ace/overview/architecture.md
+        # - Cloud Native: guides/cp4i/ace/cloud-native.md
+        # - Security: guides/cp4i/ace/security.md
+        # - Performance: guides/cp4i/ace/performance.md
+        # - Monitoring: guides/cp4i/ace/monitoring.md
+        # - High Availability: guides/cp4i/ace/high-availability.md
+        # - Disaster Recovery: guides/cp4i/ace/disaster-recovery.md
+        # - Sizing: guides/cp4i/ace/sizing.md
+      - IBM Message Queue:
+        - Architecture: guides/cp4i/mq/overview/architecture.md
+        - Security: guides/cp4i/mq/security/information/overview.md
+        - Promoting across environments: guides/cp4i/mq/cloud-native/promote-environments.md
+        - Performance: guides/cp4i/mq/performance/performance.md
+        # - Monitoring: guides/cp4i/mq/monitoring.md
+        - High Availability: guides/cp4i/mq/high-availability/overview.md
+        # - Disaster Recovery: guides/cp4i/mq/disaster-recovery.md
+        # - Sizing: guides/cp4i/mq/sizing.md
+      - IBM API Connect:
+        - Architecture:
+          - IBM Cloud: guides/cp4i/apic/architecture/ibm-cloud.md
+          - Multi-cloud: guides/cp4i/apic/architecture/multi-cloud.md
+        # - Cloud Native: guides/cp4i/apic/cloud-native.md
+        - Security: guides/cp4i/apic/security/overview.md
+        # - Performance: guides/cp4i/apic/performance.md
+        # - Monitoring: guides/cp4i/apic/monitoring.md
+        - High Availability: guides/cp4i/apic/high-availability/overview.md
+        - Disaster Recovery: guides/cp4i/apic/disaster-recovery/overview.md
+        # - Sizing: guides/cp4i/apic/apic/sizing.md
+      #- IBM Sterling File Gateway:
+      #  - Architecture: guides/cp4i/sterling/overview/architecture.md
+        #- Security: guides/cp4i/sterling/security/information/overview.md
+        #- Promoting across environments: guides/cp4i/sterling/cloud-native/promote-environments.md
+        #- Performance: guides/cp4i/sterling/performance/performance.md
+      #  - Monitoring: guides/cp4i/sterling/monitoring.md
+      #  - High Availability: guides/cp4i/sterling/high-availability/overview.md
+        # - Disaster Recovery: guides/cp4i/sterling/disaster-recovery.md
+        # - Sizing: guides/cp4i/sterling/sizing.md
+    - Cloud Pak for Business Automation:
+      - IBM Automation Decision Services:
+        - Architecture: guides/cp4ba/ads/architecture/ads.md
+        # - Cloud Native: guides/cp4ba/ads/cloud-native.md
+        # - Security: guides/cp4ba/ads/security.md
+        # - Performance: guides/cp4ba/ads/performance.md
+        # - Monitoring: guides/cp4ba/ads/monitoring.md
+        # - High Availability: guides/cp4ba/ads/high-availability.md
+        # - Disaster Recovery: guides/cp4ba/ads/disaster-recovery.md
+        # - Sizing: guides/cp4ba/ads/sizing.md
+      - IBM Process Mining:
+        - Architecture: guides/cp4ba/process-mining/architecture/ibm-cloud.md
+        # - Cloud Native: guides/cp4ba/process-mining/cloud-native.md
+        # - Security: guides/cp4ba/process-mining/security.md
+        # - Performance: guides/cp4ba/process-mining/performance.md
+        # - Monitoring: guides/cp4ba/process-mining/monitoring.md
+        # - High Availability: guides/cp4ba/process-mining/high-availability.md
+        # - Disaster Recovery: guides/cp4ba/process-mining/disaster-recovery.md
+        # - Sizing: guides/cp4ba/process-mining/sizing.md
+    - Cloud Pak for Data:
+        - Architecture: guides/cp4d-hadr/cpdbase/overview/architecture.md
+        - Overview: guides/cp4d-hadr/cpdbase/overview/cpd-overview.md
+      # - Cloud Pak for Data (HADR):
+      #   - Architecture: guides/cp4d-hadr/cpdbase/overview/architecture.md
+      #   - Base CP:
+      #     - Overview: guides/cp4d-hadr/cpdbase/overview/cpd-overview.md
+      #   - Watson Studio:
+      #     - Overview: guides/cp4d-hadr/watsonstudio/overview/cpd-ws-overview.md
+      #   - Watson Knowledge Catalog:
+      #     - Overview: guides/cp4d-hadr/watsonkc/overview/cpd-wkc-overview.md
+      #   - Data Virtualization:
+      #     - Overview: guides/cp4d-hadr/datavirt/overview/cpd-dv-overview.md
+      #   - Spectrum Protect Plus:
+      #     - Overview: guides/cp4d-hadr/spplus/overview/spp-overview.md
+        # - Cloud Native: guides/cp4d-hadr/cpdbase/cloud-native.md
+        # - Security: guides/cp4d-hadr/cpdbase/security.md
+        # - Performance: guides/cp4d-hadr/cpdbase/performance.md
+        # - Monitoring: guides/cp4d-hadr/cpdbase/monitoring.md
+        # - High Availability: guides/cp4d-hadr/cpdbase/high-availability.md
+        # - Disaster Recovery: guides/cp4d-hadr/cpdbase/disaster-recovery.md
+        # - Sizing: guides/cp4d-hadr/cpdbase/sizing.md
+  - Quick Start Demos:
+    - Overview: quickstart/overview.md
+    - Cloud Native Toolkit: quickstart/quickstart-cntk.md
+    - Cloud Pak for Integration:
+      - IBM App Connect Enterprise: quickstart/quickstart-ace.md
+      - IBM Message Queue: quickstart/quickstart-mq.md
+      - IBM API Connect: quickstart/quickstart-apic.md
+      - IBM Event Streams: quickstart/quickstart-es.md
+    - Cloud Pak for Security:
+      - Cloud Pak for Security: quickstart/quickstart-cp4s.md
+    - Cloud Pak for Business Automation:
+      - IBM Process Mining: quickstart/quickstart-process-mining.md
+    - Cloud Pak for Data:
+      - Cloud Pak for Data: quickstart/quickstart-cp4d.md
+      - IBM Watson Studio: quickstart/quickstart-cp4d-ws.md
+      - IBM Watson Knowledge Catalog: quickstart/quickstart-cp4d-wkc.md
+      - IBM DataStage: quickstart/quickstart-cp4d-ds.md
+      - IBM Analytics Engine Powered by Apache Spark: quickstart/quickstart-cp4d-aespark.md
+      - IBM Watson OpenScale: quickstart/quickstart-cp4d-wos.md
+    - Observability:
+      - Instana Agent: quickstart/quickstart-instana-agent.md
+      - Instana & Grafana: quickstart/quickstart-instana-grafana.md
+      - Instana Server: quickstart/quickstart-instana-server.md
+      - Instana & MQ: quickstart/quickstart-instana-mq.md
+    - Sterling B2Bi:
+      - Sterling File Gateway: quickstart/quickstart-sterling-b2bi.md
+    #- Instana Grafana:
+    #  - Prerequisites:
+    #    - quickstart/prereqs.md
+    #  - Lab Instructions:
+    #    - quickstart/lab1.md
+
+  - Tutorials:
+    - Overview: guides/guides-overview.md
+    - Infrastructure:
+      - Overview: infrastructure/infra-overview.md
+      - Managed Clusters:
+        - IBM ROKS: infrastructure/roks.md
+        - Amazon ROSA: infrastructure/rosa.md
+        - Microsoft ARO: infrastructure/aro.md
+      - Unmanaged Clusters:
+        # - IBM Cloud: infrastructure/ibm-cloud.md
+        - Amazon AWS: infrastructure/aws.md
+        - Microsoft Azure: infrastructure/azure.md
+        # - VMWare: infrastructure/vmware.md
+      - Restricted Networks: infrastructure/restricted-networks.md
+    #- IBM Sterling File Gatway:
+    #    - The Sterling tutorial: guides/cp4i/sterling/using/this-guide.md
+    #    - Target architecture: guides/cp4i/sterling/overview/architecture.md
+    #    - Create the cluster: guides/cp4i/sterling/cluster-create/ibm-setup.md
+        #  # - AWS: guides/cp4i/mq/cluster-create/aws-setup.md
+        #   # - Azure: guides/cp4i/mq/cluster-create/azure-setup.md
+        #   # - VMWare: guides/cp4i/mq/cluster-create/vmware-setup.md
+    #    - Configure the cluster:
+    #      - Set up GitOps: guides/cp4i/sterling/cluster-config/gitops-tekton-argocd.md
+    #      - Add infrastructure: guides/cp4i/sterling/cluster-config/gitops-config.md
+    #      - Add services: guides/cp4i/sterling/cluster-config/services.md
+    - Cloud Pak for Integration:
+      - IBM App Connect Enterprise:
+        - Overview: guides/cp4i/ace/overview/overview.md
+        - Architecture: guides/cp4i/ace/overview/architecture.md
+        - Create the cluster:
+          - IBM Cloud: guides/cp4i/ace/cluster-create/ibm-setup.md
+        - Configure the Cluster:
+          - GitOps, Tekton & ArgoCD: guides/cp4i/ace/cluster-config/gitops-tekton-argocd.md
+          - Getting started with GitOps: guides/cp4i/ace/cluster-config/gitops-config.md
+          - Deploying Services: guides/cp4i/ace/cluster-config/services.md
+          - Application components: guides/cp4i/ace/cluster-config/applications.md
+        - Cloud Native Example: guides/cp4i/ace/cloud-native-example/example.md
+        - Deploy Backend Service: guides/cp4i/ace/deploy-backend-service/deploy-backend-service.md
+        - Build Integration Server:
+          - Overview: guides/cp4i/ace/build-integration-server/overview.md
+          - Build Configuration: guides/cp4i/ace/build-integration-server/build-configurations.md
+          - Build Integration Server: guides/cp4i/ace/build-integration-server/build-integration-server.md
+          - Continuous Update: guides/cp4i/ace/build-integration-server/continuous-update.md
+        - Environment Promotion: guides/cp4i/ace/environment-promotion/promoting-environments.md
+        #- Security
+        #  - Secure Daya in Motion
+        #  - Secure Integration Server
+      - IBM MQ:
+        - The MQ tutorial: guides/cp4i/mq/using/this-guide.md
+        - Target architecture: guides/cp4i/mq/overview/architecture.md
+        - Create the cluster: guides/cp4i/mq/cluster-create/ibm-setup.md
+          # - AWS: guides/cp4i/mq/cluster-create/aws-setup.md
+          # - Azure: guides/cp4i/mq/cluster-create/azure-setup.md
+          # - VMWare: guides/cp4i/mq/cluster-create/vmware-setup.md
+        - Configure the cluster:
+          - Set up GitOps: guides/cp4i/mq/cluster-config/gitops-tekton-argocd.md
+          - Add infrastructure: guides/cp4i/mq/cluster-config/gitops-config.md
+          - Add services: guides/cp4i/mq/cluster-config/services.md
+          - Application components: guides/cp4i/mq/cluster-config/applications.md
+        - Build Queue Manager:
+          - Configuring the pipeline: guides/cp4i/mq/qmgr-pipeline/topic1.md
+          - (Optional) Enabling dynamic configurations: guides/cp4i/mq/qmgr-pipeline/topic5.md
+          - Running the pipeline: guides/cp4i/mq/qmgr-pipeline/topic2.md
+          - Deploying and using: guides/cp4i/mq/qmgr-pipeline/topic3.md
+          - Continuous updates: guides/cp4i/mq/qmgr-pipeline/topic4.md
+        - Build MQ application:
+          - Sample application: guides/cp4i/mq/app-pipeline/topic1.md
+          - Configuring the pipeline: guides/cp4i/mq/app-pipeline/topic2.md
+          - Managing an application change: guides/cp4i/mq/app-pipeline/topic3.md
+          # - Managing an application change: guides/cp4i/mq/app-pipeline/topic4.md
+          # - Configuration Management: guides/cp4i/mq/cloud-native/configuration-management.md
+        - Environment Promotion:
+          - Promote from dev to staging: guides/cp4i/mq/cloud-native/promoting-environments-dev-stage.md
+          - Promote from staging to prod: guides/cp4i/mq/cloud-native/promoting-environments-stage-prod.md
+          - Automate promotion: guides/cp4i/mq/cloud-native/automate-promotion.md
+        - Monitor Queue Manager:
+          - Technology stack: guides/cp4i/mq/monitoring/topic1.md
+          - MQ scenario: guides/cp4i/mq/monitoring/topic2.md
+          - Metrics application: guides/cp4i/mq/monitoring/topic3.md
+          - Customising dashboard: guides/cp4i/mq/monitoring/topic4.md
+        # - Security:
+          # - Secure data in motion: guides/cp4i/mq/security/handson/mtls.md
+          # - Continuos Promotion: guides/cp4i/mq/cloud-native/continuous-promotion.md
+          # - Monitoring: guides/cp4i/mq/monitoring/overview.md
+          # - Scalability: guides/cp4i/mq/scalability/overview.md
+          # - Performance: guides/cp4i/mq/performance/overview.md
+        # - High Availability:
+          #   - Overview: guides/cp4i/mq/high-availability/overview.md
+          #   - In-Region Active-Passive: guides/cp4i/mq/high-availability/ha1-ir-ap.md
+          #   - Cross-Region Active-Passive: guides/cp4i/mq/high-availability/ha2-cr-ap.md
+          #   - In-Region Active-Active: guides/cp4i/mq/high-availability/ha3-ir-aa.md
+        # - Disaster Recovery: guides/cp4i/mq/disaster-recovery/overview.md
+        - Expose MQ App APIs:
+          - Deploy API Connect: guides/cp4i/mq/apic/deploy-apic.md
+          - Configure API Connect: guides/cp4i/mq/apic/configure-apic.md
+          - Publish APIs: guides/cp4i/mq/apic/publish-apis.md
+          - Consume APIs: guides/cp4i/mq/apic/consume-apis.md
+          - Monitor APIs: guides/cp4i/mq/apic/monitor-apis.md
+          - Promote APIs: guides/cp4i/mq/apic/promote-apis.md
+        - Architecture Decisions:
+          - Decision Index: guides/cp4i/mq/ad/index.md
+      - IBM API Connect:
+        - Overview: guides/cp4i/apic/overview/overview.md
+        - Create the cluster:
+          - IBM Cloud: guides/cp4i/apic/cluster-create/ibm-cloud.md
+        - Configure the cluster:
+          - GitOps, Tekton & ArgoCD: guides/cp4i/apic/cluster-config/gitops-tekton-argocd.md
+          - Getting started with GitOps: guides/cp4i/apic/cluster-config/gitops-config.md
+          - Application components: guides/cp4i/apic/cluster-config/applications.md
+        - Deploy APIC:
+          - IBM Cloud: guides/cp4i/apic/deployment/ibm-cloud.md
+        - Configure APIC:
+          - IBM Cloud: guides/cp4i/apic/configuration/ibm-cloud.md
+        - Publish APIs:
+          - IBM Cloud: guides/cp4i/apic/publish/ibm-cloud.md
+      - IBM API Connect Multi-Cluster:
+        - Overview: guides/cp4i/apic/multi-cluster/overview.md
+        - Create the cluster: guides/cp4i/apic/multi-cluster/create-clusters.md
+        - Configure the clusters:
+          - GitOps repos & ArgoCD: guides/cp4i/apic/multi-cluster/configure-clusters-gitops.md
+          - Configure GitOps repos: guides/cp4i/apic/multi-cluster/configure-clusters-gitops-config.md
+        - Deploy APIC: guides/cp4i/apic/multi-cluster/deploy.md
+        - Configure APIC: guides/cp4i/apic/multi-cluster/config-pipeline.md
+        - Publish APIs: guides/cp4i/apic/multi-cluster/publish-pipeline.md
+      - Event-Driven Architecture:
+        - EDA GitOps Solution: guides/cp4i/eda/link.md
+    - Cloud Pak for Security:
+      - The CP4S tutorial: guides/cp4s/cp4s-tree/using/this-guide.md
+      - CP4S architecture: guides/cp4s/cp4s-tree/overview/architecture.md
+      - Create the cluster: guides/cp4s/cp4s-tree/cluster-create/ibm-setup.md
+      - Configure the cluster:
+        - Set up GitOps: guides/cp4s/cp4s-tree/cluster-config/gitops-tekton-argocd.md
+        - Add infrastructure: guides/cp4s/cp4s-tree/cluster-config/gitops-config.md
+        - Add services: guides/cp4s/cp4s-tree/cluster-config/services.md
+        - Managing Lifecycle for CP4S: guides/cp4s/cp4s-tree/cluster-config/backup-recovery-upgrade.md
+        - Connecting DataSources for CP4S: guides/cp4s/cp4s-tree/cluster-config/connect-datasources.md
+    - Cloud Pak for Data:
+      - Overview: guides/cp4d/platform/overview.md
+      - Create the cluster:
+        - IBM Cloud: guides/cp4d/cluster-create/ibm-setup.md
+      - Configure the Cluster:
+        - GitOps and ArgoCD: guides/cp4d/cluster-config/gitops-argocd.md
+        - Getting started with GitOps: guides/cp4d/cluster-config/gitops-config.md
+      - Deployment: guides/cp4d/platform/deployment.md
+      - Services:
+        - Watson Studio:
+          - Overview: guides/cp4d/watson-studio/overview.md
+          - Deployment: guides/cp4d/watson-studio/deployment.md
+        - Watson Knowledge Catalog:
+          - Overview: guides/cp4d/wkc/overview.md
+          - Deployment: guides/cp4d/wkc/deployment.md
+    # - Cloud Pak for Data (HADR):
+    #   - Overview: guides/cp4d-hadr/cpdbase/overview/cpd-overview.md
+    #   - Base Cloud Pak:
+    #     - Overview: guides/cp4d-hadr/cpdbase/overview/cpd-overview.md
+    #     - Deployment on IBM Cloud: guides/cp4d-hadr/cpdbase/deployment/cpd-ibmcloud.md
+    #     - Deployment on-prem: guides/cp4d-hadr/cpdbase/deployment/cpd-onprem.md
+    #   - Data Virtualization:
+    #       - Overview: guides/cp4d-hadr/datavirt/overview/cpd-dv-overview.md
+    #       - Deployment on IBM Cloud: guides/cp4d-hadr/datavirt/deployment/cpd-dv-ibmcloud.md
+    #       - Deployment on-prem: guides/cp4d-hadr/datavirt/deployment/cpd-dv-onprem.md
+    #   - Spectrum Protect Plus:
+    #       - Overview: guides/cp4d-hadr/spplus/overview/spp-overview.md
+    #       - Deployment on IBM Cloud: guides/cp4d-hadr/spplus/deployment/spp-ibmcloud.md
+    #       - Deployment on-prem: guides/cp4d-hadr/spplus/deployment/spp-onprem.md
+    #   - Watson Knowledge Center:
+    #       - Overview: guides/cp4d-hadr/watsonkc/overview/cpd-wkc-overview.md
+    #       - Deployment on IBM Cloud: guides/cp4d-hadr/watsonkc/deployment/cpd-wkc-ibmcloud.md
+    #   - Watson Studio:
+    #       - Overview: guides/cp4d-hadr/watsonstudio/overview/cpd-ws-overview.md
+    #       - Deployment on IBM Cloud: guides/cp4d-hadr/watsonstudio/deployment/cpd-ws-ibmcloud.md
+    - Cloud Pak for Automation:
+      - IBM Process Mining:
+        - Overview: guides/cp4ba/process-mining/overview/overview.md
+        - Using this guide: guides/cp4ba/process-mining/using/this-guide.md
+        - Create the cluster:
+          - IBM Cloud: guides/cp4ba/process-mining/cluster-create/ibm-cloud.md
+        - Configure the cluster:
+          - GitOps & ArgoCD: guides/cp4ba/process-mining/cluster-config/gitops-tekton-argocd.md
+          - Getting started with GitOps: guides/cp4ba/process-mining/cluster-config/gitops-config.md
+        - Deploy Process Mining:
+          - IBM Cloud: guides/cp4ba/process-mining/deployment/ibm-cloud.md
+  - References:
+    # - Governance: contribute/governance.md
+    - Architectural Decisions: infrastructure/ad/index.md
+    # - Build Automation: contribute/automation.md
+    - Prerequisites: references/prerequisites/instructions.md
+    - Training: references/training/training.md
+    - Restore cluster from GitOps: references/restorecluster/gitops-restore-cluster.md
+  - About:
+    - What's New: overview/whats-new.md
+    - Contributing Content:
+      - GitHub Open Source Contribution Steps: contribute/githubflow.md
+      - Running a Local Site Instance: contribute/documentation.md
